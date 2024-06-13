@@ -101,11 +101,11 @@ ul li a:hover {
   text-decoration: underline;
 }
 
-.social-links {
+.img-links {
   margin-top: 20px;
 }
 
-.social-links a img {
+.img-links a img {
   width: 120px;
   height: 120px;
   margin: 0 10px;
@@ -113,7 +113,7 @@ ul li a:hover {
   transition: transform 0.3s;
 }
 
-.social-links a img:hover {
+.img-links a img:hover {
   transform: scale(1.2);
 }
 
