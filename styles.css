@@ -101,6 +101,10 @@ ul li a:hover {
   text-decoration: underline;
 }
 
+ul li ul li a {
+  font-size: 0.8em;
+}
+
 .img-links {
   margin-top: 20px;
 }
