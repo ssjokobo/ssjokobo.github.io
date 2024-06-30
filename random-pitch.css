@@ -115,3 +115,9 @@ td {
 button:hover {
     background-color: lightyellow;
 }
+
+h3 {
+    text-align: center;
+    padding-top: 10px;
+    color: black;
+}
