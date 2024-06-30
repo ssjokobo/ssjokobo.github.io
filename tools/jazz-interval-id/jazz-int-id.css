@@ -7,8 +7,10 @@
 
 #pitch, #alteration, #action-button {
     display: flex;
+    flex-wrap: wrap;
     position: relative;
     justify-content: center;
+    padding-bottom: 20px;
 }
 
 
