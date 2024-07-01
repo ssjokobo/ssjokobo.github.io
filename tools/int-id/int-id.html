@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Interval Identification</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="interval.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vexflow/build/cjs/vexflow.js"></script>
+        <script src="interval.js"></script>
+    </head>
+    <body>
+        <div id="output"></div>
+
+        <h3 id="answer-input">Your Answer Is: <span id="answer-submit"></span> <span id="answer-check"></span></h3>
+        <h3 id="correction" style="color: red;"></h3>
+        <h3 id="intervalic-error" style="color: red;"></h3>
+
+        <div id="answer-section" style="display: block;">
+
+            <div id="alteration">
+                <button id="alteration-button" value="d">Diminished</button>
+                <button id="alteration-button" value="m">Minor</button>
+                <button id="alteration-button" value="M">Major</button>
+                <button id="alteration-button" value="P">Perfect</button>
+                <button id="alteration-button" value="A">Augmented</button>
+            </div>
+
+            <div id="interval">
+                <button id="interval-button">1 or 8</button>
+                <button id="interval-button">2</button>
+                <button id="interval-button">3</button>
+                <button id="interval-button">4</button>
+                <button id="interval-button">5</button>
+                <button id="interval-button">6</button>
+                <button id="interval-button">7</button>
+                <button id="interval-button">1 or 8</button>
+            </div>
+
+        </div>
+
+        <div id="action-button">
+            <button id="check-button" style="display: block;">Check</button>
+            <button id="next-button" style="display: none;">Next</button>
+        </div>
+    </body>
+</html>
