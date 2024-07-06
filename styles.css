@@ -115,6 +115,7 @@ ul li a:hover {
   margin: 0 10px;
   padding: 0 10px;
   transition: transform 0.3s;
+  border-radius: 11px;
 }
 
 .img-links a img:hover {
