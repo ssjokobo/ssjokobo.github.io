@@ -58,7 +58,7 @@ function playBeep1() {
     gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Volume
 
     oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.1); // Duration in seconds
+    oscillator.stop(audioCtx.currentTime + 0.06); // Duration in seconds
 }
 
 function playBeep2() {
@@ -74,7 +74,7 @@ function playBeep2() {
     gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Volume
 
     oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.1); // Duration in seconds
+    oscillator.stop(audioCtx.currentTime + 0.06); // Duration in seconds
 }
 
 document.getElementById('onOffSwitch').addEventListener('change', function(event) {
