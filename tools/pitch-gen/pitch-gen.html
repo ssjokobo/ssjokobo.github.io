@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Generator</title>
+    <link rel="stylesheet" href="pitch-gen.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="box" id="box1"></div>
+            <div class="box" id="box2"></div>
+            <div class="box" id="box3"></div>
+        </div>
+        <div class="result-row">
+            <h3 id="result"></h3>
+        </div>
+        <div class="row">
+            <div class="box" id="box4"></div>
+            <div class="box" id="box5"></div>
+            <div class="box" id="box6"></div>
+        </div>
+        <div class="control-panel">
+            <label for="bpm">Speed (BPM): </label>
+            <input type="range" id="bpm" name="bpm" min="30" max="300" value="60">
+            <span id="bpmValue">60</span>
+            <label for="onOffSwitch" class="switch">
+                <input type="checkbox" id="onOffSwitch" name="onOffSwitch" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    <script src="pitch-gen.js"></script>
+</body>
+</html>
