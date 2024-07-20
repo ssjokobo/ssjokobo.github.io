@@ -16,19 +16,15 @@ function changeColor() {
 
     if (index == 3) {
         result.style.color = colors[index];
-        playBeep2();
     } else if (index == 7) {
         result.style.color = colors[index];
         result.innerHTML = `${random(cycle)}`;
-        playBeep2();
     } else if (index > 3) {
         // Change the box color according to the count
         document.getElementById(boxes[index - 1]).style.backgroundColor = colors[index];
-        playBeep1();
     } else {
         // Change the box color according to the count
         document.getElementById(boxes[index]).style.backgroundColor = colors[index];
-        playBeep1();
     }
 
     // Increment index and reset if necessary
@@ -43,38 +39,6 @@ function updateInterval() {
 function random(type) {
     const num = Math.floor(Math.random() * type.length);
     return type[num]
-}
-
-function playBeep1() {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime); // Frequency in Hz
-    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Volume
-
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.06); // Duration in seconds
-}
-
-function playBeep2() {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(1500, audioCtx.currentTime); // Frequency in Hz
-    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Volume
-
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.06); // Duration in seconds
 }
 
 document.getElementById('onOffSwitch').addEventListener('change', function(event) {
@@ -102,5 +66,4 @@ document.getElementById('bpm').addEventListener('input', function(event) {
 });
 
 result.innerHTML = `${random(cycle)}`;
-playBeep2();
 updateInterval();
