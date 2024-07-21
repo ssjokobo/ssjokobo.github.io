@@ -5,9 +5,8 @@ let intervalId;
 let bpm = 60; // Default BPM
 
 const cycle = [
-    'A#', 'D#', 'G#', 'C#', 'F#',
     'B', 'E', 'A', 'D', 'G', 'C', 'F',
-    'Bb', 'Eb', 'Ab', 'Db', 'Gb'
+    'Bb', 'Eb', 'Ab', 'Db', 'F# / Gb'
 ];
 
 function changeColor() {
