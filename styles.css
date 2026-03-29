@@ -35,7 +35,7 @@ nav ul li a:hover {
   color: #000000;
 }
 
-.alert {
+.alert, .section .alert a {
   color: red;
 }
 
