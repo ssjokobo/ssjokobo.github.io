@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSU Jazz Combo Recital — Faculty Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8cc7a;
+    --dark: #0e0e0e;
+    --dark2: #1a1a1a;
+    --dark3: #252525;
+    --muted: #888;
+    --text: #e8e4dc;
+    --text-dim: #aaa;
+    --accent: #c9a84c;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  header {
+    text-align: center;
+    padding: 64px 32px 48px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #1a1510 0%, var(--dark) 100%);
+  }
+
+  .header-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+
+  .summary-stat {
+    background: var(--dark2);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .summary-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .summary-stat .lbl {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .combo-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .combo-card:hover {
+    border-color: rgba(201,168,76,0.45);
+  }
+
+  .combo-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 28px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .combo-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 48px;
+  }
+
+  .combo-title {
+    flex: 1;
+  }
+
+  .combo-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .avg-score-wrap {
+    text-align: right;
+  }
+
+  .avg-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .avg-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .score-bar-wrap {
+    padding: 0 28px 20px;
+  }
+
+  .score-bar-track {
+    height: 3px;
+    background: var(--dark3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .chevron {
+    color: var(--muted);
+    font-size: 18px;
+    transition: transform 0.3s;
+  }
+
+  .combo-card.open .chevron { transform: rotate(180deg); }
+
+  .combo-body {
+    display: none;
+    padding: 0 28px 28px;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+
+  .combo-card.open .combo-body { display: block; }
+
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin: 24px 0 12px;
+  }
+
+  .scores-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .score-pill {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .score-pill.high { color: var(--gold-light); border-color: rgba(201,168,76,0.4); }
+  .score-pill.low  { color: #888; }
+
+  .original-comments {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .comment-item {
+    background: var(--dark3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+
+  .comment-item .comment-num {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Jazz & Commercial Music</div>
+  <h1>Combo Recital 2/68</h1>
+  <p>Faculty Evaluation Report · 29 April 2026</p>
+</header>
+
+<div class="container">
+
+  <div class="summary-bar">
+    <div class="summary-stat">
+      <div class="num">12</div>
+      <div class="lbl">Combos</div>
+    </div>
+    <div class="summary-stat">
+      <div class="num">5</div>
+      <div class="lbl">Faculty</div>
+    </div>
+    <div class="summary-stat">
+      <div class="num" id="overall-avg">—</div>
+      <div class="lbl">Overall Avg</div>
+    </div>
+  </div>
+
+  <div id="cards-container"></div>
+</div>
+
+<footer>RSU Jazz Combo Recital 2/68 · Faculty Report · 29 April 2026</footer>
+
+<script>
+const DATA = {
+  1:  { avg: 6.8,  scores: [7,7,5,8,7],    comments: ["ทั้งวงควรให้ความสนใจกับ Swing Feel มากกว่านี้ / สร้างสรรค์ไปด้วยกัน ไม่ใช่เพียงทำตามหน้าที่","มีปัญหาเรื่อง keep form ในเพลง four on six","1.  กีตาร์เพิ่มเติมวิธี comp. \n2. มือกลองเพิ่มเติมวิธีเล่นเพลง ให้รู้ว่าเป็นเพลงนั้นๆ\n3. Solo บน from ก็จะท้าทายตัวเองไปอีกแบบ","เพลง 1\nhead แข็งแรงดี\nsolo พยายามแกะเพลงเยอะ ๆ จะได้ชินภาษา\n\nเพลง 2\nhead เร่งไปหน่อย\nตั้งใจติดดันสายขยี้สายเยอะไปหน่อย มันเหมือนติดมือมากกว่าอยากได้เสียงนั้นจริง ๆ\nsolo กลอง หลุด style ไปเลยครับ ลองฟัง Albert Heath","Dynamic เดียว ทุกคน volumeเดียว, Rhythm section ขาดการตอบสนองต่อ soloist"] },
+  2:  { avg: 7.4,  scores: [7,8,7,7,8],    comments: ["ควรเช็คความดังของกีตาร์ทั้ง 3 คน ให้ดังใกล้กัน / เบสทำหน้าที่ได้ดี แต่ควรเล่นโดยฟังคน solo มากกว่าเล่นตาม form เฉย / กลองสามารถสร้างสีสันได้มากกว่านี้","เพลง 1\ntransition ตอนเปลี่ยน time feel ยังไม่เนียน\ngtr solo ดีครับ แต่ระวังเรื่องขยี้สายเยอะ กับพยายามเพิ่ม line 8th note จะดีขึ้น\nbass solo yeah man!\ndrums comping ให้เบสแอบคลุมเคลือไปหน่อย\ndrums solo ไอเดียน่าสนใจดีครับ\n\nเพลง 2\ntransition จากเพลง 1 เข้ามาเนียนดีครับ nice bass idea!\ndrums nice ride work maintaining the tempo\nPhu solo ดีครับ ไลน์สวย ซาวดี มั่นใจ อยากให้เวลาพูดมั่นใจได้แบบนี้บ้าง 555\nRock solo ดีเช่นกัน และชอบที่แนวทางการโซโล่มาคนละทางกับพู","การ balance เสียงยังไม่ค่อยดี โดยเฉพาะ กีต้าร์","1. กีตาร์ยืนให้มั่นใจกว่านี้\n2. เสียง solo มันจม Balance ตัวเองว่าตอรไหนเราควรดังแค่ไหน\n3. มือเบส แข็งแรง\n4. มือกลองมาแห้ะ!!! ซาวเปลี่ยน!!!\n5. เพลงที่ 1 ที่เป็น 6/8 อยากให้เพิ่มความวุ่นวายแบบไม่โวยวาย\n6. ไดนามิกของเพลง เพลงเอื่อยๆ เรื่อยๆ","Guitar section balance ไม่ค่อยดี, แต่พอแก้ปัญหาได้บาง แต่ควรไว+เนี้ยบกว่านี้"] },
+  3:  { avg: 8.5,  scores: [8,9,8,9],      comments: ["เพลง 1 ไม่มีพลัง / เบสไม่น่า walk ทำนองแบบนี้ และต้องเปลี่ยนทำนองบ้าง / Sax ต้องซ้อม chord ด้วย และเพี้ยน \nเพลง 2 feel ดีกว่า","Drum: หากเพิ่ม swung ใน med.swing  ได้ วงจะเด้งกว่านี้, Baritone หากเป่า note ได้หลายสำเนียงจะท่าให้ melody มีชีวิตมากขึ้น\n\nChicken: Gutar ควรเพิ่มความ Cory Wong ตอน accompany, guitar ตอน solo เสียงควรพุ่งออกมากว่านี้","Chicken มีการทำ Arrดี แต่  solo น่าจะมีการใช้ jazz concept ใส่เข้าไป","เพลง 1\nbari - เสียงแบบ Coltrane มาเต็ม ๆ ดีมากครับ แต่ตอนจะจบโซโล่ควรทำให้ชัดกว่านั้นว่าฉันจะจบแล้วนะ\n\nเพลง 2\nenergy ดีครับ เปิดมาชัดเจนมาก\neffect guitar ของกายทำให้โน้ตไม่เคลียร์ครับ เลือกให้ได้ยินหัวเสียงมากกว่านี้\nโฟล์คระวังเรื่อง subdivision ซ้อมกับ metronome เยอะ ๆ ครับ\nbass slap มู๊ดดีครับ\ndrums yeah!!! nice work nice energy, you carried this song\nepic ending"] },
+  4:  { avg: 7.2,  scores: [7,7,7,7,8],    comments: ["1) ไม่มีพลังเลย / เครื่องคอร์ดทั้ง 3 คน เล่นคอร์ดแบบกลัวอะไรไม่รู้ / TB เพี้ยนเยอะ ไม่แข็งแรงเลย / กลองต้องช่วยวงมากกว่านี้ / เบสแข็งแรง และพยายามช่วยวงได้ดี\n\n2) sound ดีกว่าวงก่อนมากทั้งที่มือกลองคนเดียวกัน / melody น่าจะต้องแข็งแรงกว่านี้","เพลง 1 ไม่ค่อยมี energy \nเพลง 2 solo เพลง modal น่าจะต้อง มีเทคนิคต่างๆในการเล่าเรื่องได้มากกว่านี้","We Will Meet Again\nTiw ทำนองปลิ้นเยอะไปหน่อยนะ\nbrush to sticks เปลี่ยนเนียนใช้ได้ครับ\n\nPassion Dance\nTiw เรือหางยาวดังไปหน่อย อาจจะไม่ชิน dynamic เวที\nเหมือนตื่นเวที โซโล่ไม่ค่อยออก","1. แบ่งๆ กัน comp.\n2. หาวิธีเล่น 3 เพิ่ม มันเดิมๆ ไปหน่อย\n3. มือกลองส่งพลังโบ๊ะบ๊ะ ให้เพื่อนหน่อย ช่วงที่เบส pedal... หวดเลยยยน\n4. ฟังเพิ่มเติมมมม อีกเยอะๆๆๆ\n5. ภาพของเพลงมันไม่เป็นภาพเดียวกัน","ถ่ายน้ำหนังลง 1st beat มากไป จนฟังไม่เป็น Jazz waltz, Melody ตาม lead sheet มากไป จนขาด musically\n\nขาดการ give&take idea ทั้งที่เพลง chord เดียวลากยาว ควรทำอะไรได้อิสระกว่านี้, แม้กระทั่งเปลี่ยน Guitar ยังไม่ฟังไม่ออก"] },
+  5:  { avg: 8.4,  scores: [9,9,8,7,9],    comments: ["ดี","น่าจะมองโซโล่ของทุกคนให้เหมือนการแต่งเพลง วางภาพรวมของทั้งเพลง","5/4 >>> 4/4 แกว่ง ใช้การกะเอาเยอะไปหน่อย\n\nNaima มีความ unsure เยอะไปหน่อย up beat flip ไป down beat เป็นระยะ","เพลง con Alma ตอน solo มีปัญหาเรื่อง การ feel rhythm ใน  meter ต่างๆ ทำให้ไม่  flow ติดๆดับๆ\n","คอน อาม่า\nGeof หรือ Geoff อ่านว่าเจฟ (เหมือน Jef หรือ Jeff)\nTenor ไลน์โซโล่สวยครับ\nPiano voicing ไม่ค่อยได้ยิน middle register เหมือนคว้าคอร์ดไม่ทันเลยเนียน ๆ ปล่อยไป ไม่ถนัดคีย์นี้ล่ะสิ\nไป up level มือซ้ายเพิ่มครับ\nPiano solo ใช้ space ดีครับ\nSynth solo ดีครับ\n\nนายม๋า\nปูน ทำนองดีมากครับ เลือกเสียงดี แต่ตอนโซโล่มันจมไปหน่อย มันหายโดนกลืนไปกับวง\nrhythm section color ดีครับ"] },
+  6:  { avg: 6.5,  scores: [6,7,6,7],      comments: ["1. นับไปด้วยกัน เวลาที่เพื่อนเล่น pattern อะไรบางอย่าง เราควร นับให้ถูกกับ pattern ด้วย จะได้ไปด้วยกัน ไม่ใช่แค่นับ 1-4 \n\n2. รุ้ว่าใครกำลัง หายไปจากวง แล้วช่วยกันดึงกลับมา\n3. เล่นอะไรที่ตัวสบายตัว ถ้าต้องเล่น ก็ตึกฝึกตัวเองไปอีก","Melody sax กับ guitar หากเล่น unison กัน ควรต้องให้ พร้อมกันจริง ๆ, tempo ของวงแกว่งไปหน่อย ควรที่มีผู้กล้าในวงบ้าง อย่าเป็นเพียงผู้ตาม, แต่ color วงดี, สรุปคือวงมี arr. ที่ดี ทุกคนรู้หน้าที่ต้วเอง แต่ขาดความกล้านำ","เพลง 1\nanticipation ทำนองไม่ค่อยตรง\nตอน bass solo คน comping หายไปหมดเลย อย่างทิ้งเพื่อนไว้สิครับ\nเหนือ กีตาร์ไม่ดังครับ ตอนเซ็ทต้องเช็คดี ๆ นะครับ\nหยวน good job","มีปัญหาเรื่อง sound กีต้าร์ จมหาย"] },
+  7:  { avg: 8.0,  scores: [7,9,8,8,8],    comments: [" scat ยังต้อง work อีก ","ต้องซ้อม scatให้เหมือนเครื่องเป่า","1. ต้องซ้อมส่วนตัว ซ้อม section ซ้อมรวม ตอนมารวมกันมันควรได้ทำอัไรได้มากกว่านี้\n2.  เรามีเวลาที่เราซ้อมเองใช่มะ เราก็ทำเพิ่มเติมได้  แล้วมาเสนอ","Four\nJJ part เพี้ยนชัดไปหน่อยครับ\nBomb solo ซ้ำโน้ตเดิมไป\n\nJust Friends\nmelody nice work\nโซโล่ซอ บางคอร์ดเหมือนหาโน้ตไม่เจอ\nพลอย รับมือกับ interlude ได้ดีครับ แต่ play safe ไปหน่อย\nซอกลับเข้ามาถูกคนเดียว","ทุกคนกังวลเรื่องหน้าที่ตัวเองจนลืมเรื่อง Stage presence ของนักร้องไป/คนอื่น scat คนว่างยืนกอดอก,หากคุม dynamic เสียงไม่ได้ ให้ใช้การคุมระยะ mic แทน เพื่อไม่ให้เสียงของคน harmonise อาจใกล้ปากเกินจนเสียงกวน melody หลัก(head out ดีขึ้น)"] },
+  8:  { avg: 8.6,  scores: [9,9,9,8,8],    comments: ["Melody ดีมาก sound ดีมาก / แต่บอสโซโล่ดังมากๆๆๆ / สามารถทำ Dynamic ได้มากกว่านี้ ควรเบาได้มากกว่านี้","เล่น Ok แต่ Sound วงฟุ้ง/บานออก/ไม่กลมทำให้ฟังยาก, Guitar section Balance ไม่ค่อยดี, bass เบลอ, เพลง 2 ระวังช้าลง, dynamic/texture เดียวทำให้รู้สึกว่าเพลงยาวไป","Groove ดีทั้ง 2 เพลง","เพลง 1\ndynamic แรงเกินเบอร์ไปมากครับ โดยเฉพาะตอน boss คือเกิน 100 db\nOhm background synth ดีครับ\nกลองโซโล่แข็งแรงดีครับ แต่ชาว guitar kick ไม่ค่อยตรงกัน\n\nเพลง 2\ngroove ดีครับ\nธีร์ทำนองแข็งแรงดีครับ\nbass บวมทั้งสองเพลงเลย\nOhm yeah man!","1. เรียบไปหน่อย \n2. สนุกดีครับ"] },
+  9:  { avg: 9.75, scores: [10,9,10,10],   comments: ["ดี","เพลง1 repeat pattern 7/4 เยอะเกินไป","Delores\nChamp ต้องคุมร่างกายให้ได้ เสียงออกมาตื่นเต้นได้ แต่ร่างกายต้องไม่ล่ก\nNathan ระวัง posture เดี๋ยวแก่แล้วปวดหลัง ลองตั้งกล้องด้านข้างดูหลังดูคอตัวเอง\nV โซโล่ดีครับ\n\nAna Maria\nintro/first head เข้ามาน่าสนใจดี\ntrumpet solo built up ดีครับ","1. วิธีเล่น 7 เสียงส้นเสียงยาว 4+3 หรือ ตกๆๆ แล้ว เวลาปลี่นคน solo  วงจะมีเสียงเพิ่ม\n2. จำโน้ตนะ จะได้เป็นอิสระ ตอนนี้ยังถูกตีกรอบเพราะจำไม่ได้"] },
+  10: { avg: 9.4,  scores: [9,10,9,10,9],  comments: ["เพลง 1\nPond rhythm sound แข็งแรงดีครับ\nOtto ฟีลดีมาก\nPond โซโล่ 2-hand synchro ดีครับ อาจจะเพิ่มการเล่นช่วงเสียงสูง ใช้การขยาย range เป็นการ develop โซโล่\nOtto โซโล่ถ้ามีท่า มือซ้ายจับเป็นคอร์ดแล้วเอามือขวามาเล่นเป็น apreggio จากคอร์ดที่จับ แล้วขยับ range ไปมาด้วย จะเท่มาก\n\nเพลง 2\nnice harmonized melody\nFresh quote Jigle Bell ตอนท้ายโซโล่ แอบ cute ไปหน่อย หา quote อื่นดีกว่านะ","ตรง 4 พยางค์ ระวังเร่ง นอกนั้นดี ensemble ดี","ชอบการเรียงลำดับโซโล่ มันเป็นเรื่องเดียวกับบทเพลงดีมาก","1. เปียโน solo กลองหาวิธี comp. ใหม่ และ ตีตลอดเกินไป เหมือนกลัวหลุดจาก pulse \n2. ถ้าจำโน้ต ทำได้มากกว่านี่ ถึงจะเล่นเหมือนเดิม เสียงก็จะดีกว่านี้\n3. นอกนั้นดีหมด","Balance วงดี , ท่อนต่างๆ ชัดเจน , แต่จ้องโน้ตเยอะไป"] },
+  11: { avg: 9.5,  scores: [10,9,9,10],    comments: ["เพลง 1 Keep repeating pattern มากไปนิด ทำให้ขาดความ flow","My Fav\nริว โซโล่หนืดไปนิดนึง แต่ไปเรื่อย ๆ เริ่มดีขึ้น หลังตรงแล้วเหลือคอ\nวาอิ้ล โซโล่ดีครับ แต่วงแอบหนืดอยู่ข้างหลังไปหน่อย\n\nGolden Horn\nตอน half time แอบหนืด","11 แกว่ง, กลองอาจต้องช่วยกว่านี้\n\nFast swing ride ต้องแข็งกว่านี้, pulse ค่อนข่างแกว่ง ระวังช้าลง","1. มือกลองหาวิธีเล่นเพิ่ม"] },
+  12: { avg: 9.67, scores: [10,9,10],      comments: ["Nardis\narrangment สนุกมาก \nกลอง fast swing tempo แอบตึงมือ\n\nLatin\narrangment สนุกอีกแล้ว\nBogy fabulous work\nเนม nice montuno, nice fight on the solo รู้สึกว่าตึงมือ แต่ก็ยังรับมือได้ดี","รวม ๆ ดี ระวังเรื่องเร่งตอน double time","Arr ดี ทีมเวิร์คดี"] }
+};
+
+// Compute overall average
+const allAvgs = Object.values(DATA).map(d => d.avg);
+const overallAvg = (allAvgs.reduce((a,b) => a+b, 0) / allAvgs.length).toFixed(2);
+document.getElementById('overall-avg').textContent = overallAvg;
+
+function scoreClass(s) {
+  if (s >= 9) return 'high';
+  if (s <= 6) return 'low';
+  return '';
+}
+
+function buildCard(num) {
+  const d = DATA[num];
+  const pct = (d.avg / 10 * 100).toFixed(1);
+
+  const scoresHTML = d.scores.map(s =>
+    `<span class="score-pill ${scoreClass(s)}">${s}</span>`
+  ).join('');
+
+  const commentsHTML = d.comments.map((c, i) =>
+    `<div class="comment-item">
+      <div class="comment-num">Faculty ${i+1}</div>
+      ${c.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+    </div>`
+  ).join('');
+
+  const card = document.createElement('div');
+  card.className = 'combo-card';
+  card.id = `card-${num}`;
+  card.innerHTML = `
+    <div class="combo-header" onclick="toggleCard(${num})">
+      <div class="combo-number">#${num}</div>
+      <div class="combo-title">
+        <h2>Combo ${num}</h2>
+      </div>
+      <div class="avg-score-wrap">
+        <div class="avg-score">${d.avg}</div>
+        <div class="avg-label">/ 10 avg</div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="score-bar-wrap">
+      <div class="score-bar-track">
+        <div class="score-bar-fill" style="width:${pct}%"></div>
+      </div>
+    </div>
+    <div class="combo-body">
+      <div class="section-title">Scores from faculty</div>
+      <div class="scores-row">${scoresHTML}</div>
+
+      <div class="section-title">Comments</div>
+      <div class="original-comments">${commentsHTML}</div>
+    </div>
+  `;
+  return card;
+}
+
+const container = document.getElementById('cards-container');
+Object.keys(DATA).sort((a,b) => +a - +b).forEach(num => {
+  container.appendChild(buildCard(+num));
+});
+
+function toggleCard(num) {
+  const card = document.getElementById(`card-${num}`);
+  card.classList.toggle('open');
+}
+
+</script>
+</body>
+</html>
