@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSU Jazz — Repertoire Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0908;
+    --surface: #1a1814;
+    --card-front: #252219;
+    --card-back: #1c1a12;
+    --accent: #f0c94a;
+    --accent-dim: #9a7a2a;
+    --text: #ffffff;
+    --text-muted: #b0a888;
+    --text-dim: #6a6050;
+    --border: rgba(240,201,74,0.35);
+    --border-dim: rgba(240,201,74,0.15);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent-dim);
+    margin: 1.5rem auto;
+  }
+
+  .year-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .year-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    padding: 10px 20px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .year-btn:hover {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  .year-btn.active {
+    border-color: var(--accent);
+    background: rgba(240,201,74,0.15);
+    color: var(--accent);
+  }
+
+  #prompt-msg {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  #cards-grid {
+    display: none;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    #cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-wrap.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .card-front {
+    background: var(--card-front);
+    border: 1px solid var(--border);
+  }
+
+  .card-front::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.5px solid var(--border-dim);
+    border-radius: 1px;
+    pointer-events: none;
+  }
+
+  .card-back {
+    background: #2a2510;
+    border: 1px solid var(--accent);
+    transform: rotateY(180deg);
+    padding: 12px 10px;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .card-wrap:hover .card-num { color: #fff; }
+
+  .card-tap {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .card-song {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+  }
+
+  .card-back-hint {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  #controls {
+    display: none;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  #flip-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  #flip-count span {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  @keyframes dealIn {
+    0%   { opacity: 0; transform: translateY(-24px) scale(0.88); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes shufflePop {
+    0%   { opacity: 1; transform: scale(1) rotate(0deg); }
+    30%  { opacity: 0.3; transform: scale(0.88) rotate(-3deg); }
+    65%  { opacity: 0.7; transform: scale(1.05) rotate(1.5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  .card-wrap {
+    perspective: 900px;
+    height: 190px;
+    cursor: pointer;
+    animation: dealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .card-wrap.reshuffling {
+    animation: shufflePop 0.35s ease both !important;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="wordmark">Rangsit University · Jazz Programme</p>
+  <h1>Repertoire <span>Test</span></h1>
+  <p class="subtitle">Flashcard Randomizer</p>
+  <div class="divider"></div>
+</header>
+
+<div class="year-selector">
+  <button class="year-btn" onclick="selectYear('1/1')">Year 1 / 1</button>
+  <button class="year-btn" onclick="selectYear('1/2')">Year 1 / 2</button>
+  <button class="year-btn" onclick="selectYear('2/1')">Year 2 / 1</button>
+  <button class="year-btn" onclick="selectYear('2/2')">Year 2 / 2</button>
+  <button class="year-btn" onclick="selectYear('3/1')">Year 3 / 1</button>
+  <button class="year-btn" onclick="selectYear('4/1')">Year 4 / 1</button>
+</div>
+
+<p id="prompt-msg">Select a year to begin</p>
+
+<div id="cards-grid"></div>
+
+<div id="controls">
+  <span id="flip-count"><span id="fc">0</span> / 10 revealed</span>
+</div>
+
+<script>
+const REPERTOIRE = {
+  '1/1': ['All Blues','Blue Bossa','Cantaloupe Island','Footprints','Blues Monk',"Now's the Time",'So What','Tenor Madness','Watermelon Man','Straight, No Chaser'],
+  '1/2': ['All of Me','Autumn Leaves',"Billie's Bounce",'Misty','Perdido','Satin Doll','Solar','Summertime','Tune Up','Take the A Train'],
+  '2/1': ['Black Orpheus','But Not For Me','In a Sentimental Mood','Just Friends','Lullaby of Birdland','On Green Dolphin Street','Song For My Father','The Days of Wine and Roses','The Girl From Ipanema','There Will Never Be Another You'],
+  '2/2': ['All the Things You Are','Beautiful Love','Caravan','Ladybird','My Foolish Heart','My Funny Valentine','Oleo','Recordame','Softly, as in a Morning Sunrise','There is No Greater Love'],
+  '3/1': ['A Night in Tunisia','Anthropology','Autumn in New York','Corcovado',"I'll Remember April",'Like Someone in Love','Ornithology','Someday My Prince Will Come','Stella by Starlight','Triste'],
+  '4/1': ['Alone Together','Bluesette','Body and Soul','Confirmation','Darn That Dream','Desafinado','Donna Lee','Have You Met Miss Jones','Peace','Giant Steps']
+};
+
+let currentYear = null;
+let flippedCount = 0;
+let isFirstDeal = true;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function selectYear(year) {
+  document.querySelectorAll('.year-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === 'Year ' + year);
+  });
+  const isReshuffle = (year === currentYear);
+  currentYear = year;
+  dealCards(year, isReshuffle);
+}
+
+function dealCards(year, isReshuffle) {
+  const songs = shuffle(REPERTOIRE[year]);
+  flippedCount = 0;
+  updateCount();
+
+  const grid = document.getElementById('cards-grid');
+  document.getElementById('prompt-msg').style.display = 'none';
+  document.getElementById('controls').style.display = 'flex';
+
+  if (isReshuffle) {
+    const existing = grid.querySelectorAll('.card-wrap');
+    existing.forEach((w, i) => {
+      w.classList.add('reshuffling');
+      w.style.animationDelay = (i * 28) + 'ms';
+    });
+    setTimeout(() => {
+      buildCards(grid, songs, false);
+    }, 380);
+  } else {
+    grid.style.display = 'grid';
+    buildCards(grid, songs, true);
+  }
+}
+
+function buildCards(grid, songs, stagger) {
+  grid.innerHTML = '';
+  grid.style.display = 'grid';
+  songs.forEach((song, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'card-wrap';
+    wrap.style.animationDelay = stagger ? (i * 45) + 'ms' : (i * 30) + 'ms';
+    wrap.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="card-num">${i + 1}</div>
+          <div class="card-tap">tap to reveal</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-song">${song}</div>
+          <div class="card-back-hint">tap to hide</div>
+        </div>
+      </div>`;
+    wrap.addEventListener('click', () => {
+      const wasFlipped = wrap.classList.contains('flipped');
+      wrap.classList.toggle('flipped');
+      flippedCount += wasFlipped ? -1 : 1;
+      updateCount();
+    });
+    grid.appendChild(wrap);
+  });
+}
+
+function updateCount() {
+  document.getElementById('fc').textContent = flippedCount;
+}
+</script>
+</body>
+</html>
