@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSU Jazz Jury 2/68 — Student Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8cc7a;
+    --dark: #0e0e0e;
+    --dark2: #1a1a1a;
+    --dark3: #252525;
+    --muted: #888;
+    --text: #e8e4dc;
+    --text-dim: #aaa;
+    --border: rgba(201,168,76,0.2);
+    --pass: #4caf7d;
+    --fail: #e05252;
+    --exempt: #e0a952;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 56px 32px 44px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #1a1510 0%, var(--dark) 100%);
+  }
+
+  .header-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  /* ── SEARCH SCREEN ── */
+  #search-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 48px 24px;
+  }
+
+  .search-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .search-box {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .search-box input {
+    flex: 1;
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box input:focus {
+    border-color: var(--gold);
+  }
+
+  .search-box input::placeholder {
+    color: var(--muted);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+  }
+
+  .search-box button {
+    background: var(--gold);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    color: #0e0e0e;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .search-box button:hover { background: var(--gold-light); }
+  .search-box button:active { transform: scale(0.97); }
+
+  .error-msg {
+    margin-top: 16px;
+    color: var(--fail);
+    font-size: 0.875rem;
+    display: none;
+  }
+
+  /* ── RESULT SCREEN ── */
+  #result-screen {
+    display: none;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-bottom: 32px;
+    transition: border-color 0.2s, color 0.2s;
+    letter-spacing: 1px;
+  }
+
+  .back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* student card */
+  .student-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .student-info { flex: 1; min-width: 200px; }
+
+  .student-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .student-meta {
+    font-size: 0.825rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .student-meta span { margin-right: 16px; }
+
+  .result-badge {
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .result-pass    { background: rgba(76,175,125,0.15); color: var(--pass); border: 1px solid rgba(76,175,125,0.3); }
+  .result-fail    { background: rgba(224,82,82,0.15);  color: var(--fail); border: 1px solid rgba(224,82,82,0.3); }
+  .result-exempt  { background: rgba(224,169,82,0.15); color: var(--exempt); border: 1px solid rgba(224,169,82,0.3); }
+
+  .avg-block { text-align: center; }
+
+  .avg-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .avg-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* scores */
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin: 28px 0 14px;
+  }
+
+  .scores-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .score-pill {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .score-pill.high { color: var(--gold-light); border-color: rgba(201,168,76,0.4); }
+  .score-pill.low  { color: #777; }
+
+  .score-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* entries */
+  .entries-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .entry-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .entry-num {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .entry-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .entry-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  .entry-section-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .entry-text {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+
+  .entry-text.empty { color: #555; font-style: italic; }
+
+  /* score bar */
+  .score-track {
+    height: 2px;
+    background: var(--dark3);
+    border-radius: 1px;
+    overflow: hidden;
+    margin: 4px 0 0;
+  }
+
+  .score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 1px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Rangsit University — Jazz Program</div>
+  <h1>Jazz Jury 2/68</h1>
+  <p>Faculty Evaluation</p>
+</header>
+
+<!-- SEARCH -->
+<div id="search-screen">
+  <div class="search-label">Enter Student ID</div>
+  <div class="search-box">
+    <input type="text" id="id-input" placeholder="e.g. 6800087" maxlength="7" inputmode="numeric">
+    <button onclick="lookup()">Search</button>
+  </div>
+  <div class="error-msg" id="error-msg"></div>
+</div>
+
+<!-- RESULT -->
+<div id="result-screen">
+  <button class="back-btn" onclick="goBack()">← Back to Search</button>
+  <div id="result-content"></div>
+</div>
+
+<script>
+const DATA = {"6602502":{"id":"6602502","name":"ณัฐชนน ศรีวังไพร","room":"328","advisor":"อ.ช้าง","time":"10:00","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"Space !","transcription_comment":"ควร Analyze ด้วย","score":8},{"prepared_comment":"Donna Lee\nmelody: มันมีโน้ตที่พลาดจริง ๆ กับโน้ตที่เหมือนจะไม่ได้พลาดแต่ไม่รู้ว่ามันต้องเล่นตัวไหนกันแน่\nsolo: อยากให้เพิ่มพวก over the bar line หรือ hemiola เช่นพวก 3 against 4 หรืออื่น ๆ \nswing feel: ขโยกไปหน่อย เทมโปเร็วขึ้นเราจะเล่นให้ even มากขึ้นได้","transcription_comment":"วืดนิดหน่อย โดยรวมดี","score":8}],"avg":8.0},"6802696":{"id":"6802696","name":"กีรติ ผดุงโกเม็ด","room":"128","advisor":"อ.ช้าง","time":"10:15","repertoire":"❌ ไม่ผ่าน","entries":[{"prepared_comment":"Autumn Leaves ซ้อมมาใหม่","transcription_comment":"9/10","score":6},{"prepared_comment":"Head สำคัญมาก ไม่ควรผิด, ไม่แม่นเรื่อง Form , Outline chord change ยังไม่ได้","transcription_comment":"ไม่ค่อยแม่น ","score":6},{"prepared_comment":"Autumn Leaves\nmelody: วืดแรงไปหน่อย เราเปลี่ยนเค้าได้นะ แต่เราต้องรู้ว่าของจริงมันคืออะไรด้วย ไปทวน melodic minor scale นะครับ\nsolo: ซ้อม arpeggios ดูว่า 3 กับ 7 ของแต่ละคอร์ดคืออะไร\ncomp: วืดหลายคอร์ดมากครับ\n\nรวม ๆ เราต้องเป๊ะกว่านี้นะ เพลงมี 32 ห้องเอง แถมยังซ้ำกันตั้งเยอะ major ii-V กับ minor ii-V ไปทวนมาให้ชัวร์ครับ","transcription_comment":"ซ้อม arpeggios นะครับ ตรงนี้มันโชว์ว่าเราไม่แม่นอีกแล้ว","score":6}],"avg":6.0},"6700499":{"id":"6700499","name":"ณกรณ์ ตันติเวสส","room":"228","advisor":"อ.น็อต","time":"10:30","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"Confirmation มีการ outline chord ที่ชัดเจน ควรเพิ่มเรื่อง ภาษา (Articulation,Blues, Jazz Rhythmic)","transcription_comment":"ไม่ดูโน้ต","score":9},{"prepared_comment":"Confirmation\nเช็ค articulation บางอันควรสั้นไปยาว\nเช็ค สั้น สั้นของแจ๊สไม่เท่ากับ staccato\n8th notes are too heavy, select to accent only a few, maybe every four 8th notes\nturn ให้มากขึ้น\nใน 16th run ควรมี enclosure ปนอยู่บ้าง\nใน line ยาว ๆ ใช้ dynamics ช่วย shape\ncomping เรา simple ได้มากกว่านั้น shell ได้เลย\nkicks ใน interlude มันกระแทกไปมากครับ\nแนะนำว่าศึกษา Oscar Peterson","transcription_comment":"รวม ๆ คือมือหนักเกิน มันเลย stiff\nควร ghost note บางตัวครับ\nlegato ให้มากขึ้น","score":9}],"avg":9.0},"686233":{"id":"686233","name":"ศิโยน เอี๊ยบเจริญ","room":"128","advisor":"อ.น็อต","time":"10:45","repertoire":"❌ ไม่ผ่าน","entries":[{"prepared_comment":"ข้อสำคัญที่สุดควรรู้ว่าตัวเองอยู่ตรงไหนของ Form","transcription_comment":"Transcription ควรเน้นความชัดเจนและไกล้เคียงมากกว่า ความยาว อาจจะ 1 chorus ก็ได้แต่ขอให้ ชัดเจนและไกล้เคียง Original มากที่สุด","score":6},{"prepared_comment":"head จังหวะค่อนข้างได้ แต่โน้ตยังงง ๆ\nถ้ามีมือเบสมาเราจะงงน้อยลง\nพยายามแต่งโซโล่เยอะ ๆ ครับ เตรียมไว้เลย","transcription_comment":"เล่นเพลงยากมากขึ้นกว่าเทอมที่แล้ว พยายามเข้านะครับ","score":6}],"avg":6.0},"6701423":{"id":"6701423","name":"อัครพงษ์ วงศ์สง่า","room":"228","advisor":"อ.น็อต","time":"11:00","repertoire":"❌ ไม่ผ่าน","entries":[{"prepared_comment":"There will never be\n\nHead เป็น quarter เยอะไปหน่อย anticipate / syncopate ให้มากขึ้นหน่อยครับ\nSolo ตอน landing note ไม่ค่อยลง chord tone เท่าไหร่ โดยเฉพาะตอน 4 bars สุดท้ายของ form ควรโชว์กว่าเก็บคอร์ดได้ครบหรือเกือบครบ ไม่ใช่ปล่อยโล่งหนีไปเลย","transcription_comment":"โดยรวมดีมาก ชอบโทนเสียงมาก ๆ\nระวังจุดที่ phrase ต้องจบโน้ตสั้น เราไปจบโน้ตยาว","score":8},{"prepared_comment":"Swing feel ยังไม่ค่อยแน่น , Outline Chord ยังไม่ชัดเจน , Articulation ยังไม่ถูก มีโน้ตสั้นเยอะ","transcription_comment":"โน้ตถูกต้องดี เรื่องของ feel ต้องพยายามพัฒนา","score":7}],"avg":7.5},"6805481":{"id":"6805481","name":"คณิทธิ์ ลิ้มภูวนนท์","room":"128","advisor":"อ.ช้าง","time":"11:15","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"Satin Doll จำฟอร์ม จำคอร์ด ให้ได้ก่อน","transcription_comment":"9/10 ","score":7},{"prepared_comment":"พยายาม keep form ให้ได้","transcription_comment":"OK","score":8},{"prepared_comment":"head เปิดมาเป๊ะมาก แต่คว่ำท้าย head อ่ะ เสียดาย เพื่อนช่วยเยอะเกินไป\nSolo ยัง งง ๆ อยู่ครับ พยายามเอาประโยคจาก transcription มาเล่นในโซโล่ตัวเองด้วย\ncomping โอเคครับ แต่ยังสามารถซนกับจังหวะได้มากกว่านี้","transcription_comment":"ดีครับ","score":7}],"avg":7.33},"6800084":{"id":"6800084","name":"รัชพล ครูภาษา","room":"128","advisor":"อ.ช้าง","time":"11:30","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"ต้องคุมน้ำหนักมือขวาให้ดี ตอนเล่นคอร์ด, ต้องเน้นเรื่องโทนเสียงให้ดีและ clear ก่อน ","transcription_comment":"","score":6},{"prepared_comment":"Satin Doll  เอา Transciption มาวิเคราะห์ด้วย\nแอคคอมดังไป","transcription_comment":"8/10 ","score":7},{"prepared_comment":"ทำไมมีคอร์ดเบิ้ลกันทั้ง 2 คนล่ะครับ\nโซโล่ไม่ค่อยลง chord tone\nได้ยินความพยายามเล่นเป็น phrase มีหายใจ ระหว่าง phrase ดีครับ\ncomping ไม่ค่อยมี color เท่าไหร่ครับ อย่างน้อย ๆ พยายามเติมตัว 9th นะ","transcription_comment":"ดีที่จำได้ครับ แต่หลาย ๆ จุดแอบนัวไปหน่อย","score":6}],"avg":6.33},"6807553":{"id":"6807553","name":"ธนิสร ปทุมชาติ","room":"622","advisor":"อ.โจ๊ก","time":"11:45","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"ควรเสริมเรื่องเทคนิคเปียโน จะได้ Run ลูกเร็วๆ หรือยาวๆได้","transcription_comment":"Ok","score":7},{"prepared_comment":"balancing between LH and RH\nพอมือขวาสูงเสียงมันเบา แล้วมือซ้ายคอร์ดหนา ๆ มันกลบ (อาจจะขึ้นอยู่กับเปียโนเครื่องที่เล่นด้วย)\nคอร์ดลง beat 1 เยอะไปนิด","transcription_comment":"Nice!","score":8},{"prepared_comment":"Solar\nมือซ้ายดังไป ","transcription_comment":"9/10 Kelly ","score":8}],"avg":7.67},"6603885":{"id":"6603885","name":"จิรวัฒน์ กันธะ","room":"328","advisor":"อ.โจ๊ก","time":"12:00","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"","transcription_comment":"10!!!","score":10},{"prepared_comment":"","transcription_comment":"Great!","score":9}],"avg":9.5},"6704970":{"id":"6704970","name":"ณัจยา อร่ามกุล","room":"623","advisor":"อ.โจ๊ก","time":"12:15","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"ควรจะเล่นจากความเข้าใจมากกว่านี้ ไม่ควรอ่าน จะต้องให้เวลากับเพลงนี้มากกว่านี้, ","transcription_comment":"ต้อง Walk ให้มีความรู้สึกมั่นคง กว่านี้","score":7},{"prepared_comment":"zone key E เหมือนไม่ชัวร์ น่าจะจำโน้ตมาอ่ะ\nถ้าจำคอร์ดได้ และจำเสียงคอร์ดได้เราจะเล่นได้ดีกว่านี้\nblock chords ดีมากครับ","transcription_comment":"check สั้นยาวดี ๆ โน้ตไหนสั้นเราไปยาวอีกแล้ว","score":7},{"prepared_comment":"จังหวะดี ไดนามิคดี ","transcription_comment":"Cool walk 10!!!!!!","score":10}],"avg":8.0},"6800638":{"id":"6800638","name":"ภูริช กิจกุลทอง","room":"128","advisor":"อ.เชิ้ต","time":"12:30","repertoire":"❌ ไม่ผ่าน","entries":[{"prepared_comment":"Target note ไถเกินไปหน่อย / V - I ไม่ชัด ","transcription_comment":"ควรซ้อม / แกะสำเนียงเรียนรู้จาก original / สั้นไปหน่อย  ","score":4},{"prepared_comment":"Autumn Leaves ก่อนนับเข้า นับในใจเล่นในใจให้อินก่อน ","transcription_comment":"ควรแกะ นดต แจ๊สตำนานก่อน ปี4 ว่ากัน","score":7},{"prepared_comment":"นับเข้ามาเท่าไหน เล่นด้วยความเร็วเท่านั้นด้วยครับ\nไลน์สวยดีครับ เก็บโน้ตในคอร์ดดี\nแต่ควรเพิ่มพลังงานหน่อยครับ โดยรวมหวานเย็นไปหน่อย\nซ้อมกับ metronome เยอะ ๆ ครับ","transcription_comment":"ไม่ควรไปเล่นตาม cover ครับ\nเล่นตาม original ครับ\nมันมี element อื่น ๆ นอกจากโน้ตที่เราจะพลาดไปครับ","score":6},{"prepared_comment":"Keep time ! Timing ไม่ชัดเจน , ไม่ได้ outline chord change","transcription_comment":"ต้องแกะจาก Original track","score":7}],"avg":6.0},"6800049":{"id":"6800049","name":"พัทธดนย์ เขื่อนสุวรรณ","room":"128","advisor":"อ.เชิ้ต","time":"12:45","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"ได้ยิน V-I /มีการบิ้วอัพ solo ดี / โทนกีตาร์ดี / บาง phrase เหมือนจะเล่นผิด material ","transcription_comment":"ท่อนเร็วๆมีพลาดบ้างนิดหน่อย โดยรวมทำได้ดี","score":9},{"prepared_comment":"ตอนขึ้นมาจังหวะจับยากไปหน่อย\nnice block chords\nยังเพิ่ม syncopation & anticipation ได้อีกครับ\nsolo เล็ง landing ดี ๆ นะครับ มันมีลง chord tone อยู่ แต่ว่าก็ยังมีวืดเยอะอยู่\nโดยเฉพาะท้าย ๆ chorus แอบงง chord มัน land ไม่ค่อยลง","transcription_comment":"nice!","score":8},{"prepared_comment":"Head ไม่ต้องเล่น bass ใน voicing , Timing ต้องชัดเจน, การเชื่อมโยงโน้ตยัง ไม่ค่อย smooth","transcription_comment":"OK","score":9}],"avg":8.67},"6803892":{"id":"6803892","name":"กิตติพิขญ์ ว่องไพฑูรย์","room":"128","advisor":"อ.เชิ้ต","time":"13:00","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"Timing แข็งแรงดี , แต่โน้ตยังมีไอเดียไม่ค่อยชัดเจน ","transcription_comment":"OK","score":7},{"prepared_comment":"ขาดเรื่องภาษาทางแจ๊สครับ\nฟังเพลงแจ๊สในช่วงระหว่าง 1945-1965 เยอะ ๆ ครับ เพิ่มเสียงแจ๊สในหัว\nsound guitar ที่เซ็ทไว้อาจจะไม่เข้า style เท่าไหร่ครับ","transcription_comment":"จำได้ดีครับ แต่ยังมีจุดวืดเยอะไปนิดนึงครับ","score":7},{"prepared_comment":"All of me ไม่ได้ยิน Arpeggio/ ไม่ได้ยิน material V-I ของเทอมนี้เท่าไร / ลืมเล่นคอร์ด / มีความมั่นใจในการเล่นที่ดี \n","transcription_comment":"ถ้าระยะห่างเกิน 2 เฟรต ควรสไลด์ครึ่งเสียงเพื่อไปถึง แทนการดันสาย 1 เสียงเต็ม ","score":6}],"avg":6.67},"6800098":{"id":"6800098","name":"พชรพล สุชาฎา","room":"128","advisor":"อ.เชิ้ต","time":"13:15","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"มี V-I แต่รู้สึก Licks V-I ตัดแปะเกินไป \nไม่เชื่อมโยงกับประโยครอบๆเท่าไร \nขาดภาษา ","transcription_comment":"ยากเกินไปหน่อย, ควรทดลองเอาประโยคจากทรานสคิปชันมาลองใส่ในการอิมโพรไวส์ ","score":6},{"prepared_comment":"Outline Chord พอจะOK แต่ phrasing ยังไม่ค่อยดี , Comping ควร walk","transcription_comment":"ยังต้อง workอีก และควร Analyze ด้วย","score":8}],"avg":7.0},"6800090":{"id":"6800090","name":"วรชน เติมวิทย์ขจร","room":"128","advisor":"อ.เชิ้ต","time":"13:30","repertoire":"❌ ไม่ผ่าน","entries":[{"prepared_comment":"Oleo - ท่อน B ได้ยิน lydian dominant ชัดดี \nภาษาท่อน A สามารถเพิ่ม outline ตรง V-I ได้อีกเยอะ \n","transcription_comment":"ดี // วิเคราะห์นำไปประยุกต์ใช้เพิ่มเติม","score":7},{"prepared_comment":"ควร outline 1-6-2-5 ด้วย","transcription_comment":"ควรเล่น speed 100% ได้","score":9}],"avg":8.0},"6803351":{"id":"6803351","name":"วโรดม สอนขำ","room":"128","advisor":"อ.เชิ้ต","time":"13:45","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"ได้ยินไอเดีย ii-V-I ชัดดี \n***เพิ่มแพลนบิ้วอัพความพีคของคอรัสที่ 1-4 จะดีกว่านี้\nอาจจะเก็บ licks (หรือ….. ที่ใช้สร้างความแตกต่างของแต่ละคอรัส) ไว้คอรัสท้ายๆ แล้วรอบ 1-2 ลองเล่นแบบพาราเฟส","transcription_comment":"โน้ตดี ,จังหวะยังไม่ชัวร์\nลองแกะส่วน head in เรียนรู้ voicing เพิ่มเติม","score":7},{"prepared_comment":"Swing feel ยังไม่ดี , ลงที่ Downbeat เยอะเกินไป ","transcription_comment":"ควรแกะตั้งแต่ head เพราะมี material ที่น่าสนใจ, เวลาเล่น จะdelay ซะเป็นส่วนใหญ่","score":8},{"prepared_comment":"มีไลน์ภาษาดี ๆ อยู่เยอะครับ\nศึกษาเรื่อง sound ของกีตาร์แจ๊สเพิ่มครับ timbre แอบแบนไปหน่อย","transcription_comment":"ดีมากครับ","score":9}],"avg":8.0},"6800087":{"id":"6800087","name":"ชิติเทพ ตุลละสกุล","room":"128","advisor":"อ.เชิ้ต","time":"14:00","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"มีกราฟ solo ที่ดี มีการเก็บ whole tone , outline peak idea ในจุดที่เหมาะสมดี \nมีช่วงท้ายคอรัส 2 เปิด airplane mode ไปนิดหน่อยครับ","transcription_comment":"ผิดพลาดนิดหน่อย แต่โดยรวมทำได้ดีมาก","score":9},{"prepared_comment":"Outline chord change ดี , มีการ Develope motive ในบางช่วง ดี","transcription_comment":"OK แม่นยำดี","score":9},{"prepared_comment":"Head มีจุดน่าสงสัยอยู่ แต่เลี้ยวทัน\nโซโล่เป็นเรื่องราวดีครับ developed ดีครับ","transcription_comment":"ดีครับ","score":10}],"avg":9.33},"6800055":{"id":"6800055","name":"คณพศ หว่างตระกูล","room":"128","advisor":"อ.โจ๊ก","time":"14:15","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"block chords ไส้ดังไปหน่อย ทำนองชัด ๆ แล้วไส้บาง ๆ\nไม่งั้นมันหนักและกระแทกเกินไป\n\nsolo เล่นกับ space ได้ดีนะ\nมีความเป็น phrase ดี\nมือซ้ายหนักไป balance ระหว่าง LH และ RH ให้ดี ๆ\n\nโดยรวมเรากระแทกคีย์มากไป กะน้ำหนักให้ดี ๆ คุม sound ให้อยู่\nมันส์ได้ แต่อย่าลืมฟังเพื่อน ๆ หรือสื่อสาร\nเอ๋~ หลงท่อนบนท่อนล่างป่าวน้า~","transcription_comment":"Great!","score":8},{"prepared_comment":"Style ยังฟังแปลกๆ","transcription_comment":"- อ. มาไม่ทัน","score":8},{"prepared_comment":"ยังไม่ In the Pocket ","transcription_comment":"OK ควรเล่น ให้ไกล้ tempo จริง","score":8},{"prepared_comment":"Just friend - มีไอเดียที่หลากหลาย \nไอเดียการ solo ค่อนข้างเคลีย , มี React การเล่นช่วง improvise ที่ดีกับเพื่อนร่วมวง","transcription_comment":"มีบางท่อนวาร์ป โดยรวมเก็บโน้ตมาดี \n","score":8}],"avg":8.0},"6602443":{"id":"6602443","name":"โมไนย สิทธิเดชากุล","room":"328","advisor":"อ.ช้าง","time":"14:30","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"ช้าไป . หวานเย็น . ไม่สนใจทำนองหลัก","transcription_comment":"ดี","score":7},{"prepared_comment":"Melody แข็งไปนิด , Target note กระจัดกระจายไปหน่อย (position บนฟิงเกอบอร์ด) , phrasing จับยาก","transcription_comment":"- ","score":6},{"prepared_comment":"น่าจะเอา intro มาด้วย\nHead kick ไม่ตรง จังหวะของห้องที่ 2 มันต้องเริ่มก่อนหน้านั้น\nเติมคอร์ดเพิ่มหน่อยครับ โล่งไปหน่อย\nจบสั้นหรือยาว นัดกับวงมาหน่อย","transcription_comment":"Ok","score":8},{"prepared_comment":"Head ควรมี คอร์ดเข้าไปด้วย ไม่ควร single line อย่างเดียว หรือไม่ก็เอา Piano เข้ามาด้วย , ตรง solo break ","transcription_comment":"OK","score":7}],"avg":7.0},"6607837":{"id":"6607837","name":"รุจณ์ เรืองอำไพกุล","room":"328","advisor":"อ.ช้าง","time":"14:45","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"time ไม่ค่อย sync กับ accom ในหลาย ๆ จุด\nทั้งตอนโซโล่และตอน comp\nsound ดี phrasing ดี ถ้าคุมการ layback ให้ไม่ไปกวน time feel มากเกินไปจะดีได้มากกว่านี้","transcription_comment":"เกือบ ๆ ไม่ทันในบางจุด แต่โดยรวมดีนะครับ","score":8},{"prepared_comment":"Outline chord change ยังไม่ละเอียด, Comping ยังไม่นิ่ง","transcription_comment":"Fingering ในบาง pharse อาจจะปรับเพื่อให่เล่นง่ายขึ้น","score":8},{"prepared_comment":"Triste - แข็งเกินไปหน่อย  \nท่อน Vamp ก่อนวนคอรัส และบรรทัดก่อนเข้า B สามารถทำอะไรกับมันได้มากกว่านี้ \nOutline V-I ไม่ชัดเจน / มีน้อย\n","transcription_comment":"-","score":6},{"prepared_comment":"ควรเพิ่มทำนองประดับในเมโลดี้บ้าง . เมโลดี้ไม่ควรผิด . ระวังโน้ตไม่เหมาะสมเยอะ . เล่นแบบกลัว ๆกล้า ๆ .  ","transcription_comment":"โอเค","score":7}],"avg":7.25},"6801840":{"id":"6801840","name":"ภาสกร จันทนะสุต","room":"328","advisor":"อ.โจ๊ก","time":"15:00","repertoire":"✅ ผ่าน","entries":[{"prepared_comment":"โดยรวมดีครับ\nแต่ต้องคุมเทมโปดี ๆ ครับ เราค่อนข้าง push \nตอนจบโซโล่ควรหาทางลงให้เนียนกว่านี้ มันตัดฉับไปหน่อย เหมือนจะไปต่ออีกคอรัสซะด้วยซ้ำ","transcription_comment":"นับ ๆ ๆ ๆ ๆ ๆ เข้าผิดเยอะเกิ้น\nนอกนั้นดีครับ","score":9},{"prepared_comment":"โน้ตมีความสั้นมากตลอดทั้งการ improvise\nChord progression ชัด , มี outline V-I ที่ดี","transcription_comment":"แกะโน้ตมาดี พยายามทำให้ประโยคดูสบายตัวกว่านี้ได้\nและซ้อมต่อยอดจนไปถึงความเร็วจริง, ลองวิเคราะห์ถึงไอเดียการสร้างไลน์ต่างๆ ตั้งแต่ melody > solo ","score":7},{"prepared_comment":"ควร Design ending มาด้วย","transcription_comment":"ยังไม่ค่อยแม่น อาจจะ Slow down เยอะไป","score":9},{"prepared_comment":"Swing ไม่เป็นธรรมชาติ . รู้สึกถึงจังหวะตกมากไป . แข็ง . Blues เยอะ .  ซ้อมกับวงด้วย","transcription_comment":"โอเค . รู้สึกได้มากกว่านี้ . ร้องด้วย . โน้ตเสียงยังไม่เชื่อมกัน","score":8}],"avg":8.25},"6801824":{"id":"6801824","name":"ชวกร ฟ้ากระจ่าง","room":"128","advisor":"อ.ช้าง","time":"15:15","repertoire":"❌ ไม่ผ่าน","entries":[{"prepared_comment":"สนใจเมโลดี้ให้มาก . เล่นให้ชัดเจน . ซ้อมโซโล่ห้อง 5-8 ให้มาก . ไม่เข้าใจ Swing ","transcription_comment":"โอเค","score":7},{"prepared_comment":"ซาวกีตาร์บางกรอบไปหน่อย \nเพลงสามารถเล่นกับ motiff ได้เยอะกว่านี้\nไม่ได้ยินไอเดีย solo ตรง | Abm Db7 | Cmaj7 ซึ่งเป็นจุดสำคัญของเพลงนี้ Motiff / 2-5-1 Tritone sub \nลองดู 2 เรื่องนี้เพิ่มเติมครับ ","transcription_comment":"ซาวกีตาร์ดีกว่าตอน solo ","score":6},{"prepared_comment":"ขาดภาษาของแจ๊ส\nฟังเพลงแจ๊สช่วง 1945-1965 เพิ่มมากขึ้นครับ","transcription_comment":"Ok","score":7},{"prepared_comment":"ตรง Head ต้องเน้น top note ให้ชัด , Solo ควรมีโครงสร้างและ ไอเดียที่ชัดเจน ","transcription_comment":"OK","score":7}],"avg":6.75},"6603569":{"id":"6603569","name":"ภูวนัตถ์ รัตนชัย","room":"328","advisor":"อ.ช้าง","time":"15:30","repertoire":"⚠️ ไม่ต้องสอบ","entries":[{"prepared_comment":"","transcription_comment":"Melody ยังไม่แม่น, Solo ไม่ Outline Chord change","score":6},{"prepared_comment":"ส่วนมากไม่โดน chord tone / material ที่ถูกต้อง","transcription_comment":"ง่าย / สั้นเกินไป สำหรับรหัสวิชานี้ครับ","score":3},{"prepared_comment":"ใส่ใจเมโลดี้มากหน่อย ผิดไม่ได้ . ถ้าต้องเล่นเพลงจังหวะ  swing ก้ต้องเข้าใจในจังหวะ  Swing จริง ๆ  แต่ถ้าจะหนี  Swing ก็ควรซ้อมและนำเสนอเพลงนี้ในจังหวะแบบอื่น ๆ . ไม่มีประโยคโซโล่ที่น่าสนใจเลย . เล่นไปเรื่อย . ","transcription_comment":"ดี","score":7},{"prepared_comment":"sound แบน\nทำนองแอบมั่วบางจุดนะครับ\nโซโล่มีไอดีที่ดีครับ ถ้าเพิ่มความคล่องตัว พวกเทคนิคพื้นฐานเครื่องมือเราน่าจะทำอะไรน่าสนใจได้ครับ\nจูนสายเพี้ยนนิดนึงมั้ยนะ","transcription_comment":"ดีครับ","score":6}],"avg":5.5}};
+
+function scoreClass(s) {
+  if (s >= 9) return 'high';
+  if (s <= 5) return 'low';
+  return '';
+}
+
+function resultClass(r) {
+  if (r.includes('ไม่ผ่าน')) return 'result-fail';
+  if (r.includes('ผ่าน')) return 'result-pass';
+  return 'result-exempt';
+}
+
+function lookup() {
+  const id = document.getElementById('id-input').value.trim();
+  const err = document.getElementById('error-msg');
+  if (!/^\d{7}$/.test(id)) {
+    err.textContent = 'Student ID must be exactly 7 digits.';
+    err.style.display = 'block';
+    return;
+  }
+  const student = DATA[id];
+  if (!student) {
+    err.textContent = 'Student ID not found. Please check and try again.';
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  showResult(student);
+}
+
+function showResult(s) {
+  const scores = s.entries.map(e => e.score);
+  const pct = (s.avg / 10 * 100).toFixed(1);
+
+  const scoresHTML = scores.map((sc, i) =>
+    `<div class="score-pill ${scoreClass(sc)}">
+      ${sc}
+      <span class="score-label">Faculty ${i+1}</span>
+    </div>`
+  ).join('');
+
+  const entriesHTML = s.entries.map((e, i) => {
+    const pc = e.prepared_comment.trim();
+    const tc = e.transcription_comment.trim();
+    return `
+    <div class="entry-card">
+      <div class="entry-header">
+        <span class="entry-num">Faculty ${i+1}</span>
+        <span class="entry-score">${e.score} / 10</span>
+      </div>
+      <div class="entry-body">
+        <div>
+          <div class="entry-section-label">Prepared Piece</div>
+          <div class="entry-text ${pc ? '' : 'empty'}">${pc ? esc(pc) : '—'}</div>
+        </div>
+        <div>
+          <div class="entry-section-label">Transcription</div>
+          <div class="entry-text ${tc ? '' : 'empty'}">${tc ? esc(tc) : '—'}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('result-content').innerHTML = `
+    <div class="student-card">
+      <div class="student-info">
+        <div class="student-name">${esc(s.name)}</div>
+        <div class="student-meta">
+          <span>ID: ${s.id}</span>
+          <span>Level: ${s.room}</span>
+          <span>Instructor: ${s.advisor}</span>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px;font-weight:500;">Repertoire</div>
+        <span class="result-badge ${resultClass(s.repertoire)}">${s.repertoire}</span>
+      </div>
+      <div class="avg-block">
+        <div class="avg-number">${s.avg}</div>
+        <div class="avg-sub">Average / 10</div>
+        <div class="score-track" style="width:80px;margin:6px auto 0">
+          <div class="score-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Scores by faculty</div>
+    <div class="scores-row">${scoresHTML}</div>
+
+    <div class="section-title" style="margin-top:32px">Faculty comments</div>
+    <div class="entries-list">${entriesHTML}</div>
+  `;
+
+  document.getElementById('search-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('search-screen').style.display = 'flex';
+  document.getElementById('id-input').value = '';
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Enter key support
+document.getElementById('id-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') lookup();
+});
+document.getElementById('id-input').addEventListener('input', () => {
+  document.getElementById('error-msg').style.display = 'none';
+});
+</script>
+</body>
+</html>
