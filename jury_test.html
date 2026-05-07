@@ -555,15 +555,12 @@ function showDeptDashboard() {
     </div>
     <div class="chart-card">
       <div class="chart-title">Repertoire results</div>
-      <div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;align-items:stretch;">
+      <div class="metrics" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;align-items:stretch;">
         <div class="metric" style="padding:16px 10px;border-top:3px solid var(--pass);display:flex;align-items:center;justify-content:center;min-height:90px;">
-          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--pass);line-height:1;">${(repCounts.pass/total*100).toFixed(1)}%</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--pass);line-height:1;">${(repCounts.pass/(repCounts.pass+repCounts.fail)*100).toFixed(1)}%</div>
         </div>
         <div class="metric" style="padding:16px 10px;border-top:3px solid var(--fail);display:flex;align-items:center;justify-content:center;min-height:90px;">
-          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--fail);line-height:1;">${(repCounts.fail/total*100).toFixed(1)}%</div>
-        </div>
-        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--exempt);display:flex;align-items:center;justify-content:center;min-height:90px;">
-          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--exempt);line-height:1;">${(repCounts.exempt/total*100).toFixed(1)}%</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--fail);line-height:1;">${(repCounts.fail/(repCounts.pass+repCounts.fail)*100).toFixed(1)}%</div>
         </div>
         <div class="metric" style="padding:16px 10px;display:flex;align-items:center;justify-content:center;min-height:90px;">
           <div style="position:relative;width:min(80px,100%);aspect-ratio:1;">
@@ -571,6 +568,7 @@ function showDeptDashboard() {
           </div>
         </div>
       </div>
+      <div style="font-size:10px;letter-spacing:1px;color:var(--muted);margin-bottom:20px;padding:0 2px;">* Percentages calculated from students who took the repertoire exam only (excludes exempted students)</div>
       ${repRowsHTML}
     </div>
   `;
@@ -609,8 +607,8 @@ function showDeptDashboard() {
   new Chart(document.getElementById('deptPieChart'), {
     type: 'doughnut',
     data: {
-      labels: ['ผ่าน', 'ไม่ผ่าน', 'ไม่ต้องสอบ'],
-      datasets: [{ data: [repCounts.pass, repCounts.fail, repCounts.exempt], backgroundColor: ['#4caf7d','#e05252','#e0a952'], borderWidth: 0, hoverOffset: 4 }]
+      labels: ['ผ่าน', 'ไม่ผ่าน'],
+      datasets: [{ data: [repCounts.pass, repCounts.fail], backgroundColor: ['#4caf7d','#e05252'], borderWidth: 0, hoverOffset: 4 }]
     },
     options: {
       responsive: true, maintainAspectRatio: true,
