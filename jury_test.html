@@ -379,7 +379,9 @@
 
   @media (max-width: 480px) {
     .metrics { grid-template-columns: repeat(2, 1fr); }
+    .metrics[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
     .metrics[style*="repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
+    .metrics[style*="repeat(6"] { grid-template-columns: repeat(3, 1fr) !important; }
     .metric-num { font-size: 1.6rem; }
     #faculty-screen { padding: 32px 16px 60px; }
     .fac-student-header { gap: 8px; padding: 14px 16px; }
@@ -500,6 +502,8 @@ function showDeptDashboard() {
   const median = sorted.length % 2 === 0
     ? ((sorted[mid-1] + sorted[mid]) / 2).toFixed(2)
     : sorted[mid].toFixed(2);
+  const mean = avgs.reduce((a,b)=>a+b,0)/total;
+  const sd = Math.sqrt(avgs.reduce((s,a)=>s+(a-mean)**2,0)/total).toFixed(2);
 
   // Repertoire counts
   const repCounts = { pass: 0, fail: 0, exempt: 0 };
@@ -532,10 +536,11 @@ function showDeptDashboard() {
       <div class="fac-name">Jazz Program</div>
       <div class="fac-sub">Department Overview · Jazz Jury 2/68</div>
     </div>
-    <div class="metrics" style="grid-template-columns:repeat(5,1fr)">
+    <div class="metrics" style="grid-template-columns:repeat(6,1fr)">
       <div class="metric"><div class="metric-num">${total}</div><div class="metric-label">Students</div></div>
       <div class="metric"><div class="metric-num">${deptAvg}</div><div class="metric-label">Mean</div></div>
       <div class="metric"><div class="metric-num">${median}</div><div class="metric-label">Median</div></div>
+      <div class="metric"><div class="metric-num">${sd}</div><div class="metric-label">SD</div></div>
       <div class="metric"><div class="metric-num">${highest}</div><div class="metric-label">Highest</div></div>
       <div class="metric"><div class="metric-num">${lowest}</div><div class="metric-label">Lowest</div></div>
     </div>
