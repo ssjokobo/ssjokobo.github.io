@@ -377,11 +377,14 @@
     padding: 48px 24px 80px;
   }
 
+  @media (max-width: 640px) {
+    .metrics[style*="repeat(6"] { grid-template-columns: repeat(3, 1fr) !important; }
+    .metrics[style*="repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
+    .metrics[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+
   @media (max-width: 480px) {
     .metrics { grid-template-columns: repeat(2, 1fr); }
-    .metrics[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
-    .metrics[style*="repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
-    .metrics[style*="repeat(6"] { grid-template-columns: repeat(3, 1fr) !important; }
     .metric-num { font-size: 1.6rem; }
     #faculty-screen { padding: 32px 16px 60px; }
     .fac-student-header { gap: 8px; padding: 14px 16px; }
@@ -552,21 +555,20 @@ function showDeptDashboard() {
     </div>
     <div class="chart-card">
       <div class="chart-title">Repertoire results</div>
-      <div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
-        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--pass);display:flex;align-items:center;justify-content:center;">
+      <div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;align-items:stretch;">
+        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--pass);display:flex;align-items:center;justify-content:center;min-height:90px;">
           <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--pass);line-height:1;">${(repCounts.pass/total*100).toFixed(1)}%</div>
         </div>
-        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--fail);display:flex;align-items:center;justify-content:center;">
+        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--fail);display:flex;align-items:center;justify-content:center;min-height:90px;">
           <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--fail);line-height:1;">${(repCounts.fail/total*100).toFixed(1)}%</div>
         </div>
-        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--exempt);display:flex;align-items:center;justify-content:center;">
+        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--exempt);display:flex;align-items:center;justify-content:center;min-height:90px;">
           <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--exempt);line-height:1;">${(repCounts.exempt/total*100).toFixed(1)}%</div>
         </div>
-        <div class="metric" style="padding:16px 10px;">
-          <div style="position:relative;width:80px;height:80px;margin:0 auto 8px;">
+        <div class="metric" style="padding:16px 10px;display:flex;align-items:center;justify-content:center;min-height:90px;">
+          <div style="position:relative;width:min(80px,100%);aspect-ratio:1;">
             <canvas id="deptPieChart"></canvas>
           </div>
-          <div class="metric-label">Overview</div>
         </div>
       </div>
       ${repRowsHTML}
