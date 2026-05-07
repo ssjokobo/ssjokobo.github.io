@@ -360,12 +360,27 @@
   .rep-count { width: 24px; text-align: right; color: var(--muted); font-size: 0.8rem; }
   .fac-student-card { background: var(--dark2); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.2s; }
   .fac-student-card:hover { border-color: rgba(201,168,76,0.45); }
-  .fac-student-header { display: flex; align-items: center; gap: 16px; padding: 20px 24px; cursor: pointer; user-select: none; }
-  .fac-chevron { color: var(--muted); font-size: 14px; transition: transform 0.3s; }
+  .fac-student-header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; cursor: pointer; user-select: none; flex-wrap: wrap; }
+  .fac-student-header .student-id-label { font-size: 11px; letter-spacing: 1px; color: var(--muted); min-width: 70px; flex-shrink: 0; }
+  .fac-student-header .student-name { flex: 1; font-size: 1rem; color: var(--text); min-width: 100px; }
+  .fac-student-header .fac-rep-avg { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .fac-chevron { color: var(--muted); font-size: 14px; transition: transform 0.3s; flex-shrink: 0; }
   .fac-student-card.open .fac-chevron { transform: rotate(180deg); }
   .fac-student-body { display: none; border-top: 1px solid var(--border); padding: 24px; }
   .fac-student-card.open .fac-student-body { display: block; }
   .sub-section-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin: 0 0 12px; }
+
+  @media (max-width: 480px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .metric-num { font-size: 1.6rem; }
+    #faculty-screen { padding: 32px 16px 60px; }
+    .fac-student-header { gap: 8px; padding: 14px 16px; }
+    .fac-student-header .student-name { font-size: 0.875rem; min-width: 80px; }
+    .fac-student-header .student-id-label { min-width: 60px; font-size: 10px; }
+    .fac-student-header .fac-rep-avg { gap: 8px; }
+    .chart-card { padding: 20px 16px 16px; }
+    .rep-label { width: 110px; font-size: 0.8rem; }
+  }
 </style>
 </head>
 <body>
@@ -513,8 +528,10 @@ function showFacultyDashboard(advName, emoji) {
       <div class="fac-student-header" onclick="toggleFacCard('${s.id}')">
         <span class="student-id-label">${s.id}</span>
         <span class="student-name">${esc(s.name)}</span>
-        <span style="font-size:10px;letter-spacing:1px;color:var(--muted);white-space:nowrap">Rep: <span class="rep-badge ${repClass(s.repertoire)}">${s.repertoire}</span></span>
-        <span class="student-avg">${s.avg.toFixed(2)}</span>
+        <div class="fac-rep-avg">
+          <span style="font-size:10px;letter-spacing:1px;color:var(--muted);white-space:nowrap">Rep: <span class="rep-badge ${repClass(s.repertoire)}">${s.repertoire}</span></span>
+          <span class="student-avg">${s.avg.toFixed(2)}</span>
+        </div>
         <span class="fac-chevron">▼</span>
       </div>
       <div class="fac-student-body">
