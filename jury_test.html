@@ -370,8 +370,16 @@
   .fac-student-card.open .fac-student-body { display: block; }
   .sub-section-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin: 0 0 12px; }
 
+  #dept-screen {
+    display: none;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
   @media (max-width: 480px) {
     .metrics { grid-template-columns: repeat(2, 1fr); }
+    .metrics[style*="repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
     .metric-num { font-size: 1.6rem; }
     #faculty-screen { padding: 32px 16px 60px; }
     .fac-student-header { gap: 8px; padding: 14px 16px; }
@@ -413,6 +421,12 @@
   <div id="faculty-content"></div>
 </div>
 
+<!-- DEPARTMENT DASHBOARD -->
+<div id="dept-screen">
+  <button class="back-btn" onclick="goBack()">← Back to Search</button>
+  <div id="dept-content"></div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="data.js"></script>
 <script>
@@ -449,6 +463,12 @@ function lookup() {
     err.style.display = 'block';
     return;
   }
+  // Department ID?
+  if (id === DEPT_ID) {
+    err.style.display = 'none';
+    showDeptDashboard();
+    return;
+  }
   // Faculty ID?
   if (FACULTY_BY_ID[id]) {
     err.style.display = 'none';
@@ -464,6 +484,133 @@ function lookup() {
   }
   err.style.display = 'none';
   showResult(student);
+}
+
+let deptChartInstance = null;
+
+function showDeptDashboard() {
+  const students = Object.values(DATA);
+  const avgs = students.map(s => s.avg);
+  const total = students.length;
+  const deptAvg = (avgs.reduce((a,b)=>a+b,0)/total).toFixed(2);
+  const highest = Math.max(...avgs).toFixed(2);
+  const lowest  = Math.min(...avgs).toFixed(2);
+  const sorted = [...avgs].sort((a,b)=>a-b);
+  const mid = Math.floor(sorted.length/2);
+  const median = sorted.length % 2 === 0
+    ? ((sorted[mid-1] + sorted[mid]) / 2).toFixed(2)
+    : sorted[mid].toFixed(2);
+
+  // Repertoire counts
+  const repCounts = { pass: 0, fail: 0, exempt: 0 };
+  students.forEach(s => {
+    if (s.repertoire.includes('ไม่ผ่าน')) repCounts.fail++;
+    else if (s.repertoire.includes('ผ่าน')) repCounts.pass++;
+    else repCounts.exempt++;
+  });
+
+  const repRowsHTML = [
+    { label: '✅ ผ่าน',        count: repCounts.pass,   color: 'var(--pass)' },
+    { label: '❌ ไม่ผ่าน',     count: repCounts.fail,   color: 'var(--fail)' },
+    { label: '⚠️ ไม่ต้องสอบ', count: repCounts.exempt, color: 'var(--exempt)' },
+  ].map(r => `<div class="rep-row">
+    <div class="rep-label" style="color:${r.color}">${r.label}</div>
+    <div class="rep-bar-track"><div class="rep-bar-fill" style="width:${(r.count/total*100).toFixed(0)}%;background:${r.color}"></div></div>
+    <div class="rep-count">${r.count}</div>
+  </div>`).join('');
+
+  // Score distribution: buckets 1-2, 3-4, 5-6, 7-8, 9-10
+  const buckets = [0,0,0,0,0];
+  avgs.forEach(a => {
+    const idx = Math.min(4, Math.floor((a - 0.001) / 2));
+    buckets[idx]++;
+  });
+  const bucketLabels = ['1–2','3–4','5–6','7–8','9–10'];
+
+  document.getElementById('dept-content').innerHTML = `
+    <div class="fac-header-block">
+      <div class="fac-name">Jazz Program</div>
+      <div class="fac-sub">Department Overview · Jazz Jury 2/68</div>
+    </div>
+    <div class="metrics" style="grid-template-columns:repeat(5,1fr)">
+      <div class="metric"><div class="metric-num">${total}</div><div class="metric-label">Students</div></div>
+      <div class="metric"><div class="metric-num">${deptAvg}</div><div class="metric-label">Mean</div></div>
+      <div class="metric"><div class="metric-num">${median}</div><div class="metric-label">Median</div></div>
+      <div class="metric"><div class="metric-num">${highest}</div><div class="metric-label">Highest</div></div>
+      <div class="metric"><div class="metric-num">${lowest}</div><div class="metric-label">Lowest</div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Score distribution</div>
+      <div style="position:relative;width:100%;height:220px;">
+        <canvas id="deptChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Repertoire results</div>
+      <div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--pass);display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--pass);line-height:1;">${(repCounts.pass/total*100).toFixed(1)}%</div>
+        </div>
+        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--fail);display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--fail);line-height:1;">${(repCounts.fail/total*100).toFixed(1)}%</div>
+        </div>
+        <div class="metric" style="padding:16px 10px;border-top:3px solid var(--exempt);display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:900;color:var(--exempt);line-height:1;">${(repCounts.exempt/total*100).toFixed(1)}%</div>
+        </div>
+        <div class="metric" style="padding:16px 10px;">
+          <div style="position:relative;width:80px;height:80px;margin:0 auto 8px;">
+            <canvas id="deptPieChart"></canvas>
+          </div>
+          <div class="metric-label">Overview</div>
+        </div>
+      </div>
+      ${repRowsHTML}
+    </div>
+  `;
+
+  document.getElementById('search-screen').style.display = 'none';
+  document.getElementById('dept-screen').style.display = 'block';
+  window.scrollTo(0, 0);
+
+  if (deptChartInstance) { deptChartInstance.destroy(); deptChartInstance = null; }
+  deptChartInstance = new Chart(document.getElementById('deptChart'), {
+    type: 'bar',
+    data: {
+      labels: bucketLabels,
+      datasets: [{
+        data: buckets,
+        backgroundColor: ['#6b5228','#6b5228','#a07830','#c9a84c','#e8cc7a'],
+        borderRadius: 6,
+        borderSkipped: false,
+        barPercentage: 0.5,
+        categoryPercentage: 0.6,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y} student${ctx.parsed.y !== 1 ? 's' : ''}` } }
+      },
+      scales: {
+        x: { ticks: { color: '#888', font: { family: 'DM Sans' } }, grid: { display: false }, border: { display: false } },
+        y: { beginAtZero: true, ticks: { color: '#888', stepSize: 1, font: { family: 'DM Sans' } }, grid: { color: 'rgba(255,255,255,0.05)' }, border: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('deptPieChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['ผ่าน', 'ไม่ผ่าน', 'ไม่ต้องสอบ'],
+      datasets: [{ data: [repCounts.pass, repCounts.fail, repCounts.exempt], backgroundColor: ['#4caf7d','#e05252','#e0a952'], borderWidth: 0, hoverOffset: 4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      cutout: '60%',
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}` } } }
+    }
+  });
 }
 
 let scoreChartInstance = null;
@@ -716,9 +863,11 @@ function showResult(s) {
 function goBack() {
   document.getElementById('result-screen').style.display = 'none';
   document.getElementById('faculty-screen').style.display = 'none';
+  document.getElementById('dept-screen').style.display = 'none';
   document.getElementById('search-screen').style.display = 'flex';
   document.getElementById('id-input').value = '';
   if (scoreChartInstance) { scoreChartInstance.destroy(); scoreChartInstance = null; }
+  if (deptChartInstance) { deptChartInstance.destroy(); deptChartInstance = null; }
 }
 
 function esc(s) {

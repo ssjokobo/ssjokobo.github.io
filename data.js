@@ -29,3 +29,6 @@ const FACULTY = {
     "emoji": "🥣"
   }
 };
+
+const DEPT_ID = "2574094";
+
