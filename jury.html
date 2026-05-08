@@ -527,6 +527,85 @@ function showDeptDashboard() {
   </div>`).join('');
 
   // Score distribution: buckets 1-2, 3-4, 5-6, 7-8, 9-10
+  const INSTRUMENT_MAP = {
+    'อ.กุ๊ก': 'Saxophone', 'อ.รุ่ง': 'Trombone', 'อ.น็อต': 'Piano',
+    'อ.เชิ้ต': 'Guitar', 'อ.ม๋า': 'Drums', 'อ.มาร์ค': 'Drums',
+    'อ.โจ๊ก': 'Piano', 'อ.บาส': 'Guitar', 'อ.ช้าง': 'Guitar', 'อ.ติว': 'Bass'
+  };
+  const INSTRUMENT_GROUPS = {
+    'Guitar': { label: 'Guitar 🎸', color: '#c9a84c' },
+    'Piano':  { label: 'Piano 🎹',  color: '#7b9fd4' },
+    'Drums':  { label: 'Drums 🥁',  color: '#d47b7b' },
+    'Bass':   { label: 'Bass 🎻',   color: '#7bd4a0' },
+    'Horns':  { label: 'Horns 🎷',  color: '#d4b07b' },
+  };
+  const HORN_TYPES = ['Saxophone', 'Trombone'];
+
+  function getInstrumentGroup(advisor) {
+    const inst = INSTRUMENT_MAP[advisor];
+    if (HORN_TYPES.includes(inst)) return 'Horns';
+    return inst || 'Other';
+  }
+
+  function repSortOrder(r) {
+    if (r.includes('ไม่ผ่าน')) return 2;   // fail → lowest
+    if (r.includes('ผ่าน'))   return 0;   // pass → highest
+    return 1;                              // exempt → middle
+  }
+
+  function sortStudents(arr) {
+    return [...arr].sort((a, b) => {
+      if (b.avg !== a.avg) return b.avg - a.avg;
+      const ld = parseInt(b.room) - parseInt(a.room); // higher level first
+      if (ld !== 0) return ld;
+      return repSortOrder(a.repertoire) - repSortOrder(b.repertoire);
+    });
+  }
+
+  // Build instrument sections HTML
+  const instrumentSections = Object.entries(INSTRUMENT_GROUPS).map(([group, cfg]) => {
+    const groupStudents = sortStudents(
+      students.filter(s => getInstrumentGroup(s.advisor) === group)
+    );
+    if (groupStudents.length === 0) return '';
+    const cardId = 'inst-' + group.toLowerCase();
+
+    const rows = groupStudents.map((s, i) => {
+      const repCls = s.repertoire.includes('ไม่ผ่าน') ? 'rep-fail' : s.repertoire.includes('ผ่าน') ? 'rep-pass' : 'rep-exempt';
+      const scoreCls = s.avg >= 9 ? 'color:var(--gold-light)' : s.avg <= 5 ? 'color:#777' : 'color:var(--text)';
+      return `<tr style="border-bottom:1px solid rgba(201,168,76,0.07);">
+        <td style="color:var(--muted);font-size:11px;padding:10px 12px;width:28px;">${i+1}</td>
+        <td style="padding:10px 12px;">
+          <div style="font-size:0.9rem;color:var(--text)">${esc(s.name)}</div>
+          <div style="font-size:10px;color:var(--muted);letter-spacing:1px;">ID: ${s.id} · Level: ${s.room}</div>
+        </td>
+        <td style="padding:10px 12px;text-align:center;"><span class="rep-badge ${repCls}" style="font-size:10px;">${s.repertoire}</span></td>
+        <td style="padding:10px 12px;text-align:right;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;${scoreCls}">${s.avg.toFixed(2)}</td>
+      </tr>`;
+    }).join('');
+
+    return `
+      <div class="chart-card" style="padding:0;overflow:hidden;margin-bottom:12px;">
+        <div onclick="toggleInst('${cardId}')" style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;user-select:none;">
+          <div class="chart-title" style="color:${cfg.color};margin:0;">${cfg.label} <span style="color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:1px;">${groupStudents.length} students</span></div>
+          <span id="${cardId}-chev" style="color:var(--muted);font-size:14px;transition:transform 0.3s;">▼</span>
+        </div>
+        <div id="${cardId}-body" style="display:none;border-top:1px solid var(--border);padding:0 0 8px;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="padding:8px 12px;text-align:left;font-size:9px;letter-spacing:2px;color:var(--muted);font-weight:500;">#</th>
+                <th style="padding:8px 12px;text-align:left;font-size:9px;letter-spacing:2px;color:var(--muted);font-weight:500;">Student</th>
+                <th style="padding:8px 12px;text-align:center;font-size:9px;letter-spacing:2px;color:var(--muted);font-weight:500;">Repertoire</th>
+                <th style="padding:8px 12px;text-align:right;font-size:9px;letter-spacing:2px;color:var(--muted);font-weight:500;">Score</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join('');
+
   const buckets = [0,0,0,0,0];
   avgs.forEach(a => {
     const idx = Math.min(4, Math.floor((a - 0.001) / 2));
@@ -571,6 +650,8 @@ function showDeptDashboard() {
       <div style="font-size:10px;letter-spacing:1px;color:var(--muted);margin-bottom:20px;padding:0 2px;">* Percentages calculated from students who took the repertoire exam only (excluding exempted students)</div>
       ${repRowsHTML}
     </div>
+    <div class="section-title" style="margin-top:8px;">Rankings by instrument</div>
+    ${instrumentSections}
   `;
 
   document.getElementById('search-screen').style.display = 'none';
@@ -795,6 +876,14 @@ function showFacultyDashboard(advName, emoji) {
 
 function toggleFacCard(id) {
   document.getElementById('fcard-' + id).classList.toggle('open');
+}
+
+function toggleInst(cardId) {
+  const body = document.getElementById(cardId + '-body');
+  const chev = document.getElementById(cardId + '-chev');
+  const open = body.style.display === 'none';
+  body.style.display = open ? 'block' : 'none';
+  chev.style.transform = open ? 'rotate(180deg)' : '';
 }
 
 function showResult(s) {
