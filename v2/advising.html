@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advising — Sopon Suwannakit</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>:root { --page-accent: #38bdf8; }</style>
+  <style>
+    .advising-wrap {
+      max-width: 480px;
+      margin: 4rem auto 0;
+    }
+
+    .advising-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--page-accent);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+    }
+
+    .advising-card__heading {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .advising-card__sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-4);
+      margin-bottom: 2rem;
+    }
+
+    .advising-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .advising-input {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .advising-input::placeholder {
+      color: var(--text-4);
+      letter-spacing: 0.08em;
+    }
+
+    .advising-input:focus {
+      border-color: var(--page-accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent) 15%, transparent);
+    }
+
+    .advising-btn {
+      width: 100%;
+      background: var(--page-accent);
+      color: #0d0d0d;
+      border: none;
+      border-radius: 6px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .advising-btn:hover { opacity: 0.82; }
+    .advising-btn:active { opacity: 0.7; }
+
+    .advising-error {
+      display: none;
+      margin-top: 1rem;
+      padding: 12px 16px;
+      background: rgba(255, 107, 107, 0.08);
+      border: 1px solid rgba(255, 107, 107, 0.25);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #ff6b6b;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+
+    .advising-hint {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-4);
+      letter-spacing: 0.06em;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav__logo" href="index.html">SOPON <span>·</span> RSU</a>
+    <ul class="nav__links">
+      <li><a href="keyboard.html">Keyboard</a></li>
+      <li><a href="piano.html">Piano</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="advising.html">Advising</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a class="nav__contact" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero__inner">
+      <a class="page-hero__back" href="index.html">← Back</a>
+      <div class="page-hero__eyebrow">Student Records</div>
+      <h1 class="page-hero__title">ADVISING</h1>
+      <div class="page-hero__subtitle">Personal advising sheet lookup</div>
+    </div>
+  </div>
+
+  <main class="page-content">
+    <div class="advising-wrap">
+      <div class="advising-card">
+        <div class="advising-card__heading">YOUR SHEET</div>
+        <div class="advising-card__sub">Enter student ID · Opens your PDF</div>
+
+        <label class="advising-label" for="student-id">Student ID</label>
+        <input
+          class="advising-input"
+          type="text"
+          id="student-id"
+          placeholder="e.g. 6804001"
+          maxlength="7"
+          autocomplete="off"
+          spellcheck="false"
+        >
+
+        <button class="advising-btn" id="lookup-btn">Open My Sheet →</button>
+
+        <div class="advising-error" id="advising-error">
+          Please enter a valid student ID.
+        </div>
+
+        <div class="advising-hint">
+          Your advising PDF will open in a new tab.<br>
+          Contact <a href="mailto:sopon.s@rsu.ac.th" style="color:var(--gold)">sopon.s@rsu.ac.th</a> if your sheet is not available yet.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__logo">SOPON SUWANNAKIT</div>
+    <a class="footer__email" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+    <div class="footer__copy">© 2025 · Rangsit University</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const input = document.getElementById('student-id');
+    const btn   = document.getElementById('lookup-btn');
+    const error = document.getElementById('advising-error');
+
+    function lookup() {
+      const id = input.value.trim();
+      error.style.display = 'none';
+
+      if (!id) {
+        error.textContent = 'Please enter your 7-digit student ID.';
+        error.style.display = 'block';
+        input.focus();
+        return;
+      }
+
+      // Basic sanity check — exactly 7 digits
+      if (!/^\d{7}$/.test(id)) {
+        error.textContent = 'Please enter a valid 7-digit student ID.';
+        error.style.display = 'block';
+        input.focus();
+        return;
+      }
+
+      const url = 'https://sopon.me/' + encodeURIComponent(id) + '.pdf';
+      window.open(url, '_blank');
+    }
+
+    btn.addEventListener('click', lookup);
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') lookup();
+    });
+
+    // Clear error on type
+    input.addEventListener('input', () => {
+      error.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
