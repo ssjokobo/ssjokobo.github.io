@@ -5,62 +5,231 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Sopon Suwannakit</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>:root { --page-accent: #a3e635; }</style>
   <style>
-    .about-grid {
+    :root { --page-accent: #a3e635; }
+
+    /* ── CV LAYOUT ── */
+    .cv-layout {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1fr 260px;
+      gap: 3.5rem;
       align-items: start;
     }
-    .about-body p {
-      font-size: 15px;
-      color: #999;
-      line-height: 1.9;
-      font-weight: 300;
-      margin-bottom: 1.2rem;
+
+    /* ── SIDEBAR ── */
+    .cv-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
     }
+
     .sidebar-block { margin-bottom: 2.5rem; }
+
     .sidebar-heading {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--page-accent);
       margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.6rem;
       border-bottom: 1px solid var(--border);
     }
-    .degree-item { margin-bottom: 1rem; }
+
+    .degree-item { margin-bottom: 1.25rem; }
     .degree-year {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-4);
       letter-spacing: 0.08em;
       margin-bottom: 2px;
     }
     .degree-title {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text);
       font-weight: 400;
       line-height: 1.4;
     }
-    .degree-school { font-size: 13px; color: var(--text-3); }
-    .cert-item {
-      font-size: 13px;
+    .degree-school { font-size: 14px; color: var(--text-3); margin-top: 1px; }
+
+    .exp-item {
+      font-size: 14px;
       color: var(--text-3);
-      padding: 6px 0;
+      padding: 8px 0;
       border-bottom: 1px solid var(--border);
-      line-height: 1.5;
+      line-height: 1.55;
     }
-    .cert-item:last-child { border-bottom: none; }
-    .cert-item a {
+    .exp-item:last-child { border-bottom: none; }
+    .exp-role { color: var(--text-2); font-size: 15px; display: block; margin-bottom: 1px; }
+
+    .contact-link {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--page-accent);
+      display: block;
+      margin-bottom: 6px;
+      transition: opacity 0.2s;
+    }
+    .contact-link:hover { opacity: 0.7; }
+
+    /* ── MAIN CV BODY ── */
+    .cv-main {}
+
+    .cv-bio {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-bio p {
+      font-size: 15px;
       color: var(--text-2);
-      transition: color 0.2s;
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 1.2rem;
     }
-    .cert-item a:hover { color: var(--page-accent); }
-    @media (max-width: 700px) {
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cv-bio p:last-child { margin-bottom: 0; }
+
+    /* ── CV SECTION ── */
+    .cv-section {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cv-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .cv-section__header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .cv-section__title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .cv-section__count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-4);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ENTRY ── */
+    .cv-entry {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cv-entry:last-child { border-bottom: none; }
+
+    .cv-entry__year {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-4);
+      letter-spacing: 0.06em;
+      padding-top: 2px;
+      line-height: 1.6;
+    }
+
+    .cv-entry__body {}
+
+    .cv-entry__title {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 0.3rem;
+    }
+
+    .cv-entry__title em {
+      font-style: italic;
+      color: var(--text-2);
+    }
+
+    .cv-entry__meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+      line-height: 1.6;
+    }
+
+    .cv-entry__meta a {
+      color: var(--page-accent);
+      transition: opacity 0.2s;
+    }
+    .cv-entry__meta a:hover { opacity: 0.7; }
+
+    .cv-entry__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 0.5rem;
+    }
+
+    .cv-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      color: var(--text-3);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .cv-tag--accent {
+      border-color: var(--page-accent);
+      color: var(--page-accent);
+    }
+
+    /* ── PLACEHOLDER STATE ── */
+    .cv-placeholder {
+      background: var(--bg-1);
+      border: 1px dashed var(--border-2);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .cv-placeholder__text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-4);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 800px) {
+      .cv-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .cv-sidebar {
+        position: static;
+        order: -1;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 2.5rem;
+        margin-bottom: 2.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 2rem;
+      }
+      .cv-main { order: 1; }
+      .cv-entry { grid-template-columns: 44px 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .cv-sidebar { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -82,45 +251,307 @@
   <div class="page-hero">
     <div class="page-hero__inner">
       <a class="page-hero__back" href="index.html">← Back</a>
-      <div class="page-hero__eyebrow">Scholar · Performer · Educator</div>
-      <h1 class="page-hero__title">ABOUT</h1>
-      <div class="page-hero__subtitle">Bangkok · Rangsit University · JazzJae+</div>
+      <div class="page-hero__eyebrow">Curriculum Vitae</div>
+      <h1 class="page-hero__title">SOPON SUWANNAKIT</h1>
+      <div class="page-hero__subtitle">Jazz Pianist · Educator · Scholar · Bangkok</div>
     </div>
   </div>
 
   <main class="page-content">
-    <div class="about-grid">
+    <div class="cv-layout">
 
-      <div class="about-body">
-        <p>
-          Based in Bangkok, Sopon Suwannakit is a jazz pianist and full-time faculty member at Rangsit University.
-          He performs regularly at jazz clubs and swing dance events throughout the city, and is a member of Yusu Jazz Band,
-          known for its focus on 1920s–30s jazz repertoire.
-        </p>
-        <p>
-          As founder of JazzJae+ (แจ๊สแจ๋), a platform dedicated to jazz education in Thai, Sopon has produced more than a
-          hundred jazz history and theory videos that have become essential resources for learners across Thailand.
-          He also leads the Jokobo Double Quartet — the first ensemble in Thailand to combine a jazz quartet with a string quartet.
-        </p>
-        <p>
-          Sopon earned his Master's degree at the University of North Texas, studying with Stefan Karlsson,
-          a frequent pianist for Eddie Gomez. He then completed his Doctorate at the University of Northern Colorado,
-          where his dissertation — <em>Examining Middle Eastern Influences on Jazz in the 1950s and 1960s</em> —
-          traced Arabic musical concepts within jazz recordings.
-        </p>
-        <p>
-          In 2018, a scholarship from the Armenian General Benevolent Union (AGBU) brought him to Armenia to study the
-          duduk with Emmanuel Hovhannisyan and collaborate with local musicians, exploring the intersection of Armenian
-          traditional music and jazz.
-        </p>
-        <p>
-          He has presented research at the Jazz Education Network, Society of Ethnomusicology,
-          International Council for Traditional Music, and Issues in Contemporary Jazz, among others.
-          In Denver, he performed on several occasions with renowned trumpeter Greg Gisbert.
-        </p>
-      </div>
+      <!-- ══════════════════════════════════════
+           MAIN BODY
+      ══════════════════════════════════════ -->
+      <div class="cv-main">
 
-      <div>
+        <!-- BIO -->
+        <div class="cv-bio">
+          <p>
+            Based in Bangkok, Sopon Suwannakit is a jazz pianist and full-time faculty member at Rangsit University.
+            He performs regularly at jazz clubs and swing dance events throughout the city, and is a member of Yusu Jazz Band,
+            known for its focus on 1920s–30s jazz repertoire.
+          </p>
+          <p>
+            As founder of JazzJae+ (แจ๊สแจ๋), a platform dedicated to jazz education in Thai, Sopon has produced more than
+            a hundred jazz history and theory videos that have become essential resources for learners across Thailand.
+            He also leads the Jokobo Double Quartet — the first ensemble in Thailand to combine a jazz quartet with a string quartet.
+          </p>
+          <p>
+            Sopon earned his Master's degree at the University of North Texas, studying with Stefan Karlsson,
+            a frequent pianist for Eddie Gomez. He then completed his Doctorate at the University of Northern Colorado,
+            where his dissertation — <em>Examining Middle Eastern Influences on Jazz in the 1950s and 1960s</em> —
+            traced Arabic musical concepts within jazz recordings. In 2018, a scholarship from the Armenian General
+            Benevolent Union (AGBU) brought him to Armenia to study the duduk with Emmanuel Hovhannisyan.
+          </p>
+        </div>
+
+        <!-- RESEARCH & PUBLICATIONS -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">RESEARCH</div>
+          </div>
+
+          <!-- Dissertation -->
+          <div class="cv-entry">
+            <div class="cv-entry__year">2023</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">
+                <em>Examining Middle Eastern Influences on Jazz in the 1950s and 1960s</em>
+              </div>
+              <div class="cv-entry__meta">
+                Doctoral Dissertation · University of Northern Colorado<br>
+                <a href="https://digscholarship.unco.edu/dissertations/1029/" target="_blank">digscholarship.unco.edu →</a>
+              </div>
+              <div class="cv-entry__tags">
+                <span class="cv-tag cv-tag--accent">Dissertation</span>
+                <span class="cv-tag">Ethnomusicology</span>
+                <span class="cv-tag">Jazz Studies</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Journal article placeholders -->
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Journal article · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Journal article · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CONFERENCE PRESENTATIONS -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">PRESENTATIONS</div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Paper title · placeholder</div>
+              <div class="cv-entry__meta">Jazz Education Network · Conference · City</div>
+              <div class="cv-entry__tags"><span class="cv-tag">JEN</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Paper title · placeholder</div>
+              <div class="cv-entry__meta">Society for Ethnomusicology · Annual Meeting · City</div>
+              <div class="cv-entry__tags"><span class="cv-tag">SEM</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Paper title · placeholder</div>
+              <div class="cv-entry__meta">International Council for Traditional Music · City</div>
+              <div class="cv-entry__tags"><span class="cv-tag">ICTM</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Paper title · placeholder</div>
+              <div class="cv-entry__meta">Issues in Contemporary Jazz · City</div>
+              <div class="cv-entry__tags"><span class="cv-tag">ICJ</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COMPOSITIONS -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">COMPOSITIONS</div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Composition title · instrumentation · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Composition title · instrumentation · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RECORDINGS -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">RECORDINGS</div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Album / track title · ensemble · label · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Album / track title · ensemble · label · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SELECTED PERFORMANCES -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">PERFORMANCES</div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Greg Gisbert Quartet</div>
+              <div class="cv-entry__meta">Denver, CO · with renowned trumpeter Greg Gisbert · multiple occasions</div>
+              <div class="cv-entry__tags"><span class="cv-tag">Denver</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Yusu Jazz Band</div>
+              <div class="cv-entry__meta">Bangkok, Thailand · 1920s–30s jazz repertoire · ongoing</div>
+              <div class="cv-entry__tags"><span class="cv-tag">Bangkok</span><span class="cv-tag">Swing</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Jokobo Double Quartet</div>
+              <div class="cv-entry__meta">Bangkok · Jazz quartet + string quartet · first such ensemble in Thailand</div>
+              <div class="cv-entry__tags"><span class="cv-tag cv-tag--accent">Founder</span><span class="cv-tag">Bangkok</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Performance · venue · city · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CERTIFICATES & CONTINUING EDUCATION -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">CERTIFICATES</div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Strategic Leadership &amp; Management Specialization</div>
+              <div class="cv-entry__meta">
+                University of Illinois · Coursera<br>
+                <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/VS9PHXRZJ93I" target="_blank">View certificate →</a>
+              </div>
+              <div class="cv-entry__tags"><span class="cv-tag">MOOC</span><span class="cv-tag">Leadership</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Algorithms Specialization</div>
+              <div class="cv-entry__meta">
+                Stanford University · Coursera<br>
+                <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/7N5YT24G7N5G" target="_blank">View certificate →</a>
+              </div>
+              <div class="cv-entry__tags"><span class="cv-tag">MOOC</span><span class="cv-tag">CS</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">CS50 Series — Harvard University</div>
+              <div class="cv-entry__meta">
+                CS50x · CS50p · CS50w · CS50ai<br>
+                <a href="https://cs50.harvard.edu/certificates/35b2bc1b-932a-475e-a867-fece7fd7ff20" target="_blank">CS50sql certificate →</a>
+              </div>
+              <div class="cv-entry__tags"><span class="cv-tag">MOOC</span><span class="cv-tag">Harvard</span><span class="cv-tag">CS</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- GRANTS & FELLOWSHIPS -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <div class="cv-section__title">GRANTS &amp; FELLOWSHIPS</div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">2018</div>
+            <div class="cv-entry__body">
+              <div class="cv-entry__title">Research Scholarship — Armenian General Benevolent Union (AGBU)</div>
+              <div class="cv-entry__meta">
+                Yerevan, Armenia · Duduk study with Emmanuel Hovhannisyan<br>
+                Collaborative research: Armenian traditional music and jazz
+              </div>
+              <div class="cv-entry__tags"><span class="cv-tag cv-tag--accent">Fellowship</span></div>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry__year">——</div>
+            <div class="cv-entry__body">
+              <div class="cv-placeholder">
+                <div class="cv-placeholder__text">Grant / fellowship · placeholder — edit manually</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div><!-- /cv-main -->
+
+      <!-- ══════════════════════════════════════
+           SIDEBAR (right)
+      ══════════════════════════════════════ -->
+      <aside class="cv-sidebar">
+
         <div class="sidebar-block">
           <div class="sidebar-heading">Education</div>
           <div class="degree-item">
@@ -141,44 +572,34 @@
         </div>
 
         <div class="sidebar-block">
-          <div class="sidebar-heading">Experience</div>
-          <div class="cert-item">2024–present · Instructor, Rangsit University</div>
-          <div class="cert-item">2019–21 · Asst. Professor, Western Oregon University</div>
-          <div class="cert-item">2017–19 · Admin Assistant, Univ. of Northern Colorado</div>
-          <div class="cert-item">2016–19 · Graduate Teaching Assistant, UNC</div>
-        </div>
-
-        <div class="sidebar-block">
-          <div class="sidebar-heading">Certificates</div>
-          <div class="cert-item">
-            <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/VS9PHXRZJ93I" target="_blank">
-              Strategic Leadership &amp; Management · U. of Illinois
-            </a>
+          <div class="sidebar-heading">Academic Positions</div>
+          <div class="exp-item">
+            <span class="exp-role">Instructor</span>
+            2024–present · Rangsit University
           </div>
-          <div class="cert-item">
-            <a href="https://cs50.harvard.edu/certificates/35b2bc1b-932a-475e-a867-fece7fd7ff20" target="_blank">
-              Intro to Databases · Harvard CS50sql
-            </a>
+          <div class="exp-item">
+            <span class="exp-role">Assistant Professor</span>
+            2019–21 · Western Oregon University
           </div>
-          <div class="cert-item">
-            <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/7N5YT24G7N5G" target="_blank">
-              Algorithms Specialization · Stanford / Coursera
-            </a>
+          <div class="exp-item">
+            <span class="exp-role">Graduate Teaching Assistant</span>
+            2016–19 · Univ. of Northern Colorado
           </div>
-          <div class="cert-item">Harvard CS50ai · CS50w · CS50p · CS50x</div>
+          <div class="exp-item">
+            <span class="exp-role">Administrative Assistant</span>
+            2017–19 · Univ. of Northern Colorado
+          </div>
         </div>
 
         <div class="sidebar-block">
           <div class="sidebar-heading">Contact</div>
-          <div class="cert-item" style="border:none">
-            <a href="mailto:sopon.s@rsu.ac.th" style="color:var(--page-accent);font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em">
-              sopon.s@rsu.ac.th
-            </a>
-          </div>
+          <a class="contact-link" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+          <a class="contact-link" href="https://www.youtube.com/@JazzJae" target="_blank">@JazzJae · YouTube</a>
         </div>
-      </div>
 
-    </div>
+      </aside>
+
+    </div><!-- /cv-layout -->
   </main>
 
   <footer class="footer">
