@@ -46,7 +46,7 @@
     .deadline-table tr:hover td { background: var(--bg-2); }
     .deadline-table td:first-child { color: var(--text); }
 
-    .deadline-table td:last-child {
+    .deadline-table tr:not(.row-exam-desc) td:last-child {
       font-family: var(--font-mono);
       font-size: 12px;
       color: var(--page-accent);
@@ -54,6 +54,48 @@
       letter-spacing: 0.06em;
     }
 
+    /* Assignment row — clickable */
+    .deadline-table tr.row-assignment td { cursor: pointer; }
+    .deadline-table tr.row-assignment:hover td { background: var(--bg-2); }
+
+    .deadline-table .assign-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .deadline-table .assign-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--bg-2);
+      border: 1px solid var(--page-accent);
+      color: var(--page-accent);
+      padding: 2px 7px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .deadline-table .assign-badge:hover { opacity: 0.7; }
+
+    /* PDF badge override — matches urgent tag style */
+    .item-card__badge {
+      border-color: var(--page-accent);
+      color: var(--page-accent);
+    }
+
+    .deadline-table .assign-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-4);
+      margin-top: 3px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Exam rows */
     .deadline-exam {
       font-family: var(--font-mono);
       font-size: 10px;
@@ -64,6 +106,28 @@
       color: var(--page-accent);
       padding: 2px 7px;
       border-radius: 3px;
+    }
+
+    .deadline-table tr.row-exam td {
+      background: color-mix(in srgb, var(--page-accent) 4%, transparent);
+    }
+
+    .deadline-table tr.row-exam:hover td {
+      background: color-mix(in srgb, var(--page-accent) 8%, transparent);
+    }
+
+    /* Exam description sub-row */
+    .deadline-table tr.row-exam-desc td {
+      padding: 0 1rem 0.9rem 3rem;
+      font-size: 13px;
+      color: var(--text-3);
+      line-height: 1.65;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--page-accent) 4%, transparent);
+    }
+
+    .deadline-table tr.row-exam-desc:hover td {
+      background: color-mix(in srgb, var(--page-accent) 4%, transparent);
     }
 
     /* ── GRADING GRID ── */
@@ -157,30 +221,6 @@
       color: var(--page-accent);
       opacity: 0.6;
     }
-
-    .exam-note {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--page-accent);
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-      margin-bottom: 8px;
-    }
-
-    .exam-note__title {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--page-accent);
-      margin-bottom: 0.4rem;
-    }
-
-    .exam-note__text {
-      font-size: 14px;
-      color: var(--text-2);
-      line-height: 1.7;
-    }
   </style>
 </head>
 <body>
@@ -249,10 +289,9 @@
 
     </div>
 
-    <!-- ASSIGNMENTS -->
+    <!-- CLIP REQUIREMENTS -->
     <div class="content-section" style="margin-top:3rem">
-      
-      <div class="content-section__label" style="margin-top:1.5rem">Clip Requirements (70 points · 14 skills · 5 points per skill)</div>
+      <div class="content-section__label">Clip Requirements (70 points · 14 skills · 5 points per skill)</div>
       <ul class="rules-list">
         <li>ความยาวและจังหวะของคอร์ดให้ยึดตามโน้ต</li>
         <li>เล่นต่อเนื่อง ไม่หยุดระหว่างคีย์</li>
@@ -261,46 +300,11 @@
         <li>อนุญาตให้ส่งได้ 1 ไฟล์ 1 ครั้ง ต่อ 1 ทักษะ</li>
         <li>การให้คะแนนถือเป็นที่สิ้นสุด</li>
       </ul>
-
-      <div class="content-section__label">Assignments</div>
-
-      <div class="item-card">
-        <a href="media/254-m7b5.pdf" target="_blank">
-          <div class="item-card__num">01</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Four-Note Rootless Voicings: Half-Diminished 7th (iiø7)</div>
-            <div class="item-card__meta">เลือก 1 แบบ · เล่น 6 คีย์ · <span style="color:var(--page-accent)">Due 12 มิ.ย. 2569</span></div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-
-      <div class="item-card">
-        <a href="media/254-minor251.pdf" target="_blank">
-          <div class="item-card__num">02</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Four-Note Rootless Voicings: iiø7–V7alt–im7 (Minor ii–V–i)</div>
-            <div class="item-card__meta">เลือก 1 แบบ · เล่น 4 คีย์ · <span style="color:var(--page-accent)">Due 19 มิ.ย. 2569</span></div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-
-      <div class="exam-note">
-        <div class="exam-note__title">Midterm Exam (15 คะแนน)</div>
-        <div class="exam-note__text">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Five-Note Quartal Voicings</strong> เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น โดยต้องมาสอบต่อหน้าอาจารย์ผู้สอน</div>
-      </div>
-
-      <div class="exam-note">
-        <div class="exam-note__title">Final Exam (15 คะแนน)</div>
-        <div class="exam-note__text">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Upper Structure Triads</strong> ซ้อนบน chord tones เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น โดยต้องมาสอบต่อหน้าอาจารย์ผู้สอน</div>
-      </div>
-
     </div>
 
-    <!-- DEADLINES -->
+    <!-- DEADLINES & SCHEDULES -->
     <div class="content-section" style="margin-top:3rem">
-      <div class="content-section__label">กำหนดส่ง</div>
+      <div class="content-section__label">Deadlines &amp; Schedules</div>
 
       <div class="deadline-wrap">
         <table class="deadline-table">
@@ -312,16 +316,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+
+            <tr class="row-assignment">
               <td>01</td>
-              <td>Four-Note Rootless Voicings: Half-Diminished 7th</td>
+              <td>
+                <div class="assign-title">
+                  Four-Note Rootless Voicings: Half-Diminished 7th (iiø7)
+                  <a class="assign-badge" href="media/254-m7b5.pdf" target="_blank">PDF ↓</a>
+                </div>
+                <div class="assign-meta">เลือก 1 แบบ · เล่น 6 คีย์</div>
+              </td>
               <td>12 มิ.ย. 2569</td>
             </tr>
-            <tr>
+
+            <tr class="row-assignment">
               <td>02</td>
-              <td>Four-Note Rootless Voicings: iim7b5–V7alt–im7 (minor ii–V–i)</td>
+              <td>
+                <div class="assign-title">
+                  Four-Note Rootless Voicings: iiø7–V7alt–im7 (Minor ii–V–i)
+                  <a class="assign-badge" href="media/254-minor251.pdf" target="_blank">PDF ↓</a>
+                </div>
+                <div class="assign-meta">เลือก 1 แบบ · เล่น 4 คีย์</div>
+              </td>
               <td>19 มิ.ย. 2569</td>
             </tr>
+
             <tr>
               <td>03</td>
               <td>Five-Note Quartal Voicings: Major 6/9</td>
@@ -347,10 +366,15 @@
               <td>Five-Note Quartal Voicings: Dominant 7th (Altered)</td>
               <td>3 ก.ค. 2569</td>
             </tr>
-            <tr>
+
+            <tr class="row-exam">
               <td colspan="2"><span class="deadline-exam">Midterm Exam — Five-Note Quartal Voicings</span></td>
               <td>4 ก.ค. 2569</td>
             </tr>
+            <tr class="row-exam-desc">
+              <td colspan="3">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Five-Note Quartal Voicings</strong> เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น โดยต้องมาสอบต่อหน้าอาจารย์ผู้สอน</td>
+            </tr>
+
             <tr>
               <td>08</td>
               <td>Upper Structure Triads: Dominant 13sus4</td>
@@ -376,10 +400,15 @@
               <td>Upper Structure Triads: Dominant #11b9</td>
               <td>24 ก.ค. 2569</td>
             </tr>
-            <tr>
+
+            <tr class="row-exam">
               <td colspan="2"><span class="deadline-exam">Final Exam — Upper Structure Triads</span></td>
               <td>25 ก.ค. 2569</td>
             </tr>
+            <tr class="row-exam-desc">
+              <td colspan="3">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Upper Structure Triads</strong> ซ้อนบน chord tones เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น โดยต้องมาสอบต่อหน้าอาจารย์ผู้สอน</td>
+            </tr>
+
             <tr>
               <td>13</td>
               <td>Locked-Hands Sixth/Diminished on Bebop Major Scale</td>
@@ -390,6 +419,7 @@
               <td>Locked-Hands Sixth/Diminished on Bebop Melodic Minor Scale</td>
               <td>31 ก.ค. 2569</td>
             </tr>
+
           </tbody>
         </table>
       </div>
@@ -398,19 +428,19 @@
 
     <!-- GRADING -->
     <div class="content-section" style="margin-top:3rem">
-      <div class="content-section__label">การวัดผลและตัดเกรด</div>
+      <div class="content-section__label">Grading</div>
 
       <div class="grade-grid">
         <div class="grade-item">
-          <div class="grade-item__label">คลิปทักษะ</div>
+          <div class="grade-item__label">Skill Clips</div>
           <div class="grade-item__value">70%</div>
         </div>
         <div class="grade-item">
-          <div class="grade-item__label">สอบกลางภาค</div>
+          <div class="grade-item__label">Midterm Exam</div>
           <div class="grade-item__value">15%</div>
         </div>
         <div class="grade-item">
-          <div class="grade-item__label">สอบปลายภาค</div>
+          <div class="grade-item__label">Final Exam</div>
           <div class="grade-item__value">15%</div>
         </div>
       </div>
