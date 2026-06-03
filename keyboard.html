@@ -3,9 +3,185 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jazz Keyboard Skills — Sopon Suwannakit</title>
+  <title>Jazz Keyboard Skills II — Sopon Suwannakit</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>:root { --page-accent: #4ecdc4; }</style>
+  <style>
+    :root { --page-accent: #4ecdc4; }
+
+    /* ── DEADLINE TABLE ── */
+    .deadline-wrap {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .deadline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .deadline-table th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+
+    .deadline-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-2);
+      vertical-align: middle;
+    }
+
+    .deadline-table tr:last-child td { border-bottom: none; }
+    .deadline-table tr:hover td { background: var(--bg-2); }
+    .deadline-table td:first-child { color: var(--text); }
+
+    .deadline-table td:last-child {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--page-accent);
+      white-space: nowrap;
+      letter-spacing: 0.06em;
+    }
+
+    .deadline-exam {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+      color: var(--page-accent);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    /* ── GRADING GRID ── */
+    .grade-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .grade-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .grade-item {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grade-item__label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+    }
+
+    .grade-item__value {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--page-accent);
+      letter-spacing: 1px;
+    }
+
+    /* ── LETTER GRADES ── */
+    .letter-grades {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-grade {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+    }
+
+    .letter-grade span {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── RULES LIST ── */
+    .rules-list {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .rules-list li {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-2);
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+      list-style: none;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .rules-list li:last-child { border-bottom: none; }
+
+    .rules-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--page-accent);
+      opacity: 0.6;
+    }
+
+    .exam-note {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--page-accent);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .exam-note__title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--page-accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .exam-note__text {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+  </style>
 </head>
 <body>
 
@@ -25,77 +201,232 @@
   <div class="page-hero">
     <div class="page-hero__inner">
       <a class="page-hero__back" href="index.html">← Back</a>
-      <div class="page-hero__eyebrow">MUS253</div>
-      <h1 class="page-hero__title">JAZZ KEYBOARD SKILLS I</h1>
-      <div class="page-hero__subtitle">Rangsit University · 2026</div>
+      <div class="page-hero__eyebrow">MUS254</div>
+      <h1 class="page-hero__title">JAZZ KEYBOARD SKILLS II</h1>
+      <div class="page-hero__subtitle">Rangsit University · S/2569 · ดร.โสภณ สุวรรณกิจ</div>
     </div>
   </div>
 
   <main class="page-content">
 
+    <!-- ANNOUNCEMENTS -->
     <div class="announcements" style="padding:0 0 2rem;">
       <div class="announcements__label">Course Announcements</div>
       <div class="announcement-card">
-        <div class="announcement-card__date">16 May 2026</div>
+        <div class="announcement-card__date">3 Jun 2026</div>
         <div class="announcement-card__body">
           <span class="announcement-card__tag announcement-card__tag--urgent">New</span>
-          <div class="announcement-card__text">See you in August 2026!</div>
+          <div class="announcement-card__text">ประกาศรายวิชา MUS254 ภาคเรียน S/2569 — ดูรายละเอียดด้านล่าง</div>
         </div>
       </div>
     </div>
-<!--
+
+    <!-- DOCUMENTS -->
     <div class="content-section">
-      <div class="section__label" style="margin-bottom:1rem">Score Updates</div>
-      <div class="item-card">
-        <a href="media/keyboard-score.pdf" target="_blank">
-          <div class="item-card__num">↓</div>
-          <div class="item-card__info">
-            <div class="item-card__title">MUS253 — Score Sheet</div>
-            <div class="item-card__meta">All assignments, exams, and attendance · Updated Aug 17, 2026</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="content-section" style="margin-top:3rem">
-      <div class="content-section__label">Handouts &amp; Materials</div>
-
-      <div class="item-card">
-        <a href="media/handout-keyboard-wk10.pdf" target="_blank">
-          <div class="item-card__num">10</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Chord Voicings — Shell, Drop-2, Spread</div>
-            <div class="item-card__meta">Week 10 · PDF · Apr 20, 2025</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-
-      <div class="item-card">
-        <a href="media/handout-keyboard-wk09.pdf" target="_blank">
-          <div class="item-card__num">09</div>
-          <div class="item-card__info">
-            <div class="item-card__title">II–V–I Patterns in All 12 Keys</div>
-            <div class="item-card__meta">Week 9 · PDF · Apr 13, 2025</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
+      <div class="content-section__label">Documents</div>
 
       <div class="item-card">
         <a href="media/keyboard/syl.pdf" target="_blank">
-          <div class="item-card__num">00</div>
+          <div class="item-card__num">↓</div>
           <div class="item-card__info">
-            <div class="item-card__title">Course Syllabus</div>
-            <div class="item-card__meta">Week 0 · PDF · Aug 17, 2026</div>
+            <div class="item-card__title">Course Syllabus — MUS254 Sec. 11</div>
+            <div class="item-card__meta">ประมวลการสอน · S/2569</div>
           </div>
           <span class="item-card__badge">PDF</span>
         </a>
       </div>
-    </div>
--->
 
+      <div class="item-card">
+        <a href="media/mus254-score.pdf" target="_blank">
+          <div class="item-card__num">↓</div>
+          <div class="item-card__info">
+            <div class="item-card__title">MUS254 — Score Sheet</div>
+            <div class="item-card__meta">All assignments, exams, and attendance</div>
+          </div>
+          <span class="item-card__badge">PDF</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ASSIGNMENTS -->
+    <div class="content-section" style="margin-top:3rem">
+      
+      <div class="content-section__label" style="margin-top:1.5rem">Clip Requirements (70 points · 14 skills · 5 points per skill)</div>
+      <ul class="rules-list">
+        <li>ความยาวและจังหวะของคอร์ดให้ยึดตามโน้ต</li>
+        <li>เล่นต่อเนื่อง ไม่หยุดระหว่างคีย์</li>
+        <li>Metronome อย่างน้อย 50 bpm</li>
+        <li>Clip ห้าม cut ห้าม edit</li>
+        <li>อนุญาตให้ส่งได้ 1 ไฟล์ 1 ครั้ง ต่อ 1 ทักษะ</li>
+        <li>การให้คะแนนถือเป็นที่สิ้นสุด</li>
+      </ul>
+
+      <div class="content-section__label">Assignments</div>
+
+      <div class="item-card">
+        <a href="media/254-m7b5.pdf" target="_blank">
+          <div class="item-card__num">01</div>
+          <div class="item-card__info">
+            <div class="item-card__title">Four-Note Rootless Voicings: Half-Diminished 7th (iiø7)</div>
+            <div class="item-card__meta">เลือก 1 แบบ · เล่น 6 คีย์ · <span style="color:var(--page-accent)">Due 12 มิ.ย. 2569</span></div>
+          </div>
+          <span class="item-card__badge">PDF</span>
+        </a>
+      </div>
+
+      <div class="item-card">
+        <a href="media/254-minor251.pdf" target="_blank">
+          <div class="item-card__num">02</div>
+          <div class="item-card__info">
+            <div class="item-card__title">Four-Note Rootless Voicings: iiø7–V7alt–im7 (Minor ii–V–i)</div>
+            <div class="item-card__meta">เลือก 1 แบบ · เล่น 4 คีย์ · <span style="color:var(--page-accent)">Due 19 มิ.ย. 2569</span></div>
+          </div>
+          <span class="item-card__badge">PDF</span>
+        </a>
+      </div>
+
+      <div class="exam-note">
+        <div class="exam-note__title">Midterm Exam (15 คะแนน)</div>
+        <div class="exam-note__text">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Five-Note Quartal Voicings</strong> เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น โดยต้องมาสอบต่อหน้าอาจารย์ผู้สอน</div>
+      </div>
+
+      <div class="exam-note">
+        <div class="exam-note__title">Final Exam (15 คะแนน)</div>
+        <div class="exam-note__text">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Upper Structure Triads</strong> ซ้อนบน chord tones เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น โดยต้องมาสอบต่อหน้าอาจารย์ผู้สอน</div>
+      </div>
+
+    </div>
+
+    <!-- DEADLINES -->
+    <div class="content-section" style="margin-top:3rem">
+      <div class="content-section__label">กำหนดส่ง</div>
+
+      <div class="deadline-wrap">
+        <table class="deadline-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Assignment</th>
+              <th>Due</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>Four-Note Rootless Voicings: Half-Diminished 7th</td>
+              <td>12 มิ.ย. 2569</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Four-Note Rootless Voicings: iim7b5–V7alt–im7 (minor ii–V–i)</td>
+              <td>19 มิ.ย. 2569</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Five-Note Quartal Voicings: Major 6/9</td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Five-Note Quartal Voicings: Major 13th</td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>Five-Note Quartal Voicings: Minor 11th</td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>06</td>
+              <td>Five-Note Quartal Voicings: Dominant 7th (Natural)</td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>07</td>
+              <td>Five-Note Quartal Voicings: Dominant 7th (Altered)</td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td colspan="2"><span class="deadline-exam">Midterm Exam — Five-Note Quartal Voicings</span></td>
+              <td>4 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>08</td>
+              <td>Upper Structure Triads: Dominant 13sus4</td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>09</td>
+              <td>Upper Structure Triads: Dominant 13#11</td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Upper Structure Triads: Dominant 13b9</td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Upper Structure Triads: Dominant b13#9</td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Upper Structure Triads: Dominant #11b9</td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td colspan="2"><span class="deadline-exam">Final Exam — Upper Structure Triads</span></td>
+              <td>25 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>Locked-Hands Sixth/Diminished on Bebop Major Scale</td>
+              <td>31 ก.ค. 2569</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Locked-Hands Sixth/Diminished on Bebop Melodic Minor Scale</td>
+              <td>31 ก.ค. 2569</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- GRADING -->
+    <div class="content-section" style="margin-top:3rem">
+      <div class="content-section__label">การวัดผลและตัดเกรด</div>
+
+      <div class="grade-grid">
+        <div class="grade-item">
+          <div class="grade-item__label">คลิปทักษะ</div>
+          <div class="grade-item__value">70%</div>
+        </div>
+        <div class="grade-item">
+          <div class="grade-item__label">สอบกลางภาค</div>
+          <div class="grade-item__value">15%</div>
+        </div>
+        <div class="grade-item">
+          <div class="grade-item__label">สอบปลายภาค</div>
+          <div class="grade-item__value">15%</div>
+        </div>
+      </div>
+
+      <div class="letter-grades">
+        <div class="letter-grade"><span>A</span> = 85–100%</div>
+        <div class="letter-grade"><span>B+</span> = 80–84%</div>
+        <div class="letter-grade"><span>B</span> = 75–79%</div>
+        <div class="letter-grade"><span>C+</span> = 70–74%</div>
+        <div class="letter-grade"><span>C</span> = 65–69%</div>
+        <div class="letter-grade"><span>D+</span> = 60–64%</div>
+        <div class="letter-grade"><span>D</span> = 55–59%</div>
+        <div class="letter-grade"><span>F</span> = 0–54%</div>
+      </div>
+
+    </div>
   </main>
 
   <footer class="footer">
