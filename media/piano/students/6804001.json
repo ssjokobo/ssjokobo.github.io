@@ -72,24 +72,25 @@
       "homework": [],
       "grade": "B",
       "note": "Etude almost performance-ready."
+    },
+    {
+      "week": 10,
+      "date": "2026-01-14",
+      "title": "Upper Structures & Dominant Colors",
+      "content": [
+        "Upper structure triads over dominant 7th chords",
+        "V7♯11 and V7♭9 voicings in context",
+        "Demo: In A Sentimental Mood two-handed arrangement"
+      ],
+      "homework": [
+        { "label": "Upper Structures", "url": "https://sopon.me/v1/jazz-piano/pdf/upperstructures-and-dim.pdf" },
+        { "label": "Solo Piano Demo — In A Sentimental Mood", "url": "https://sopon.me/v1/jazz-piano/pdf/in-a-sentimental-mood_two-handed.pdf" },
+        { "label": "ii–V–I No. 1", "url": "https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no1.pdf" }
+      ],
+      "grade": null,
+      "note": null
     }
   ],
-
-  "currentWeek": {
-    "week": 10,
-    "date": "2026-01-14",
-    "title": "Upper Structures & Dominant Colors",
-    "content": [
-      "Upper structure triads over dominant 7th chords",
-      "V7♯11 and V7♭9 voicings in context",
-      "Demo: In A Sentimental Mood two-handed arrangement"
-    ],
-    "homework": [
-      { "label": "Upper Structures", "url": "https://sopon.me/v1/jazz-piano/pdf/upperstructures-and-dim.pdf" },
-      { "label": "Solo Piano Demo — In A Sentimental Mood", "url": "https://sopon.me/v1/jazz-piano/pdf/in-a-sentimental-mood_two-handed.pdf" },
-      { "label": "ii–V–I No. 1", "url": "https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no1.pdf" }
-    ]
-  },
 
   "midterm": {
     "techniques": [
