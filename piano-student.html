@@ -27,10 +27,10 @@
     .s-card--accent { border-top: 2px solid var(--page-accent); }
     .s-card__eyebrow {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-4);
+      color: var(--text-3);
       margin-bottom: 0.6rem;
     }
     .s-card__heading {
@@ -42,90 +42,110 @@
     }
     .s-card__sub {
       font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      color: var(--text-4);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--text-2);
     }
 
     /* ── Scoreboard ── */
     .scoreboard {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      margin-top: 1rem;
     }
     .week-pip {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
     }
     .week-pip__label {
       font-family: var(--font-mono);
-      font-size: 8px;
+      font-size: 9px;
       letter-spacing: 0.08em;
-      color: var(--text-4);
+      color: var(--text-3);
     }
     .week-pip__dot {
-      width: 28px;
-      height: 28px;
-      border-radius: 5px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 0.04em;
       border: 1px solid var(--border-2);
       background: var(--bg-2);
       color: var(--text-3);
     }
-    .week-pip__dot--A  { background: rgba(74,222,128,.12); border-color: #4ade80; color: #4ade80; }
-    .week-pip__dot--B  { background: rgba(199,125,255,.12); border-color: var(--page-accent); color: var(--page-accent); }
-    .week-pip__dot--C  { background: rgba(251,191,36,.12); border-color: #fbbf24; color: #fbbf24; }
-    .week-pip__dot--D  { background: rgba(251,146,60,.12); border-color: #fb923c; color: #fb923c; }
-    .week-pip__dot--F  { background: rgba(248,113,113,.12); border-color: #f87171; color: #f87171; }
+    .week-pip__dot--A       { background: rgba(74,222,128,.15);  border-color: #4ade80;           color: #4ade80; }
+    .week-pip__dot--B       { background: rgba(199,125,255,.15); border-color: var(--page-accent); color: var(--page-accent); }
+    .week-pip__dot--C       { background: rgba(251,191,36,.15);  border-color: #fbbf24;           color: #fbbf24; }
+    .week-pip__dot--D       { background: rgba(251,146,60,.15);  border-color: #fb923c;           color: #fb923c; }
+    .week-pip__dot--F       { background: rgba(248,113,113,.15); border-color: #f87171;           color: #f87171; }
+    .week-pip__dot--mid     { background: rgba(251,191,36,.15);  border-color: #fbbf24;           color: #fbbf24; }
+    .week-pip__dot--fin     { background: rgba(248,113,113,.15); border-color: #f87171;           color: #f87171; }
     .week-pip__dot--current {
-      background: rgba(199,125,255,.18);
+      background: rgba(199,125,255,.2);
       border-color: var(--page-accent);
       box-shadow: 0 0 0 2px color-mix(in srgb, var(--page-accent) 30%, transparent);
       color: var(--page-accent);
     }
     .week-pip__dot--pending { color: var(--text-4); }
 
+    .scoreboard-divider {
+      width: 1px;
+      height: 44px;
+      background: var(--border);
+      align-self: flex-end;
+      margin: 0 0.25rem;
+      flex-shrink: 0;
+    }
+
     .scoreboard-footer {
+      width: 100%;
       margin-top: 1.25rem;
       padding-top: 1rem;
       border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
     }
     .scoreboard-stat {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
     .scoreboard-stat__label {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-4);
+      color: var(--text-3);
     }
     .scoreboard-stat__val {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       letter-spacing: 1px;
       color: var(--page-accent);
     }
+    .scoreboard-stat__val--mid  { color: #fbbf24; }
+    .scoreboard-stat__val--fin  { color: #f87171; }
     .scoreboard-stat__val--pending {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-4);
       letter-spacing: 0.06em;
+    }
+    .scoreboard-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      margin-left: auto;
     }
 
     /* ── Current Week ── */
@@ -146,31 +166,31 @@
     }
     .cw-week-badge {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--page-accent);
       background: color-mix(in srgb, var(--page-accent) 12%, transparent);
       border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
-      padding: 3px 8px;
+      padding: 3px 9px;
       border-radius: 4px;
       flex-shrink: 0;
     }
     .cw-title {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       letter-spacing: 1px;
       color: #fff;
     }
     .cw-date {
       font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-4);
+      font-size: 11px;
+      color: var(--text-3);
       margin-left: auto;
     }
     .cw-section-label {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--text-3);
@@ -184,12 +204,12 @@
     }
     .cw-content-list li {
       font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: var(--text-2, #ccc);
-      padding: 5px 0 5px 1rem;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-      line-height: 1.5;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      color: #e2e2e2;
+      padding: 6px 0 6px 1.1rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+      line-height: 1.55;
       position: relative;
     }
     .cw-content-list li::before {
@@ -200,7 +220,7 @@
     }
     .cw-content-list li:last-child { border-bottom: none; }
 
-    /* ── Homework / PDF items — keyboard.html badge style ── */
+    /* ── Homework / PDF items ── */
     .hw-list {
       list-style: none;
       padding: 0;
@@ -210,8 +230,8 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      padding: 9px 0;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+      padding: 10px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
       text-decoration: none;
       transition: opacity 0.2s;
     }
@@ -220,11 +240,11 @@
     .hw-label {
       font-family: var(--font-mono);
       font-size: 13px;
-      letter-spacing: 0.04em;
-      color: var(--text-2, #ccc);
+      letter-spacing: 0.03em;
+      color: #e2e2e2;
       flex: 1;
     }
-    /* PDF badge — exact keyboard.html style */
+    /* PDF badge — keyboard.html style */
     .hw-pdf-badge {
       font-family: var(--font-mono);
       font-size: 10px;
@@ -265,9 +285,9 @@
     }
     .exam-card__weight {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: 0.08em;
-      color: var(--text-4);
+      color: var(--text-3);
       margin-bottom: 1.25rem;
     }
     .exam-score-display {
@@ -284,13 +304,13 @@
     }
     .exam-score-display__pending {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.1em;
-      color: var(--text-4);
+      color: var(--text-3);
     }
     .exam-sub-label {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--text-3);
@@ -299,23 +319,43 @@
     .exam-item {
       display: flex;
       align-items: flex-start;
-      gap: 0.5rem;
-      padding: 6px 0;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+      gap: 0.6rem;
+      padding: 7px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.03em;
-      color: var(--text-2, #ccc);
-      line-height: 1.5;
+      color: #e2e2e2;
+      line-height: 1.55;
     }
     .exam-item:last-child { border-bottom: none; }
-    .exam-item__dot { color: var(--page-accent); flex-shrink: 0; margin-top: 1px; }
+    .exam-item__dot { color: var(--page-accent); flex-shrink: 0; margin-top: 2px; }
     .exam-item a { color: inherit; text-decoration: none; }
     .exam-item a:hover { color: var(--page-accent); }
     .exam-item__key {
+      font-size: 10px;
+      color: var(--text-3);
+      margin-left: 5px;
+    }
+    /* Repertoire link row */
+    .exam-item--rep a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #e2e2e2;
+    }
+    .exam-item--rep a:hover { color: var(--page-accent); }
+    .rep-link-badge {
+      font-family: var(--font-mono);
       font-size: 9px;
-      color: var(--text-4);
-      margin-left: 4px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--bg-2);
+      border: 1px solid var(--page-accent);
+      color: var(--page-accent);
+      padding: 1px 6px;
+      border-radius: 3px;
+      opacity: 0.7;
     }
 
     /* ── Previous Weeks ── */
@@ -330,7 +370,7 @@
       width: 100%;
       background: var(--bg-1);
       border: none;
-      padding: 12px 16px;
+      padding: 13px 16px;
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -341,31 +381,31 @@
     .prev-week-toggle:hover { background: var(--bg-2); }
     .prev-week-toggle__week {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-4);
+      color: var(--text-3);
       width: 48px;
       flex-shrink: 0;
     }
     .prev-week-toggle__title {
       font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: var(--text-2, #ccc);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      color: #e2e2e2;
       flex: 1;
     }
     .prev-week-toggle__date {
       font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-4);
+      font-size: 11px;
+      color: var(--text-3);
       flex-shrink: 0;
     }
     .prev-week-grade {
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 600;
-      width: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      width: 22px;
       text-align: center;
       flex-shrink: 0;
     }
@@ -376,7 +416,7 @@
     .prev-week-grade--F { color: #f87171; }
     .prev-week-chevron {
       font-size: 10px;
-      color: var(--text-4);
+      color: var(--text-3);
       transition: transform 0.2s;
       flex-shrink: 0;
     }
@@ -385,25 +425,25 @@
       display: none;
       background: var(--bg-2);
       border-top: 1px solid var(--border);
-      padding: 1rem 1.25rem 1.25rem;
+      padding: 1.1rem 1.25rem 1.35rem;
     }
     .prev-week-item.open .prev-week-body { display: block; }
     .prev-body-label {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--text-3);
-      margin: 0.75rem 0 0.4rem;
+      margin: 0.85rem 0 0.45rem;
     }
     .prev-body-label:first-child { margin-top: 0; }
     .prev-body-note {
       font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.04em;
-      color: var(--text-2, #ccc);
-      line-height: 1.6;
-      padding: 8px 10px;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      color: #e2e2e2;
+      line-height: 1.65;
+      padding: 9px 12px;
       background: var(--bg-1);
       border-radius: 5px;
       border: 1px solid var(--border);
@@ -468,9 +508,9 @@
       align-items: center;
       justify-content: center;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 13px;
       letter-spacing: 0.1em;
-      color: var(--text-4);
+      color: var(--text-3);
     }
     .page-state--error { color: #ff6b6b; }
   </style>
@@ -506,15 +546,13 @@
   <footer class="footer">
     <div class="footer__logo">SOPON SUWANNAKIT</div>
     <a class="footer__email" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
-    <div class="footer__copy">© 2025 · Rangsit University</div>
+    <div class="footer__copy">© 2026 · Rangsit University</div>
   </footer>
 
   <script src="js/main.js"></script>
   <script>
 
     const WEEKS_SCHEDULE = [2,3,4,5,6,7,10,11,12,13,14,15,16];
-
-    // Grade → numeric (for weekly average)
     const GRADE_MAP = { A:100, B:80, C:70, D:60, F:0 };
 
     function gradeColorClass(g) {
@@ -528,13 +566,11 @@
       return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
     }
 
-    // Returns the week object with the highest week number
     function getCurrentWeek(weeks) {
       if (!weeks || !weeks.length) return null;
       return weeks.reduce((max, w) => w.week > max.week ? w : max, weeks[0]);
     }
 
-    // Previous weeks = all except the current (highest) week
     function getPreviousWeeks(weeks, currentWeekNum) {
       return (weeks || []).filter(w => w.week !== currentWeekNum).sort((a,b) => b.week - a.week);
     }
@@ -546,10 +582,10 @@
       return Math.round(avg);
     }
 
-    // ── PDF homework list (keyboard.html badge style) ───────────────────────────
+    // ── PDF homework list ───────────────────────────────────────────────────────
 
     function hwList(items) {
-      if (!items || !items.length) return `<span style="font-family:var(--font-mono);font-size:11px;color:var(--text-4);">No homework assigned.</span>`;
+      if (!items || !items.length) return `<span style="font-family:var(--font-mono);font-size:12px;color:var(--text-3);">No homework assigned.</span>`;
       return `<ul class="hw-list">${items.map(h => `
         <li><a href="${h.url}" target="_blank">
           <span class="hw-label">${h.label}</span>
@@ -557,48 +593,72 @@
         </a></li>`).join('')}</ul>`;
     }
 
-    // ── Scoreboard ──────────────────────────────────────────────────────────────
+    // ── Scoreboard (weeks + midterm + final pips) ───────────────────────────────
 
-    function buildScoreboard(weeks, currentWeekNum, wAvg) {
+    function buildScoreboard(weeks, currentWeekNum, wAvg, midScore, finScore) {
       const byWeek = {};
       (weeks || []).forEach(w => { byWeek[w.week] = w.grade; });
 
-      const pips = WEEKS_SCHEDULE.map(wn => {
+      const weekPips = WEEKS_SCHEDULE.map(wn => {
         const isCurrent = wn === currentWeekNum;
         const grade = byWeek[wn];
         let cls = 'week-pip__dot';
         let label = '–';
-        if (isCurrent) { cls += ' week-pip__dot--current'; label = '★'; }
-        else if (grade) { cls += ` week-pip__dot${gradeColorClass(grade)}`; label = grade; }
-        else { cls += ' week-pip__dot--pending'; }
+        if (isCurrent)   { cls += ' week-pip__dot--current'; label = '★'; }
+        else if (grade)  { cls += ` week-pip__dot${gradeColorClass(grade)}`; label = grade; }
+        else             { cls += ' week-pip__dot--pending'; }
         return `<div class="week-pip">
           <span class="week-pip__label">W${wn}</span>
           <div class="${cls}">${label}</div>
         </div>`;
       }).join('');
 
-      const scoreHtml = wAvg != null
-        ? `<span class="scoreboard-stat__val">${wAvg}%</span>`
-        : `<span class="scoreboard-stat__val--pending">Pending</span>`;
+      // Midterm pip
+      const midLabel = midScore != null ? midScore : '–';
+      const midCls   = midScore != null ? 'week-pip__dot week-pip__dot--mid' : 'week-pip__dot week-pip__dot--pending';
+      const midPip   = `<div class="week-pip">
+        <span class="week-pip__label">MID</span>
+        <div class="${midCls}" style="width:36px;font-size:10px">${midLabel}</div>
+      </div>`;
+
+      // Final pip
+      const finLabel = finScore != null ? finScore : '–';
+      const finCls   = finScore != null ? 'week-pip__dot week-pip__dot--fin' : 'week-pip__dot week-pip__dot--pending';
+      const finPip   = `<div class="week-pip">
+        <span class="week-pip__label">FIN</span>
+        <div class="${finCls}" style="width:36px;font-size:10px">${finLabel}</div>
+      </div>`;
+
+      // Stats footer
+      function statHtml(label, val, extraCls) {
+        const inner = val != null
+          ? `<span class="scoreboard-stat__val ${extraCls || ''}">${val}${typeof val === 'number' && val <= 100 && label !== 'Weekly avg' ? '' : ''}</span>`
+          : `<span class="scoreboard-stat__val--pending">Pending</span>`;
+        return `<div class="scoreboard-stat">
+          <span class="scoreboard-stat__label">${label}</span>
+          ${inner}
+        </div>`;
+      }
+
+      const wAvgDisplay = wAvg != null ? wAvg + '%' : null;
 
       return `
-        ${pips}
-        <div style="width:100%"></div>
+        ${weekPips}
+        <div class="scoreboard-divider"></div>
+        ${midPip}
+        ${finPip}
         <div class="scoreboard-footer">
-          <div class="scoreboard-stat">
-            <span class="scoreboard-stat__label">Weekly avg</span>
-            ${scoreHtml}
-          </div>
-          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-4);letter-spacing:0.06em;">
-            ★ = current week &nbsp;·&nbsp; grades from completed weeks only
-          </div>
+          ${statHtml('Weekly avg', wAvgDisplay, '')}
+          ${statHtml('Midterm', midScore != null ? midScore + '/100' : null, 'scoreboard-stat__val--mid')}
+          ${statHtml('Final', finScore != null ? finScore + '/100' : null, 'scoreboard-stat__val--fin')}
+          <span class="scoreboard-hint">★ = current week</span>
         </div>`;
     }
 
     // ── Current Week ────────────────────────────────────────────────────────────
 
     function buildCurrentWeek(cw) {
-      if (!cw) return '<p style="font-family:var(--font-mono);font-size:12px;color:var(--text-4);">No current week data.</p>';
+      if (!cw) return '<p style="font-family:var(--font-mono);font-size:13px;color:var(--text-3);">No current week data.</p>';
       const contentItems = Array.isArray(cw.content)
         ? cw.content.map(c => `<li>${c}</li>`).join('')
         : `<li>${cw.content}</li>`;
@@ -621,7 +681,7 @@
     function buildMidterm(m) {
       if (!m) return '';
       const scoreHtml = m.score != null
-        ? `<div class="exam-score-display"><span class="exam-score-display__val">${m.score}</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-4);">/100</span></div>`
+        ? `<div class="exam-score-display"><span class="exam-score-display__val">${m.score}</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-3);">/100</span></div>`
         : `<div class="exam-score-display"><span class="exam-score-display__pending">Pending</span></div>`;
       const techniques = (m.techniques || []).map(t =>
         `<div class="exam-item"><span class="exam-item__dot">·</span>${t}</div>`).join('');
@@ -640,13 +700,22 @@
     function buildFinals(f) {
       if (!f) return '';
       const scoreHtml = f.score != null
-        ? `<div class="exam-score-display"><span class="exam-score-display__val">${f.score}</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-4);">/100</span></div>`
+        ? `<div class="exam-score-display"><span class="exam-score-display__val">${f.score}</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-3);">/100</span></div>`
         : `<div class="exam-score-display"><span class="exam-score-display__pending">Pending</span></div>`;
       const pieces = (f.pieces || []).map(p =>
         `<div class="exam-item"><span class="exam-item__dot">·</span><span>${p.title}<span class="exam-item__key">${p.key}</span></span></div>`).join('');
       const transcription = f.transcription
         ? `<div class="exam-item"><span class="exam-item__dot">·</span><span>${f.transcription.title}</span></div>`
         : '';
+      const repertoire = `
+        <div class="exam-sub-label">Repertoires</div>
+        <div class="exam-item exam-item--rep">
+          <span class="exam-item__dot">·</span>
+          <a href="rep.html" target="_blank">
+            Year 1 / Semester 1 Repertoires
+            <span class="rep-link-badge">View</span>
+          </a>
+        </div>`;
       return `
         <div class="exam-card exam-card--fin">
           <div class="exam-card__heading">FINAL JURY</div>
@@ -654,13 +723,14 @@
           ${scoreHtml}
           <div class="exam-sub-label">Required Pieces</div>${pieces}
           <div class="exam-sub-label">Transcription</div>${transcription}
+          ${repertoire}
         </div>`;
     }
 
     // ── Previous Weeks ──────────────────────────────────────────────────────────
 
     function buildPreviousWeeks(prevWeeks) {
-      if (!prevWeeks || !prevWeeks.length) return '<p style="font-family:var(--font-mono);font-size:12px;color:var(--text-4);">No previous weeks yet.</p>';
+      if (!prevWeeks || !prevWeeks.length) return '<p style="font-family:var(--font-mono);font-size:13px;color:var(--text-3);">No previous weeks yet.</p>';
       return prevWeeks.map(w => {
         const grCls = `prev-week-grade prev-week-grade${gradeColorClass(w.grade)}`;
         const contentItems = Array.isArray(w.content)
@@ -689,7 +759,7 @@
       btn.closest('.prev-week-item').classList.toggle('open');
     }
 
-    // ── Grading section (keyboard.html style) ───────────────────────────────────
+    // ── Grading section ─────────────────────────────────────────────────────────
 
     function buildGrading() {
       return `
@@ -756,13 +826,13 @@
         return;
       }
 
-      // Derive current week from highest week number
       const currentWeek    = getCurrentWeek(data.weeks);
       const currentWeekNum = currentWeek ? currentWeek.week : null;
       const prevWeeks      = getPreviousWeeks(data.weeks, currentWeekNum);
       const wAvg           = weeklyAvg(data.weeks, currentWeekNum);
+      const midScore       = data.midterm?.score ?? null;
+      const finScore       = data.finals?.score ?? null;
 
-      // Update hero
       document.title = `${data.firstName} ${data.lastName} — Jazz Piano`;
       document.getElementById('hero-eyebrow').textContent  = `${data.course} · ${data.semester}`;
       document.getElementById('hero-title').textContent    = `${data.firstName.toUpperCase()} "${data.nickname.toUpperCase()}"`;
@@ -789,9 +859,9 @@
 
         <!-- Scoreboard -->
         <div class="content-section">
-          ${sectionLabel('Lesson Scoreboard')}
+          ${sectionLabel('Scoreboard')}
           <div class="s-card" style="margin-bottom:2.5rem">
-            <div class="scoreboard">${buildScoreboard(data.weeks, currentWeekNum, wAvg)}</div>
+            <div class="scoreboard">${buildScoreboard(data.weeks, currentWeekNum, wAvg, midScore, finScore)}</div>
           </div>
         </div>
 
