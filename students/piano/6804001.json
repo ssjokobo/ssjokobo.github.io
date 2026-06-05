@@ -1,0 +1,124 @@
+{
+  "id": "6804001",
+  "firstName": "Naphat",
+  "lastName": "Trairong",
+  "nickname": "Beam",
+  "course": "MUS128",
+  "semester": "2/2568",
+
+  "weeks": [
+    {
+      "week": 2,
+      "date": "2025-11-12",
+      "title": "Shell Voicings & the Blues Scale",
+      "content": "Introduction to 3rd and 7th shell voicings. C blues scale fingering. Left-hand comp pattern.",
+      "homework": [
+        { "label": "ii–V–I No. 1", "url": "https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no1.pdf" },
+        { "label": "4-note major ii–V–I", "url": "https://sopon.me/v1/jazz-piano/pdf/major251.pdf" }
+      ],
+      "grade": "A",
+      "note": "Good focus. Tempo steady at 72 bpm."
+    },
+    {
+      "week": 3,
+      "date": "2025-11-19",
+      "title": "Rootless Voicings — Major ii–V–I",
+      "content": "4-note rootless voicings in C and F. Voice leading between chords. Hands-separate practice.",
+      "homework": [
+        { "label": "Voice Leading Explanation", "url": "https://sopon.me/v1/jazz-piano/pdf/4-note-voice-leading-explain-major251.pdf" }
+      ],
+      "grade": "B",
+      "note": "Voice leading clean but needs more evenness in right hand."
+    },
+    {
+      "week": 4,
+      "date": "2025-11-26",
+      "title": "Cycle of Fourths Drill",
+      "content": "Applying rootless voicings around the cycle of fourths. Metronome work at 60 bpm.",
+      "homework": [
+        { "label": "Cycle of 4th", "url": "https://sopon.me/v1/jazz-piano/pdf/cycle-of-4th.pdf" }
+      ],
+      "grade": "A",
+      "note": "Excellent. Cycle clean through all 12 keys."
+    },
+    {
+      "week": 5,
+      "date": "2025-12-03",
+      "title": "Minor ii–V–i & Half-Diminished Chords",
+      "content": "Introduction to half-diminished quality. Minor ii–V–i voicings in A minor.",
+      "homework": [
+        { "label": "4-note minor ii–V–i", "url": "https://sopon.me/v1/jazz-piano/pdf/minor251.pdf" },
+        { "label": "Half-dim & minor ii–V–i", "url": "https://sopon.me/v1/jazz-piano/pdf/halfdim-minor251.pdf" }
+      ],
+      "grade": "B",
+      "note": "Half-dim fingering needs more work."
+    },
+    {
+      "week": 6,
+      "date": "2025-12-10",
+      "title": "Quartal Voicings",
+      "content": "Fourth-based chord structures. Applying quartal voicings over modal tunes.",
+      "homework": [
+        { "label": "Quartal Voicings", "url": "https://sopon.me/v1/jazz-piano/pdf/quartal.pdf" }
+      ],
+      "grade": "A",
+      "note": "Creative application over Dorian."
+    },
+    {
+      "week": 7,
+      "date": "2025-12-17",
+      "title": "Pre-Midterm Review",
+      "content": "Full review of all voicing types. Run-through of midterm etude.",
+      "homework": [],
+      "grade": "B",
+      "note": "Etude almost performance-ready."
+    }
+  ],
+
+  "currentWeek": {
+    "week": 10,
+    "date": "2026-01-14",
+    "title": "Upper Structures & Dominant Colors",
+    "content": [
+      "Upper structure triads over dominant 7th chords",
+      "V7♯11 and V7♭9 voicings in context",
+      "Demo: In A Sentimental Mood two-handed arrangement"
+    ],
+    "homework": [
+      { "label": "Upper Structures", "url": "https://sopon.me/v1/jazz-piano/pdf/upperstructures-and-dim.pdf" },
+      { "label": "Solo Piano Demo — In A Sentimental Mood", "url": "https://sopon.me/v1/jazz-piano/pdf/in-a-sentimental-mood_two-handed.pdf" },
+      { "label": "ii–V–I No. 1", "url": "https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no1.pdf" }
+    ]
+  },
+
+  "midterm": {
+    "techniques": [
+      "Rootless voicings — major and minor ii–V–I in all keys",
+      "Shell voicings at 80 bpm with metronome",
+      "Cycle of fourths drill — continuous, no stops"
+    ],
+    "etudes": [
+      { "label": "4-note major ii–V–I", "url": "https://sopon.me/v1/jazz-piano/pdf/major251.pdf" },
+      { "label": "Cycle of 4th", "url": "https://sopon.me/v1/jazz-piano/pdf/cycle-of-4th.pdf" }
+    ],
+    "score": null
+  },
+
+  "finals": {
+    "pieces": [
+      { "title": "Autumn Leaves", "key": "G minor", "note": "A section from memory, full arrangement" },
+      { "title": "Blue Bossa", "key": "C minor / D♭ major", "note": "With bossa groove, no chart" }
+    ],
+    "transcription": {
+      "title": "Bill Evans — Peace Piece (opening 32 bars)",
+      "note": "Transcribe and perform with own interpretation"
+    },
+    "score": null
+  },
+
+  "scores": {
+    "weekly": null,
+    "midterm": null,
+    "final": null
+  }
+}

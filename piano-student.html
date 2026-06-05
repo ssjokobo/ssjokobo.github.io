@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jazz Piano — Student Page</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root { --page-accent: #c77dff; }
+
+    /* ── Layout ── */
+    .student-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 640px) { .student-grid { grid-template-columns: 1fr; } }
+
+    /* ── Cards ── */
+    .s-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .s-card--accent { border-top: 2px solid var(--page-accent); }
+    .s-card--gold   { border-top: 2px solid var(--gold, #f5c842); }
+    .s-card--span   { grid-column: 1 / -1; }
+
+    .s-card__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      margin-bottom: 0.6rem;
+    }
+    .s-card__heading {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .s-card__sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--text-4);
+    }
+
+    /* ── Scoreboard ── */
+    .scoreboard {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .week-pip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .week-pip__label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      color: var(--text-4);
+    }
+    .week-pip__dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--border-2);
+      background: var(--bg-2);
+      color: var(--text-3);
+    }
+    .week-pip__dot--A  { background: rgba(74,222,128,.12); border-color: #4ade80; color: #4ade80; }
+    .week-pip__dot--B  { background: rgba(199,125,255,.12); border-color: var(--page-accent); color: var(--page-accent); }
+    .week-pip__dot--C  { background: rgba(251,191,36,.12); border-color: #fbbf24; color: #fbbf24; }
+    .week-pip__dot--D  { background: rgba(251,146,60,.12); border-color: #fb923c; color: #fb923c; }
+    .week-pip__dot--F  { background: rgba(248,113,113,.12); border-color: #f87171; color: #f87171; }
+    .week-pip__dot--current {
+      background: rgba(199,125,255,.18);
+      border-color: var(--page-accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--page-accent) 30%, transparent);
+      color: var(--page-accent);
+    }
+    .week-pip__dot--pending { color: var(--text-4); }
+
+    /* ── Current Week ── */
+    .current-week-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--page-accent);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .cw-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .cw-week-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--page-accent);
+      background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .cw-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+    .cw-date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-4);
+      margin-left: auto;
+    }
+
+    .cw-section-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 0.6rem;
+      margin-top: 1.25rem;
+    }
+    .cw-content-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .cw-content-list li {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-2, #ccc);
+      padding: 5px 0 5px 1rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+      line-height: 1.5;
+      position: relative;
+    }
+    .cw-content-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--page-accent);
+    }
+    .cw-content-list li:last-child { border-bottom: none; }
+
+    /* ── Homework list ── */
+    .hw-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .hw-list li a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 9px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .hw-list li:last-child a { border-bottom: none; }
+    .hw-list li a:hover .hw-label { color: var(--page-accent); }
+    .hw-icon {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--page-accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+    .hw-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-2, #ccc);
+      flex: 1;
+      transition: color 0.15s;
+    }
+    .hw-badge {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      color: var(--page-accent);
+      opacity: 0.45;
+    }
+
+    /* ── Midterm / Final panels ── */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 640px) { .exam-grid { grid-template-columns: 1fr; } }
+
+    .exam-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .exam-card--mid  { border-top: 2px solid #fbbf24; }
+    .exam-card--fin  { border-top: 2px solid #f87171; }
+
+    .exam-card__heading {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 1.5px;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .exam-card__weight {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-4);
+      margin-bottom: 1.25rem;
+    }
+    .exam-score-display {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 1.25rem;
+    }
+    .exam-score-display__val {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: var(--page-accent);
+    }
+    .exam-score-display__pending {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-4);
+    }
+
+    .exam-sub-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin: 1rem 0 0.5rem;
+    }
+    .exam-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 6px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      color: var(--text-2, #ccc);
+      line-height: 1.5;
+    }
+    .exam-item:last-child { border-bottom: none; }
+    .exam-item__dot { color: var(--page-accent); flex-shrink: 0; margin-top: 1px; }
+    .exam-item a { color: inherit; text-decoration: none; transition: color 0.15s; }
+    .exam-item a:hover { color: var(--page-accent); }
+    .exam-item__key {
+      font-size: 9px;
+      color: var(--text-4);
+      margin-left: 4px;
+    }
+
+    /* ── Previous Weeks ── */
+    .prev-weeks { margin-bottom: 2.5rem; }
+
+    .prev-week-item {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .prev-week-toggle {
+      width: 100%;
+      background: var(--bg-1);
+      border: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .prev-week-toggle:hover { background: var(--bg-2); }
+    .prev-week-toggle__week {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      width: 48px;
+      flex-shrink: 0;
+    }
+    .prev-week-toggle__title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-2, #ccc);
+      flex: 1;
+    }
+    .prev-week-toggle__date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-4);
+      flex-shrink: 0;
+    }
+    .prev-week-grade {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .prev-week-grade--A { color: #4ade80; }
+    .prev-week-grade--B { color: var(--page-accent); }
+    .prev-week-grade--C { color: #fbbf24; }
+    .prev-week-grade--D { color: #fb923c; }
+    .prev-week-grade--F { color: #f87171; }
+
+    .prev-week-chevron {
+      font-size: 10px;
+      color: var(--text-4);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .prev-week-item.open .prev-week-chevron { transform: rotate(180deg); }
+
+    .prev-week-body {
+      display: none;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .prev-week-item.open .prev-week-body { display: block; }
+
+    .prev-body-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin: 0.75rem 0 0.4rem;
+    }
+    .prev-body-label:first-child { margin-top: 0; }
+    .prev-body-note {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--text-2, #ccc);
+      line-height: 1.6;
+      padding: 8px 10px;
+      background: var(--bg-1);
+      border-radius: 5px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── Score Summary ── */
+    .score-summary {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .score-summary__heading {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .score-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .score-bar {
+      display: grid;
+      grid-template-columns: 120px 1fr 40px;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .score-bar__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+    .score-bar__track {
+      height: 4px;
+      background: var(--bg-2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .score-bar__fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.8s ease;
+    }
+    .score-bar__fill--weekly  { background: var(--page-accent); }
+    .score-bar__fill--midterm { background: #fbbf24; }
+    .score-bar__fill--final   { background: #f87171; }
+    .score-bar__val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-2, #ccc);
+      text-align: right;
+    }
+
+    /* ── Grading Criteria ── */
+    .grading-table {
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+    .grading-table__heading {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 0.75rem;
+    }
+    .grade-rows { display: flex; flex-direction: column; gap: 4px; }
+    .grade-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 7px 10px;
+      border-radius: 5px;
+      background: var(--bg-2);
+    }
+    .grade-row__letter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      width: 14px;
+      flex-shrink: 0;
+    }
+    .grade-row__range {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--text-4);
+      width: 70px;
+      flex-shrink: 0;
+    }
+    .grade-row__desc {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      color: var(--text-3);
+    }
+    .grade-row--A .grade-row__letter { color: #4ade80; }
+    .grade-row--B .grade-row__letter { color: var(--page-accent); }
+    .grade-row--C .grade-row__letter { color: #fbbf24; }
+    .grade-row--D .grade-row__letter { color: #fb923c; }
+    .grade-row--F .grade-row__letter { color: #f87171; }
+
+    /* ── Loading / Error ── */
+    .page-state {
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--text-4);
+    }
+    .page-state--error { color: #ff6b6b; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav__logo" href="index.html">SOPON <span>·</span> RSU</a>
+    <ul class="nav__links">
+      <li><a href="keyboard.html">Keyboard</a></li>
+      <li><a href="piano.html">Piano</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="advising.html">Advising</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a class="nav__contact" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero__inner">
+      <a class="page-hero__back" href="piano.html">← Piano</a>
+      <div class="page-hero__eyebrow" id="hero-eyebrow">Private Lessons</div>
+      <h1 class="page-hero__title" id="hero-title">JAZZ PIANO</h1>
+      <div class="page-hero__subtitle" id="hero-subtitle">Loading student data…</div>
+    </div>
+  </div>
+
+  <main class="page-content" id="main-content">
+    <div class="page-state" id="loading-state">Loading…</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__logo">SOPON SUWANNAKIT</div>
+    <a class="footer__email" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+    <div class="footer__copy">© 2025 · Rangsit University</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ── Helpers ────────────────────────────────────────────────────────────────
+
+    const WEEKS_SCHEDULE = [2,3,4,5,6,7,10,11,12,13,14,15,16]; // lesson weeks
+
+    function gradeColor(g) {
+      const map = { A:'--A', B:'--B', C:'--C', D:'--D', F:'--F' };
+      return map[g] || '';
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+    }
+
+    function hwList(items) {
+      if (!items || !items.length) return '<span style="font-family:var(--font-mono);font-size:11px;color:var(--text-4);">No homework assigned.</span>';
+      return `<ul class="hw-list">${items.map(h => `
+        <li><a href="${h.url}" target="_blank">
+          <span class="hw-icon">↓</span>
+          <span class="hw-label">${h.label}</span>
+          <span class="hw-badge">PDF</span>
+        </a></li>`).join('')}</ul>`;
+    }
+
+    // ── Scoreboard ─────────────────────────────────────────────────────────────
+
+    function buildScoreboard(weeks, currentWeek) {
+      const graded = {};
+      (weeks || []).forEach(w => { graded[w.week] = w.grade; });
+
+      return WEEKS_SCHEDULE.map(wn => {
+        const isCurrent = currentWeek && currentWeek.week === wn;
+        const grade = graded[wn];
+        let cls = 'week-pip__dot';
+        let label = '–';
+        if (isCurrent) { cls += ' week-pip__dot--current'; label = '★'; }
+        else if (grade) { cls += ` week-pip__dot${gradeColor(grade)}`; label = grade; }
+        else { cls += ' week-pip__dot--pending'; }
+        return `<div class="week-pip">
+          <span class="week-pip__label">W${wn}</span>
+          <div class="${cls}">${label}</div>
+        </div>`;
+      }).join('');
+    }
+
+    // ── Current Week ───────────────────────────────────────────────────────────
+
+    function buildCurrentWeek(cw) {
+      if (!cw) return '<p style="font-family:var(--font-mono);font-size:12px;color:var(--text-4);">No current week data.</p>';
+      const contentItems = Array.isArray(cw.content)
+        ? cw.content.map(c => `<li>${c}</li>`).join('')
+        : `<li>${cw.content}</li>`;
+      return `
+        <div class="current-week-card">
+          <div class="cw-header">
+            <span class="cw-week-badge">Week ${cw.week}</span>
+            <span class="cw-title">${cw.title}</span>
+            <span class="cw-date">${formatDate(cw.date)}</span>
+          </div>
+          <div class="cw-section-label">Content</div>
+          <ul class="cw-content-list">${contentItems}</ul>
+          <div class="cw-section-label">Homework</div>
+          ${hwList(cw.homework)}
+        </div>`;
+    }
+
+    // ── Midterm & Final ────────────────────────────────────────────────────────
+
+    function buildMidterm(m) {
+      if (!m) return '';
+      const scoreHtml = m.score != null
+        ? `<div class="exam-score-display"><span class="exam-score-display__val">${m.score}</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-4);">/100</span></div>`
+        : `<div class="exam-score-display"><span class="exam-score-display__pending">Pending</span></div>`;
+      const techniques = (m.techniques || []).map(t =>
+        `<div class="exam-item"><span class="exam-item__dot">·</span>${t}</div>`).join('');
+      const etudes = (m.etudes || []).map(e =>
+        `<div class="exam-item"><span class="exam-item__dot">·</span><a href="${e.url}" target="_blank">${e.label}</a></div>`).join('');
+      return `
+        <div class="exam-card exam-card--mid">
+          <div class="exam-card__heading">MIDTERM</div>
+          <div class="exam-card__weight">20% of final grade</div>
+          ${scoreHtml}
+          <div class="exam-sub-label">Techniques</div>${techniques}
+          <div class="exam-sub-label">Etudes</div>${etudes}
+        </div>`;
+    }
+
+    function buildFinals(f) {
+      if (!f) return '';
+      const scoreHtml = f.score != null
+        ? `<div class="exam-score-display"><span class="exam-score-display__val">${f.score}</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-4);">/100</span></div>`
+        : `<div class="exam-score-display"><span class="exam-score-display__pending">Pending</span></div>`;
+      const pieces = (f.pieces || []).map(p =>
+        `<div class="exam-item"><span class="exam-item__dot">·</span><span>${p.title}<span class="exam-item__key">${p.key}</span></span></div>`).join('');
+      const transcription = f.transcription
+        ? `<div class="exam-item"><span class="exam-item__dot">·</span><span>${f.transcription.title}</span></div>`
+        : '';
+      return `
+        <div class="exam-card exam-card--fin">
+          <div class="exam-card__heading">FINAL</div>
+          <div class="exam-card__weight">30% of final grade</div>
+          ${scoreHtml}
+          <div class="exam-sub-label">Required Pieces</div>${pieces}
+          <div class="exam-sub-label">Transcription</div>${transcription}
+        </div>`;
+    }
+
+    // ── Previous Weeks ─────────────────────────────────────────────────────────
+
+    function buildPreviousWeeks(weeks) {
+      if (!weeks || !weeks.length) return '<p style="font-family:var(--font-mono);font-size:12px;color:var(--text-4);">No previous weeks yet.</p>';
+      const sorted = [...weeks].sort((a, b) => b.week - a.week);
+      return sorted.map(w => {
+        const grCls = `prev-week-grade prev-week-grade${gradeColor(w.grade)}`;
+        return `
+          <div class="prev-week-item">
+            <button class="prev-week-toggle" onclick="toggleWeek(this)">
+              <span class="prev-week-toggle__week">Wk ${w.week}</span>
+              <span class="prev-week-toggle__title">${w.title}</span>
+              <span class="prev-week-toggle__date">${formatDate(w.date)}</span>
+              <span class="${grCls}">${w.grade || '–'}</span>
+              <span class="prev-week-chevron">▾</span>
+            </button>
+            <div class="prev-week-body">
+              <div class="prev-body-label">Content</div>
+              <div class="prev-body-note">${w.content}</div>
+              ${w.homework && w.homework.length ? `<div class="prev-body-label">Homework</div>${hwList(w.homework)}` : ''}
+              ${w.note ? `<div class="prev-body-label">Instructor Note</div><div class="prev-body-note">${w.note}</div>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function toggleWeek(btn) {
+      btn.closest('.prev-week-item').classList.toggle('open');
+    }
+
+    // ── Score Summary & Grading ────────────────────────────────────────────────
+
+    function weeklyAvg(weeks) {
+      const graded = (weeks || []).filter(w => w.grade);
+      if (!graded.length) return null;
+      const map = { A:100, B:80, C:70, D:60, F:0 };
+      const avg = graded.reduce((s, w) => s + (map[w.grade] || 0), 0) / graded.length;
+      return Math.round(avg);
+    }
+
+    function buildScoreSummary(data) {
+      const wAvg = weeklyAvg(data.weeks);
+      const mid  = data.scores?.midterm ?? null;
+      const fin  = data.scores?.final ?? null;
+
+      function barVal(val, weight) {
+        if (val == null) return { display: 'Pending', fill: 0 };
+        return { display: `${Math.round(val * weight / 100)} / ${weight}`, fill: val };
+      }
+      const wBar  = barVal(wAvg, 50);
+      const mBar  = barVal(mid,  20);
+      const fBar  = barVal(fin,  30);
+
+      return `
+        <div class="score-summary">
+          <div class="score-summary__heading">SCORE OVERVIEW</div>
+          <div class="score-bars">
+            <div class="score-bar">
+              <span class="score-bar__label">Weekly Lessons <span style="color:var(--text-4)">(50%)</span></span>
+              <div class="score-bar__track"><div class="score-bar__fill score-bar__fill--weekly" style="width:${wBar.fill}%"></div></div>
+              <span class="score-bar__val">${wBar.display}</span>
+            </div>
+            <div class="score-bar">
+              <span class="score-bar__label">Midterm <span style="color:var(--text-4)">(20%)</span></span>
+              <div class="score-bar__track"><div class="score-bar__fill score-bar__fill--midterm" style="width:${mBar.fill}%"></div></div>
+              <span class="score-bar__val">${mBar.display}</span>
+            </div>
+            <div class="score-bar">
+              <span class="score-bar__label">Final <span style="color:var(--text-4)">(30%)</span></span>
+              <div class="score-bar__track"><div class="score-bar__fill score-bar__fill--final" style="width:${fBar.fill}%"></div></div>
+              <span class="score-bar__val">${fBar.display}</span>
+            </div>
+          </div>
+          <div class="grading-table">
+            <div class="grading-table__heading">Grading Criteria</div>
+            <div class="grade-rows">
+              <div class="grade-row grade-row--A"><span class="grade-row__letter">A</span><span class="grade-row__range">90–100</span><span class="grade-row__desc">Exceptional — performance-ready with personal voice</span></div>
+              <div class="grade-row grade-row--B"><span class="grade-row__letter">B</span><span class="grade-row__range">80–89</span><span class="grade-row__desc">Proficient — consistent accuracy with minor errors</span></div>
+              <div class="grade-row grade-row--C"><span class="grade-row__letter">C</span><span class="grade-row__range">70–79</span><span class="grade-row__desc">Satisfactory — material covered, needs refinement</span></div>
+              <div class="grade-row grade-row--D"><span class="grade-row__letter">D</span><span class="grade-row__range">60–69</span><span class="grade-row__desc">Marginal — incomplete preparation, significant errors</span></div>
+              <div class="grade-row grade-row--F"><span class="grade-row__letter">F</span><span class="grade-row__range">0–59</span><span class="grade-row__desc">Not yet meeting minimum standard</span></div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // ── Section Label Helper ───────────────────────────────────────────────────
+
+    function sectionLabel(text) {
+      return `<div class="section__label" style="margin-bottom:1.25rem">${text}</div>`;
+    }
+
+    // ── Main Render ────────────────────────────────────────────────────────────
+
+    async function loadStudent() {
+      // Resolve student ID: URL param ?id=XXXXXXX or path like /piano/6804001
+      const params = new URLSearchParams(window.location.search);
+      let studentId = params.get('id');
+      if (!studentId) {
+        const parts = window.location.pathname.split('/').filter(Boolean);
+        studentId = parts[parts.length - 1].replace('.html', '');
+      }
+
+      const main = document.getElementById('main-content');
+      const loading = document.getElementById('loading-state');
+
+      if (!studentId || !/^\d{7}$/.test(studentId)) {
+        loading.textContent = 'No valid student ID found.';
+        loading.classList.add('page-state--error');
+        return;
+      }
+
+      let data;
+      try {
+        // Fetch: supports both same-origin JSON and absolute URL
+        const res = await fetch(`students/piano/${studentId}.json`);
+        if (!res.ok) throw new Error(`${res.status}`);
+        data = await res.json();
+      } catch (err) {
+        loading.textContent = `Could not load data for student ${studentId}. (${err.message})`;
+        loading.classList.add('page-state--error');
+        return;
+      }
+
+      // Update hero
+      document.title = `${data.firstName} ${data.lastName} — Jazz Piano`;
+      document.getElementById('hero-eyebrow').textContent = `${data.course} · ${data.semester}`;
+      document.getElementById('hero-title').textContent   = `${data.firstName.toUpperCase()} "${data.nickname.toUpperCase()}"`;
+      document.getElementById('hero-subtitle').textContent = `${data.firstName} ${data.lastName} · ID ${data.id}`;
+
+      // Build page HTML
+      main.innerHTML = `
+
+        <!-- Basic Info + Scoreboard -->
+        <div class="content-section">
+          ${sectionLabel('Student Info')}
+          <div class="student-grid">
+            <div class="s-card s-card--accent">
+              <div class="s-card__eyebrow">Enrolled</div>
+              <div class="s-card__heading">${data.course}</div>
+              <div class="s-card__sub">${data.semester}</div>
+            </div>
+            <div class="s-card">
+              <div class="s-card__eyebrow">Student ID</div>
+              <div class="s-card__heading" style="font-size:1.3rem;letter-spacing:3px">${data.id}</div>
+              <div class="s-card__sub">${data.firstName} ${data.lastName} · ${data.nickname}</div>
+            </div>
+          </div>
+
+          ${sectionLabel('Lesson Scoreboard')}
+          <div class="s-card" style="margin-bottom:2.5rem">
+            <div class="s-card__eyebrow" style="margin-bottom:1rem">Weeks 2–7 · 10–16 &nbsp;|&nbsp; ★ = current week</div>
+            <div class="scoreboard">${buildScoreboard(data.weeks, data.currentWeek)}</div>
+          </div>
+        </div>
+
+        <!-- Current Week -->
+        <div class="content-section">
+          ${sectionLabel('Current Week')}
+          ${buildCurrentWeek(data.currentWeek)}
+        </div>
+
+        <!-- Midterm & Final -->
+        <div class="content-section">
+          ${sectionLabel('Examinations')}
+          <div class="exam-grid">
+            ${buildMidterm(data.midterm)}
+            ${buildFinals(data.finals)}
+          </div>
+        </div>
+
+        <!-- Previous Weeks -->
+        <div class="content-section">
+          ${sectionLabel('Previous Weeks')}
+          <div class="prev-weeks">${buildPreviousWeeks(data.weeks)}</div>
+        </div>
+
+        <!-- Score Summary + Grading -->
+        <div class="content-section">
+          ${buildScoreSummary(data)}
+        </div>
+      `;
+
+      // Animate score bars after render
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.score-bar__fill').forEach(el => {
+          const target = el.style.width;
+          el.style.width = '0%';
+          requestAnimationFrame(() => { el.style.width = target; });
+        });
+      });
+    }
+
+    loadStudent();
+  </script>
+</body>
+</html>

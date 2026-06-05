@@ -6,6 +6,180 @@
   <title>Jazz Piano — Sopon Suwannakit</title>
   <link rel="stylesheet" href="css/style.css">
   <style>:root { --page-accent: #c77dff; }</style>
+  <style>
+    /* ── Student Lookup ── */
+    .piano-lookup-wrap {
+      max-width: 480px;
+      margin: 0 auto 3rem;
+    }
+
+    .piano-lookup-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--page-accent);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+    }
+
+    .piano-lookup-card__heading {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .piano-lookup-card__sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-4);
+      margin-bottom: 2rem;
+    }
+
+    .piano-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .piano-input {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+
+    .piano-input::placeholder {
+      color: var(--text-4);
+      letter-spacing: 0.08em;
+    }
+
+    .piano-input:focus {
+      border-color: var(--page-accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-accent) 15%, transparent);
+    }
+
+    .piano-btn {
+      width: 100%;
+      background: var(--page-accent);
+      color: #0d0d0d;
+      border: none;
+      border-radius: 6px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .piano-btn:hover { opacity: 0.82; }
+    .piano-btn:active { opacity: 0.7; }
+
+    .piano-error {
+      display: none;
+      margin-top: 1rem;
+      padding: 12px 16px;
+      background: rgba(255, 107, 107, 0.08);
+      border: 1px solid rgba(255, 107, 107, 0.25);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #ff6b6b;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+
+    .piano-hint {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-4);
+      letter-spacing: 0.06em;
+      line-height: 1.8;
+    }
+
+    /* ── Resources ── */
+    .resources-group {
+      margin-bottom: 2.5rem;
+    }
+
+    .resources-group__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 11px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .resource-item:last-child {
+      border-bottom: none;
+    }
+
+    .resource-item:hover .resource-item__title {
+      color: var(--page-accent);
+    }
+
+    .resource-item__icon {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--page-accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+      width: 20px;
+      text-align: center;
+    }
+
+    .resource-item__title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--text-2, #ccc);
+      transition: color 0.15s;
+      flex: 1;
+    }
+
+    .resource-item__badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--page-accent);
+      opacity: 0.55;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -27,75 +201,120 @@
       <a class="page-hero__back" href="index.html">← Back</a>
       <div class="page-hero__eyebrow">Private Lessons</div>
       <h1 class="page-hero__title">JAZZ PIANO</h1>
-      <div class="page-hero__subtitle">Rangsit University · 2026</div>
+      <div class="page-hero__subtitle">One-on-one instruction · Rangsit University · 2025</div>
     </div>
   </div>
 
   <main class="page-content">
 
-    <div class="announcements" style="padding:0 0 2rem;">
-      <div class="announcements__label">Course Announcements</div>
-      <div class="announcement-card">
-        <div class="announcement-card__date">16 May 2026</div>
-        <div class="announcement-card__body">
-          <span class="announcement-card__tag announcement-card__tag--urgent">New</span>
-          <div class="announcement-card__text">See you in August 2026!</div>
+    <!-- Student Lookup -->
+    <div class="piano-lookup-wrap">
+      <div class="piano-lookup-card">
+        <div class="piano-lookup-card__heading">YOUR PAGE</div>
+        <div class="piano-lookup-card__sub">Enter student ID · Opens your study page</div>
+
+        <label class="piano-label" for="student-id">Student ID</label>
+        <input
+          class="piano-input"
+          type="text"
+          id="student-id"
+          placeholder="e.g. 6804001"
+          maxlength="7"
+          autocomplete="off"
+          spellcheck="false"
+        >
+
+        <button class="piano-btn" id="lookup-btn">Go to My Page →</button>
+
+        <div class="piano-error" id="piano-error"></div>
+
+        <div class="piano-hint">
+          Your personal study page will open in a new tab.<br>
+          Contact <a href="mailto:sopon.s@rsu.ac.th" style="color:var(--gold)">sopon.s@rsu.ac.th</a> if your page is not available yet.
         </div>
       </div>
-    </div>    
-<!--
-    <div class="content-section">
-      <div class="section__label" style="margin-bottom:1rem">Score Updates</div>
-      <div class="item-card">
-        <a href="media/piano-score.pdf" target="_blank">
-          <div class="item-card__num">↓</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Jazz Piano — Score Sheet</div>
-            <div class="item-card__meta">Progress and evaluation notes · Updated Apr 25, 2025</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
+    </div>
+
+    <!-- Resources -->
+    <div class="content-section" style="margin-top:1rem">
+      <div class="section__label" style="margin-bottom:1.5rem">Jazz Piano Resources</div>
+
+      <div class="resources-group">
+        <div class="resources-group__label">Chord Voicings</div>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/4-note-voice-leading-explain-major251.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">Voice Leading Explanation for 4-note major ii–V–I</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/major251.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">4-note major ii<sup>m7</sup>–V<sup>7</sup>–I</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/halfdim-minor251.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">4-note half-dim and minor ii<sup>m7♭5</sup>–V<sup>7</sup>–i<sup>m</sup></span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/minor251.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">4-note minor ii<sup>m7♭5</sup>–V<sup>7</sup>–i<sup>m</sup></span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/quartal.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">Quartal Voicings</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/upperstructures-and-dim.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">Upper Structures</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/in-a-sentimental-mood_two-handed.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">Solo Piano Demo — In A Sentimental Mood</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+      </div>
+
+      <div class="resources-group">
+        <div class="resources-group__label">Patterns and Licks</div>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/cycle-of-4th.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">Cycle of 4th</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no1.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">ii–V–I No. 1</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no2.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">ii–V–I No. 2</span>
+          <span class="resource-item__badge">PDF</span>
+        </a>
+
+        <a class="resource-item" href="https://sopon.me/v1/jazz-piano/pdf/ii-V-I-pattern-no3.pdf" target="_blank">
+          <span class="resource-item__icon">↓</span>
+          <span class="resource-item__title">ii–V–I No. 3</span>
+          <span class="resource-item__badge">PDF</span>
         </a>
       </div>
     </div>
 
-    <div class="content-section" style="margin-top:3rem">
-      <div class="content-section__label">Current Repertoire &amp; Materials</div>
-
-      <div class="item-card">
-        <a href="media/piano-autumn-leaves.pdf" target="_blank">
-          <div class="item-card__num">01</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Autumn Leaves — Lead Sheet &amp; Chord Study</div>
-            <div class="item-card__meta">Standard · G minor · Includes rootless voicings</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-
-      <div class="item-card">
-        <a href="media/piano-all-the-things.pdf" target="_blank">
-          <div class="item-card__num">02</div>
-          <div class="item-card__info">
-            <div class="item-card__title">All The Things You Are — Analysis &amp; Voicings</div>
-            <div class="item-card__meta">Standard · A♭ major · Chord substitutions included</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-
-      <div class="item-card">
-        <a href="media/piano-blue-bossa.pdf" target="_blank">
-          <div class="item-card__num">03</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Blue Bossa — Latin Jazz Study</div>
-            <div class="item-card__meta">Standard · C minor / D♭ major · Bossa groove</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
-      </div>
-
-    </div>
-
+    <!-- Practice Notes -->
     <div class="content-section" style="margin-top:3rem">
       <div class="content-section__label">Practice Notes</div>
 
@@ -121,7 +340,7 @@
       </div>
 
     </div>
--->
+
   </main>
 
   <footer class="footer">
@@ -131,5 +350,36 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    const input = document.getElementById('student-id');
+    const btn   = document.getElementById('lookup-btn');
+    const error = document.getElementById('piano-error');
+
+    function lookup() {
+      const id = input.value.trim();
+      error.style.display = 'none';
+
+      if (!id) {
+        error.textContent = 'Please enter your 7-digit student ID.';
+        error.style.display = 'block';
+        input.focus();
+        return;
+      }
+
+      if (!/^\d{7}$/.test(id)) {
+        error.textContent = 'Please enter a valid 7-digit student ID.';
+        error.style.display = 'block';
+        input.focus();
+        return;
+      }
+
+      const url = 'https://sopon.me/piano-student.html?id=' + encodeURIComponent(id);
+      window.open(url, '_blank');
+    }
+
+    btn.addEventListener('click', lookup);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') lookup(); });
+    input.addEventListener('input', () => { error.style.display = 'none'; });
+  </script>
 </body>
 </html>
