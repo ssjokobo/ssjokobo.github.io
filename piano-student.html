@@ -581,16 +581,23 @@
       const transcription = f.transcription
         ? `<div class="exam-item"><span class="exam-item__dot">·</span><span>${f.transcription.title}</span></div>`
         : '';
+      const repYear = f.repertoireYear || '1/1';
+      const repLabel = f.repertoireResult != null
+        ? (f.repertoireResult ? 'Repertoires: PASS' : 'Repertoires: FAIL')
+        : 'Repertoires: Not yet evaluated';
+      const repCls = f.repertoireResult != null
+        ? (f.repertoireResult ? 'pass' : 'fail')
+        : 'pending';
       const repertoire = `
         <div class="exam-sub-label">Repertoires</div>
         <div class="exam-item exam-item--rep">
           <span class="exam-item__dot">·</span>
-          <a href="rep.html" target="_blank">
-            Year 1 / Semester 1 Repertoires
+          <a href="rep.html?year=${encodeURIComponent(repYear)}" target="_blank">
+            Year ${repYear} Repertoires
             <span class="rep-link-badge">View</span>
           </a>
         </div>
-        ${f.repertoireResult != null ? `<div class="rep-result rep-result--${f.repertoireResult ? 'pass' : 'fail'}">${f.repertoireResult ? 'PASS' : 'FAIL'}</div>` : `<div class="rep-result rep-result--pending">Not yet evaluated</div>`}`;
+        <div class="rep-result rep-result--${repCls}">${repLabel}</div>`;
       return `
         <div class="exam-card exam-card--fin">
           <div class="exam-card__heading">FINAL JURY</div>
