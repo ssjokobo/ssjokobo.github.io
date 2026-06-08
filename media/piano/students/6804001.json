@@ -102,7 +102,7 @@
       { "label": "4-note major ii–V–I", "url": "https://sopon.me/v1/jazz-piano/pdf/major251.pdf" },
       { "label": "Cycle of 4th", "url": "https://sopon.me/v1/jazz-piano/pdf/cycle-of-4th.pdf" }
     ],
-    "score": null
+    "score": 35
   },
 
   "finals": {
@@ -115,8 +115,8 @@
       "note": "Transcribe and perform with own interpretation"
     },
     "repertoireYear": "1/1",
-    "repertoireResult": null,
-    "score": null
+    "repertoireResult": true,
+    "score": 100
   }
 
 }
