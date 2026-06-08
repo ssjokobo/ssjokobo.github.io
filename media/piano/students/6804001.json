@@ -102,7 +102,7 @@
       { "label": "4-note major ii–V–I", "url": "https://sopon.me/v1/jazz-piano/pdf/major251.pdf" },
       { "label": "Cycle of 4th", "url": "https://sopon.me/v1/jazz-piano/pdf/cycle-of-4th.pdf" }
     ],
-    "score": null
+    "score": "A"
   },
 
   "finals": {
@@ -114,7 +114,7 @@
       "title": "Bill Evans — Peace Piece (opening 32 bars)",
       "note": "Transcribe and perform with own interpretation"
     },
-    "score": null
+    "score": "75%"
   }
 
 }

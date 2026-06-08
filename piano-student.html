@@ -193,7 +193,8 @@
     .jury-result {
       border-radius: 8px;
       padding: 1rem 1.25rem;
-      margin-bottom: 1.25rem;
+      margin-top: 1.25rem;
+      margin-bottom: 0;
       border: 1px solid var(--border);
     }
     .jury-result--mid  { background: rgba(251,191,36,.08);  border-color: rgba(251,191,36,.3); }
@@ -545,9 +546,9 @@
         <div class="exam-card exam-card--mid">
           <div class="exam-card__heading">MIDTERM JURY</div>
           <div class="exam-card__weight">20% of final grade</div>
-          ${scoreHtml}
           <div class="exam-sub-label">Techniques</div>${techniques}
           <div class="exam-sub-label">Etudes</div>${etudes}
+          ${scoreHtml}
         </div>`;
     }
 
@@ -579,10 +580,10 @@
         <div class="exam-card exam-card--fin">
           <div class="exam-card__heading">FINAL JURY</div>
           <div class="exam-card__weight">30% of final grade</div>
-          ${scoreHtml}
           <div class="exam-sub-label">Required Pieces</div>${pieces}
           <div class="exam-sub-label">Transcription</div>${transcription}
           ${repertoire}
+          ${scoreHtml}
         </div>`;
     }
 
