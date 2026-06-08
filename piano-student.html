@@ -47,107 +47,6 @@
       color: var(--text-2);
     }
 
-    /* ── Scoreboard ── */
-    .scoreboard {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-    .week-pip {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .week-pip__label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.08em;
-      color: var(--text-3);
-    }
-    .week-pip__dot {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      border: 1px solid var(--border-2);
-      background: var(--bg-2);
-      color: var(--text-3);
-    }
-    .week-pip__dot--A       { background: rgba(74,222,128,.15);  border-color: #4ade80;           color: #4ade80; }
-    .week-pip__dot--B       { background: rgba(199,125,255,.15); border-color: var(--page-accent); color: var(--page-accent); }
-    .week-pip__dot--C       { background: rgba(251,191,36,.15);  border-color: #fbbf24;           color: #fbbf24; }
-    .week-pip__dot--D       { background: rgba(251,146,60,.15);  border-color: #fb923c;           color: #fb923c; }
-    .week-pip__dot--F       { background: rgba(248,113,113,.15); border-color: #f87171;           color: #f87171; }
-    .week-pip__dot--mid     { background: rgba(251,191,36,.15);  border-color: #fbbf24;           color: #fbbf24; }
-    .week-pip__dot--fin     { background: rgba(248,113,113,.15); border-color: #f87171;           color: #f87171; }
-    .week-pip__dot--current {
-      background: rgba(199,125,255,.2);
-      border-color: var(--page-accent);
-      box-shadow: 0 0 0 2px color-mix(in srgb, var(--page-accent) 30%, transparent);
-      color: var(--page-accent);
-    }
-    .week-pip__dot--pending { color: var(--text-4); }
-
-    .scoreboard-divider {
-      width: 1px;
-      height: 44px;
-      background: var(--border);
-      align-self: flex-end;
-      margin: 0 0.25rem;
-      flex-shrink: 0;
-    }
-
-    .scoreboard-footer {
-      width: 100%;
-      margin-top: 1.25rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .scoreboard-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .scoreboard-stat__label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-3);
-    }
-    .scoreboard-stat__val {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      letter-spacing: 1px;
-      color: var(--page-accent);
-    }
-    .scoreboard-stat__val--mid  { color: #fbbf24; }
-    .scoreboard-stat__val--fin  { color: #f87171; }
-    .scoreboard-stat__val--pending {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-4);
-      letter-spacing: 0.06em;
-    }
-    .scoreboard-hint {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-3);
-      letter-spacing: 0.04em;
-      margin-left: auto;
-    }
-
     /* ── Current Week ── */
     .current-week-card {
       background: var(--bg-1);
@@ -290,23 +189,45 @@
       color: var(--text-3);
       margin-bottom: 1.25rem;
     }
-    .exam-score-display {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 4px;
+    /* ── Score result block ── */
+    .jury-result {
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
       margin-bottom: 1.25rem;
+      border: 1px solid var(--border);
     }
-    .exam-score-display__val {
+    .jury-result--mid  { background: rgba(251,191,36,.08);  border-color: rgba(251,191,36,.3); }
+    .jury-result--fin  { background: rgba(248,113,113,.08); border-color: rgba(248,113,113,.3); }
+    .jury-result--pending { background: var(--bg-2); }
+    .jury-result__num {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 2.8rem;
       letter-spacing: 2px;
-      color: var(--page-accent);
+      color: #fff;
+      line-height: 1;
     }
-    .exam-score-display__pending {
+    .jury-result--mid .jury-result__num { color: #fbbf24; }
+    .jury-result--fin .jury-result__num { color: #f87171; }
+    .jury-result__denom {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+      margin-left: 4px;
+    }
+    .jury-result__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 4px;
+    }
+    .jury-result__pending {
       font-family: var(--font-mono);
       font-size: 12px;
       letter-spacing: 0.1em;
-      color: var(--text-3);
+      color: var(--text-4);
     }
     .exam-sub-label {
       font-family: var(--font-mono);
@@ -546,14 +467,11 @@
   <footer class="footer">
     <div class="footer__logo">SOPON SUWANNAKIT</div>
     <a class="footer__email" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
-    <div class="footer__copy">© 2026 · Rangsit University</div>
+    <div class="footer__copy">© 2025 · Rangsit University</div>
   </footer>
 
   <script src="js/main.js"></script>
   <script>
-
-    const WEEKS_SCHEDULE = [2,3,4,5,6,7,10,11,12,13,14,15,16];
-    const GRADE_MAP = { A:100, B:80, C:70, D:60, F:0 };
 
     function gradeColorClass(g) {
       const map = { A:'--A', B:'--B', C:'--C', D:'--D', F:'--F' };
@@ -575,13 +493,6 @@
       return (weeks || []).filter(w => w.week !== currentWeekNum).sort((a,b) => b.week - a.week);
     }
 
-    function weeklyAvg(weeks, currentWeekNum) {
-      const graded = (weeks || []).filter(w => w.grade && w.week !== currentWeekNum);
-      if (!graded.length) return null;
-      const avg = graded.reduce((s, w) => s + (GRADE_MAP[w.grade] || 0), 0) / graded.length;
-      return Math.round(avg);
-    }
-
     // ── PDF homework list ───────────────────────────────────────────────────────
 
     function hwList(items) {
@@ -591,68 +502,6 @@
           <span class="hw-label">${h.label}</span>
           <span class="hw-pdf-badge">PDF</span>
         </a></li>`).join('')}</ul>`;
-    }
-
-    // ── Scoreboard (weeks + midterm + final pips) ───────────────────────────────
-
-    function buildScoreboard(weeks, currentWeekNum, wAvg, midScore, finScore) {
-      const byWeek = {};
-      (weeks || []).forEach(w => { byWeek[w.week] = w.grade; });
-
-      const weekPips = WEEKS_SCHEDULE.map(wn => {
-        const isCurrent = wn === currentWeekNum;
-        const grade = byWeek[wn];
-        let cls = 'week-pip__dot';
-        let label = '–';
-        if (isCurrent)   { cls += ' week-pip__dot--current'; label = '★'; }
-        else if (grade)  { cls += ` week-pip__dot${gradeColorClass(grade)}`; label = grade; }
-        else             { cls += ' week-pip__dot--pending'; }
-        return `<div class="week-pip">
-          <span class="week-pip__label">W${wn}</span>
-          <div class="${cls}">${label}</div>
-        </div>`;
-      }).join('');
-
-      // Midterm pip
-      const midLabel = midScore != null ? midScore : '–';
-      const midCls   = midScore != null ? 'week-pip__dot week-pip__dot--mid' : 'week-pip__dot week-pip__dot--pending';
-      const midPip   = `<div class="week-pip">
-        <span class="week-pip__label">MID</span>
-        <div class="${midCls}" style="width:36px;font-size:10px">${midLabel}</div>
-      </div>`;
-
-      // Final pip
-      const finLabel = finScore != null ? finScore : '–';
-      const finCls   = finScore != null ? 'week-pip__dot week-pip__dot--fin' : 'week-pip__dot week-pip__dot--pending';
-      const finPip   = `<div class="week-pip">
-        <span class="week-pip__label">FIN</span>
-        <div class="${finCls}" style="width:36px;font-size:10px">${finLabel}</div>
-      </div>`;
-
-      // Stats footer
-      function statHtml(label, val, extraCls) {
-        const inner = val != null
-          ? `<span class="scoreboard-stat__val ${extraCls || ''}">${val}${typeof val === 'number' && val <= 100 && label !== 'Weekly avg' ? '' : ''}</span>`
-          : `<span class="scoreboard-stat__val--pending">Pending</span>`;
-        return `<div class="scoreboard-stat">
-          <span class="scoreboard-stat__label">${label}</span>
-          ${inner}
-        </div>`;
-      }
-
-      const wAvgDisplay = wAvg != null ? wAvg + '%' : null;
-
-      return `
-        ${weekPips}
-        <div class="scoreboard-divider"></div>
-        ${midPip}
-        ${finPip}
-        <div class="scoreboard-footer">
-          ${statHtml('Weekly avg', wAvgDisplay, '')}
-          ${statHtml('Midterm', midScore != null ? midScore + '/100' : null, 'scoreboard-stat__val--mid')}
-          ${statHtml('Final', finScore != null ? finScore + '/100' : null, 'scoreboard-stat__val--fin')}
-          <span class="scoreboard-hint">★ = current week</span>
-        </div>`;
     }
 
     // ── Current Week ────────────────────────────────────────────────────────────
@@ -681,8 +530,13 @@
     function buildMidterm(m) {
       if (!m) return '';
       const scoreHtml = m.score != null
-        ? `<div class="exam-score-display"><span class="exam-score-display__val">${m.score}</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-3);">/100</span></div>`
-        : `<div class="exam-score-display"><span class="exam-score-display__pending">Pending</span></div>`;
+        ? `<div class="jury-result jury-result--mid">
+            <div class="jury-result__num">${m.score}<span class="jury-result__denom">/100</span></div>
+            <div class="jury-result__label">Midterm Score</div>
+          </div>`
+        : `<div class="jury-result jury-result--pending">
+            <div class="jury-result__pending">Not yet graded</div>
+          </div>`;
       const techniques = (m.techniques || []).map(t =>
         `<div class="exam-item"><span class="exam-item__dot">·</span>${t}</div>`).join('');
       const etudes = (m.etudes || []).map(e =>
@@ -700,8 +554,13 @@
     function buildFinals(f) {
       if (!f) return '';
       const scoreHtml = f.score != null
-        ? `<div class="exam-score-display"><span class="exam-score-display__val">${f.score}</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-3);">/100</span></div>`
-        : `<div class="exam-score-display"><span class="exam-score-display__pending">Pending</span></div>`;
+        ? `<div class="jury-result jury-result--fin">
+            <div class="jury-result__num">${f.score}<span class="jury-result__denom">/100</span></div>
+            <div class="jury-result__label">Final Score</div>
+          </div>`
+        : `<div class="jury-result jury-result--pending">
+            <div class="jury-result__pending">Not yet graded</div>
+          </div>`;
       const pieces = (f.pieces || []).map(p =>
         `<div class="exam-item"><span class="exam-item__dot">·</span><span>${p.title}<span class="exam-item__key">${p.key}</span></span></div>`).join('');
       const transcription = f.transcription
@@ -829,9 +688,6 @@
       const currentWeek    = getCurrentWeek(data.weeks);
       const currentWeekNum = currentWeek ? currentWeek.week : null;
       const prevWeeks      = getPreviousWeeks(data.weeks, currentWeekNum);
-      const wAvg           = weeklyAvg(data.weeks, currentWeekNum);
-      const midScore       = data.midterm?.score ?? null;
-      const finScore       = data.finals?.score ?? null;
 
       document.title = `${data.firstName} ${data.lastName} — Jazz Piano`;
       document.getElementById('hero-eyebrow').textContent  = `${data.course} · ${data.semester}`;
@@ -854,14 +710,6 @@
               <div class="s-card__heading" style="font-size:1.3rem;letter-spacing:3px">${data.id}</div>
               <div class="s-card__sub">${data.firstName} ${data.lastName} · ${data.nickname}</div>
             </div>
-          </div>
-        </div>
-
-        <!-- Scoreboard -->
-        <div class="content-section">
-          ${sectionLabel('Scoreboard')}
-          <div class="s-card" style="margin-bottom:2.5rem">
-            <div class="scoreboard">${buildScoreboard(data.weeks, currentWeekNum, wAvg, midScore, finScore)}</div>
           </div>
         </div>
 
