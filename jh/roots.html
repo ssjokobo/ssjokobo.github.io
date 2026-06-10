@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roots &amp; Precursors — MUS357 Jazz History</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    :root { --page-accent: #ff6b6b; }
+
+    .week-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--page-accent);
+      background: color-mix(in srgb, var(--page-accent) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent);
+      padding: 5px 12px; border-radius: 3px; margin-bottom: 1.5rem;
+    }
+
+    .overview-map { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 3rem; }
+    .overview-col { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .overview-col__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--page-accent); margin-bottom: 0.75rem; }
+    .overview-col__heading { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 1px; color: #fff; margin-bottom: 0.5rem; }
+    .overview-col__desc { font-size: 13px; color: var(--text-3); line-height: 1.7; }
+    .overview-col__items { margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 6px; }
+    .overview-chip { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; background: var(--bg-2); border: 1px solid var(--border-2); color: var(--text-2); padding: 4px 10px; border-radius: 3px; }
+    .overview-chip--accent { border-color: color-mix(in srgb, var(--page-accent) 50%, transparent); color: var(--page-accent); }
+
+    .flow-wrap { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 1.5rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; }
+    .flow-node { text-align: center; padding: 0 1rem; }
+    .flow-node__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-4); margin-bottom: 6px; }
+    .flow-node__box { background: var(--bg-2); border: 1px solid var(--border-2); border-radius: 6px; padding: 10px 16px; font-size: 14px; color: var(--text); white-space: nowrap; }
+    .flow-node__box--accent { background: color-mix(in srgb, var(--page-accent) 12%, transparent); border-color: color-mix(in srgb, var(--page-accent) 40%, transparent); color: var(--page-accent); font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 1px; }
+    .flow-arrow { font-size: 20px; color: var(--border-2); padding: 0 0.25rem; flex-shrink: 0; }
+
+    .jh-section { margin-bottom: 3.5rem; }
+    .jh-section__header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .jh-section__num { font-family: var(--font-display); font-size: 3rem; color: color-mix(in srgb, var(--page-accent) 20%, transparent); line-height: 1; letter-spacing: 2px; }
+    .jh-section__title { font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px; color: #fff; line-height: 1; }
+    .jh-section__title span { color: var(--page-accent); }
+
+    .trait-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+    .trait-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .trait-card__icon { font-size: 20px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+    .trait-card__title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--page-accent); margin-bottom: 4px; }
+    .trait-card__desc { font-size: 14px; color: var(--text-2); line-height: 1.65; }
+
+    /* Figure cards with photo */
+    .figure-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+    .figure-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .figure-card__photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top center; display: block; background: var(--bg-2); filter: grayscale(20%); }
+    .figure-card__no-photo { width: 100%; aspect-ratio: 3/4; background: var(--bg-2); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    .figure-card__body { padding: 0.75rem 0.9rem; }
+    .figure-card__name { font-size: 14px; color: var(--text); font-weight: 400; margin-bottom: 3px; line-height: 1.35; }
+    .figure-card__role { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.05em; }
+    .figure-card__credit { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); margin-top: 3px; }
+
+    .blues-types { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+    .blues-type { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; position: relative; overflow: hidden; }
+    .blues-type::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--page-accent); }
+    .blues-type__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-4); margin-bottom: 0.5rem; }
+    .blues-type__name { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 1px; color: #fff; margin-bottom: 1rem; }
+    .blues-type__feature { font-size: 13px; color: var(--text-3); line-height: 1.7; margin-bottom: 0.75rem; }
+    .blues-type__figures { border-top: 1px solid var(--border); padding-top: 0.75rem; margin-top: 0.5rem; }
+    .blues-type__figures-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-4); margin-bottom: 4px; }
+    .blues-type__figure { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* Listen items */
+    .listen-list { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1.5rem; }
+    .listen-item { background: var(--bg-1); border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 1rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+    .listen-item:hover { background: var(--bg-2); border-color: var(--page-accent); }
+    .listen-item__icon { font-size: 13px; color: var(--page-accent); flex-shrink: 0; }
+    .listen-item__title { font-size: 13px; color: var(--text); flex: 1; }
+    .listen-item__meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); flex-shrink: 0; }
+    .listen-item__yt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--page-accent); background: color-mix(in srgb, var(--page-accent) 10%, transparent); border: 1px solid color-mix(in srgb, var(--page-accent) 30%, transparent); padding: 2px 7px; border-radius: 3px; flex-shrink: 0; }
+
+    .ragtime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+    .ragtime-hand { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .ragtime-hand__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--page-accent); margin-bottom: 0.75rem; }
+    .ragtime-hand__rhythm { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 2px; color: #fff; margin-bottom: 0.5rem; }
+    .ragtime-hand__desc { font-size: 13px; color: var(--text-3); line-height: 1.6; }
+
+    .ragtime-roots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+    .ragtime-root { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+    .ragtime-root__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-4); margin-bottom: 0.75rem; }
+    .ragtime-root__item { font-size: 13px; color: var(--text-2); line-height: 1.8; padding-left: 1rem; position: relative; }
+    .ragtime-root__item::before { content: '\2192'; position: absolute; left: 0; color: var(--page-accent); font-size: 11px; }
+
+    .info-box { background: var(--bg-1); border: 1px solid var(--border); border-left: 3px solid var(--page-accent); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+    .info-box__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--page-accent); margin-bottom: 0.5rem; }
+    .info-box__text { font-size: 14px; color: var(--text-2); line-height: 1.75; }
+
+    /* Featured figure card (photo left, info right) */
+    .fig-feature { display: grid; grid-template-columns: 140px 1fr; gap: 1.25rem; align-items: start; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; }
+    .fig-feature img { width: 100%; border-radius: 6px; object-fit: cover; aspect-ratio: 3/4; filter: grayscale(20%); display: block; }
+    .fig-feature__eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-4); margin-bottom: 4px; }
+    .fig-feature__name { font-family: var(--font-display); font-size: 1.75rem; letter-spacing: 2px; color: #fff; margin-bottom: 0.5rem; }
+    .fig-feature__desc { font-size: 13px; color: var(--text-3); line-height: 1.7; margin-bottom: 1rem; }
+    .fig-feature__credit { font-family: var(--font-mono); font-size: 10px; color: var(--text-4); margin-top: 6px; }
+
+    .jh-divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    @media (max-width: 700px) {
+      .overview-map, .trait-grid, .blues-types, .ragtime-grid, .ragtime-roots { grid-template-columns: 1fr; }
+      .figure-row { grid-template-columns: 1fr 1fr; }
+      .fig-feature { grid-template-columns: 100px 1fr; gap: 1rem; padding: 1rem; }
+      .fig-feature__name { font-size: 1.4rem; }
+      .flow-wrap { gap: 0.25rem; }
+      .flow-arrow { font-size: 14px; padding: 0; }
+      .flow-node__box { font-size: 12px; padding: 8px 10px; }
+      .flow-node { padding: 0 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav__logo" href="../index.html">SOPON <span>&#xB7;</span> RSU</a>
+    <ul class="nav__links">
+      <li><a href="../keyboard.html">Keyboard</a></li>
+      <li><a href="../piano.html">Piano</a></li>
+      <li><a href="../history.html">History</a></li>
+      <li><a href="../resources.html">Resources</a></li>
+      <li><a href="../advising.html">Advising</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <a class="nav__contact" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero__inner">
+      <a class="page-hero__back" href="../history.html">&#x2190; Jazz History</a>
+      <div class="page-hero__eyebrow">MUS357 &#xB7; Week 1</div>
+      <h1 class="page-hero__title">ROOTS &amp; PRECURSORS</h1>
+      <div class="page-hero__subtitle">Dr. Sopon Suwannakit &#xB7; Rangsit University</div>
+    </div>
+  </div>
+
+  <main class="page-content">
+
+    <div class="week-badge">Week 1 &#xB7; Foundation</div>
+
+    <!-- OVERVIEW -->
+    <div class="overview-map">
+      <div class="overview-col">
+        <div class="overview-col__label">Roots</div>
+        <div class="overview-col__heading">Where Jazz Came From</div>
+        <div class="overview-col__desc">Pre-existing musical traditions that merged over time to create jazz and its precursors.</div>
+        <div class="overview-col__items">
+          <span class="overview-chip overview-chip--accent">African</span>
+          <span class="overview-chip overview-chip--accent">European</span>
+        </div>
+      </div>
+      <div class="overview-col">
+        <div class="overview-col__label">Precursors</div>
+        <div class="overview-col__heading">Siblings of Jazz</div>
+        <div class="overview-col__desc">Styles that share the same roots as jazz &#x2014; related but distinct. They developed alongside jazz rather than becoming it.</div>
+        <div class="overview-col__items">
+          <span class="overview-chip">Blues</span>
+          <span class="overview-chip">Ragtime</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section__label" style="margin-bottom:1rem">How it connects</div>
+    <div class="flow-wrap">
+      <div class="flow-node"><div class="flow-node__label">Root</div><div class="flow-node__box">African Music</div></div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-node"><div class="flow-node__label">Root</div><div class="flow-node__box">European Music</div></div>
+      <div class="flow-arrow">&#x2192;</div>
+      <div class="flow-node"><div class="flow-node__label">Precursor</div><div class="flow-node__box">Blues</div></div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-node"><div class="flow-node__label">Precursor</div><div class="flow-node__box">Ragtime</div></div>
+      <div class="flow-arrow">&#x2192;</div>
+      <div class="flow-node"><div class="flow-node__label">Result</div><div class="flow-node__box flow-node__box--accent">JAZZ</div></div>
+    </div>
+
+    <hr class="jh-divider">
+
+    <!-- SECTION 01: AFRICAN ROOTS -->
+    <div class="jh-section">
+      <div class="jh-section__header">
+        <div class="jh-section__num">01</div>
+        <div class="jh-section__title">AFRICAN <span>ROOTS</span></div>
+      </div>
+
+      <div class="content-section__label" style="margin-bottom:1rem">Characteristics of African Folk/Tribal Music</div>
+      <div class="trait-grid">
+        <div class="trait-card"><div class="trait-card__icon">&#x1F3B2;</div><div><div class="trait-card__title">Improvisational in Nature</div><div class="trait-card__desc">Music created spontaneously, not fixed to a written score &#x2014; a principle that becomes central to jazz.</div></div></div>
+        <div class="trait-card"><div class="trait-card__icon">&#x1F941;</div><div><div class="trait-card__title">Syncopations &amp; Polyrhythms</div><div class="trait-card__desc">Off-beat accents and multiple simultaneous rhythmic layers &#x2014; the rhythmic DNA of jazz.</div></div></div>
+        <div class="trait-card"><div class="trait-card__icon">&#x1F501;</div><div><div class="trait-card__title">Call and Response</div><div class="trait-card__desc">A leader phrase answered by a group response. Appears in blues singing, gospel, and jazz soloing.</div></div></div>
+        <div class="trait-card"><div class="trait-card__icon">&#x1F30A;</div><div><div class="trait-card__title">Groove</div><div class="trait-card__desc">A cyclic, physical feeling of rhythm &#x2014; the sense that music pulls you to move.</div></div></div>
+      </div>
+
+      <div class="content-section__label" style="margin-bottom:1rem">Evolved Forms</div>
+      <div class="info-box">
+        <div class="info-box__label">Field Hollers &#x2192; Blues</div>
+        <div class="info-box__text">Field hollers were vocal calls used by enslaved workers in the fields. They evolved into the Blues, carrying forward the 12-bar blues form, pitch decorations (gliding, scoop, doit, fall), and distinctive vocal tones (growl, throaty, falsetto).</div>
+      </div>
+      <div class="info-box">
+        <div class="info-box__label">Spirituals &amp; Revival Hymns &#x2192; Gospel</div>
+        <div class="info-box__text">Religious songs blending African vocal traditions with Christian themes. Features: falsetto singing, call and response, syncopations. Eventually evolved into Gospel music.</div>
+      </div>
+
+      <div class="content-section__label" style="margin-bottom:1rem">Listening Examples</div>
+      <div class="listen-list">
+        <a class="listen-item" href="https://www.youtube.com/results?search_query=Yarum+Praise+Song+African+tribal" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Yarum Praise Song</span><span class="listen-item__meta">African Tribal</span><span class="listen-item__yt">YouTube</span></a>
+        <a class="listen-item" href="https://www.youtube.com/results?search_query=Dance+of+Hunter+African+tribal+music" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Dance of Hunter</span><span class="listen-item__meta">African Tribal</span><span class="listen-item__yt">YouTube</span></a>
+        <a class="listen-item" href="https://www.youtube.com/results?search_query=Field+Song+from+Senegal" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Field Song from Senegal</span><span class="listen-item__meta">Field Holler</span><span class="listen-item__yt">YouTube</span></a>
+        <a class="listen-item" href="https://www.youtube.com/results?search_query=Lightning+Washington+Prisoners+work+song" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Lightning Washington and Prisoners</span><span class="listen-item__meta">Work Song</span><span class="listen-item__yt">YouTube</span></a>
+        <a class="listen-item" href="https://www.youtube.com/results?search_query=I%27m+Going+to+Heaven+If+It+Takes+My+Life+spiritual" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">I&#x2019;m Going to Heaven If It Takes My Life</span><span class="listen-item__meta">Spiritual</span><span class="listen-item__yt">YouTube</span></a>
+      </div>
+    </div>
+
+    <hr class="jh-divider">
+
+    <!-- SECTION 02: EUROPEAN ROOTS -->
+    <div class="jh-section">
+      <div class="jh-section__header">
+        <div class="jh-section__num">02</div>
+        <div class="jh-section__title">EUROPEAN <span>ROOTS</span></div>
+      </div>
+      <div class="trait-grid">
+        <div class="trait-card"><div class="trait-card__icon">&#x1F3BA;</div><div><div class="trait-card__title">Instruments</div><div class="trait-card__desc">Western orchestral and band instruments &#x2014; trumpet, trombone, clarinet, piano &#x2014; gave jazz its instrumental vocabulary.</div></div></div>
+        <div class="trait-card"><div class="trait-card__icon">&#x1F3BC;</div><div><div class="trait-card__title">Harmony</div><div class="trait-card__desc">The Western pitch and intervallic system, chords, and chord progressions provided jazz&#x2019;s harmonic framework.</div></div></div>
+        <div class="trait-card"><div class="trait-card__icon">&#x1F4DD;</div><div><div class="trait-card__title">Music Notation</div><div class="trait-card__desc">Written notation allowed jazz to be published, distributed, and learned from sheet music &#x2014; key to ragtime&#x2019;s commercial spread.</div></div></div>
+        <div class="trait-card"><div class="trait-card__icon">&#x1F389;</div><div><div class="trait-card__title">Social Music Contexts</div><div class="trait-card__desc">Brass/parade bands, ballroom dance bands, party bands, and minstrelsy all shaped early jazz performance contexts.</div></div></div>
+      </div>
+    </div>
+
+    <hr class="jh-divider">
+
+    <!-- SECTION 03: THE BLUES -->
+    <div class="jh-section">
+      <div class="jh-section__header">
+        <div class="jh-section__num">03</div>
+        <div class="jh-section__title">THE <span>BLUES</span></div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box__label">Why the Blues Matters for Jazz</div>
+        <div class="info-box__text">The blues is a jazz idiom &#x2014; jazz musicians speak &#x201C;blues&#x201D; as a shared language. Its contributions include the <strong>12-bar blues form (AAB)</strong>, pitch bending and blues scale, and expressive vocal intonation. The blues also preceded R&amp;B and boogie-woogie.</div>
+      </div>
+
+      <div class="blues-types">
+
+        <!-- Country Blues -->
+        <div class="blues-type">
+          <div class="blues-type__label">Type 01</div>
+          <div class="blues-type__name">Country Blues</div>
+          <div class="blues-type__feature"><strong style="color:var(--text)">Features:</strong><br>Male singer, self-accompanied with guitar. Raw, rural, solo performance.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.75rem;">
+            <div class="figure-card">
+              <img class="figure-card__photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Blind_Lemon_Jefferson_1926_Paramount_ad.jpg/320px-Blind_Lemon_Jefferson_1926_Paramount_ad.jpg" alt="Blind Lemon Jefferson" loading="lazy" onerror="this.parentNode.innerHTML='<div class=figure-card__no-photo>&#x1F3B8;</div>'">
+              <div class="figure-card__body">
+                <div class="figure-card__name">Blind Lemon Jefferson</div>
+                <div class="figure-card__role">Country Blues Guitar</div>
+                <div class="figure-card__credit">Paramount ad, 1926 &#xB7; PD</div>
+              </div>
+            </div>
+            <div class="figure-card">
+              <div class="figure-card__no-photo">&#x1F3B8;</div>
+              <div class="figure-card__body">
+                <div class="figure-card__name">Robert Johnson</div>
+                <div class="figure-card__role">&#x201C;King of the Delta Blues&#x201D;</div>
+                <div class="figure-card__credit">Photo copyright disputed</div>
+              </div>
+            </div>
+          </div>
+          <div class="blues-type__figures">
+            <div class="blues-type__figures-label">Key Figures</div>
+            <div class="blues-type__figure">&#x201C;Papa&#x201D; Charlie Jackson<br>Blind Lemon Jefferson<br>Robert Johnson</div>
+          </div>
+          <div style="margin-top:0.75rem">
+            <div class="blues-type__figures-label">Listening</div>
+            <div class="listen-list" style="margin-bottom:0">
+              <a class="listen-item" href="https://www.youtube.com/results?search_query=Robert+Johnson+Cross+Road+Blues" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Cross Road Blues &#x2014; Robert Johnson</span><span class="listen-item__yt">YouTube</span></a>
+              <a class="listen-item" href="https://www.youtube.com/results?search_query=Blind+Lemon+Jefferson+Black+Snake+Moan" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Black Snake Moan &#x2014; Blind Lemon Jefferson</span><span class="listen-item__yt">YouTube</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Classic Blues -->
+        <div class="blues-type">
+          <div class="blues-type__label">Type 02</div>
+          <div class="blues-type__name">Classic Blues</div>
+          <div class="blues-type__feature"><strong style="color:var(--text)">Features:</strong><br>Female singers, accompanied by other instrumentalists. Bridged folk music and the entertainment world.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.75rem;">
+            <div class="figure-card">
+              <img class="figure-card__photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Marain.jpg/320px-Marain.jpg" alt="Ma Rainey" loading="lazy" onerror="this.parentNode.innerHTML='<div class=figure-card__no-photo>&#x1F3A4;</div>'">
+              <div class="figure-card__body">
+                <div class="figure-card__name">Ma Rainey</div>
+                <div class="figure-card__role">&#x201C;Mother of the Blues&#x201D;</div>
+                <div class="figure-card__credit">c.1917 &#xB7; PD</div>
+              </div>
+            </div>
+            <div class="figure-card">
+              <img class="figure-card__photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bessie_Smith_%281936%29_by_Carl_Van_Vechten.jpg/320px-Bessie_Smith_%281936%29_by_Carl_Van_Vechten.jpg" alt="Bessie Smith" loading="lazy" onerror="this.parentNode.innerHTML='<div class=figure-card__no-photo>&#x1F3A4;</div>'">
+              <div class="figure-card__body">
+                <div class="figure-card__name">Bessie Smith</div>
+                <div class="figure-card__role">&#x201C;Empress of the Blues&#x201D;</div>
+                <div class="figure-card__credit">Van Vechten, 1936 &#xB7; PD</div>
+              </div>
+            </div>
+          </div>
+          <div class="blues-type__figures">
+            <div class="blues-type__figures-label">Key Figures</div>
+            <div class="blues-type__figure">Gertrude &#x201C;Ma&#x201D; Rainey<br>Mamie Smith<br>Bessie Smith</div>
+          </div>
+          <div style="margin-top:0.75rem">
+            <div class="blues-type__figures-label">Listening</div>
+            <div class="listen-list" style="margin-bottom:0">
+              <a class="listen-item" href="https://www.youtube.com/results?search_query=Bessie+Smith+Backwater+Blues" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Backwater Blues &#x2014; Bessie Smith</span><span class="listen-item__yt">YouTube</span></a>
+              <a class="listen-item" href="https://www.youtube.com/results?search_query=Mamie+Smith+Crazy+Blues+1920" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Crazy Blues &#x2014; Mamie Smith</span><span class="listen-item__yt">YouTube</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /blues-types -->
+
+      <!-- W.C. Handy featured -->
+      <div class="fig-feature">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/W.C._Handy_by_Carl_Van_Vechten%2C_March_28%2C_1932.jpg/320px-W.C._Handy_by_Carl_Van_Vechten%2C_March_28%2C_1932.jpg" alt="W.C. Handy" loading="lazy" onerror="this.style.display='none'">
+        <div>
+          <div class="fig-feature__eyebrow">Classic Blues &#xB7; Composer</div>
+          <div class="fig-feature__name">W. C. Handy</div>
+          <div class="info-box__label" style="margin-top:0">&#x201C;Father of the Blues&#x201D;</div>
+          <div class="fig-feature__desc">An important classic blues <strong style="color:var(--text-2)">composer</strong> (not performer) who transcribed and published blues music for a wider audience. His most famous work is <em>St. Louis Blues</em>.</div>
+          <div class="listen-list" style="margin-bottom:0">
+            <a class="listen-item" href="https://www.youtube.com/results?search_query=W.C.+Handy+St+Louis+Blues" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">St. Louis Blues &#x2014; W.C. Handy</span><span class="listen-item__yt">YouTube</span></a>
+          </div>
+          <div class="fig-feature__credit">Photo: Carl Van Vechten, 1932 &#xB7; Public Domain (LOC)</div>
+        </div>
+      </div>
+
+    </div><!-- /blues section -->
+
+    <hr class="jh-divider">
+
+    <!-- SECTION 04: RAGTIME -->
+    <div class="jh-section">
+      <div class="jh-section__header">
+        <div class="jh-section__num">04</div>
+        <div class="jh-section__title">RAGTIME <span>(1896&#x2013;1917)</span></div>
+      </div>
+
+      <div class="ragtime-grid">
+        <div class="ragtime-hand">
+          <div class="ragtime-hand__label">Left Hand</div>
+          <div class="ragtime-hand__rhythm">OOM &#x2014; PAH</div>
+          <div class="ragtime-hand__desc">March-style bass-chord alternation. The steady, &#x201C;square&#x201D; pulse comes from European march band tradition.</div>
+        </div>
+        <div class="ragtime-hand">
+          <div class="ragtime-hand__label">Right Hand</div>
+          <div class="ragtime-hand__rhythm">&#x201C;RAGGING&#x201D;</div>
+          <div class="ragtime-hand__desc">Syncopated melody over the steady bass. The off-beat accents come from African rhythmic tradition.</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box__label">Form</div>
+        <div class="info-box__text">Ragtime uses <strong>multiple strains</strong> &#x2014; a form borrowed from European march music. Example: <strong>AABBACCDD</strong>. Each letter is a distinct melodic section repeated before moving to the next.</div>
+      </div>
+
+      <div class="content-section__label" style="margin-bottom:1rem">African &amp; European Roots in Ragtime</div>
+      <div class="ragtime-roots">
+        <div class="ragtime-root">
+          <div class="ragtime-root__label">African Roots</div>
+          <div class="ragtime-root__item">Right-hand syncopation (&#x201C;ragging&#x201D;)</div>
+          <div class="ragtime-root__item" style="margin-top:4px">Primarily composed and performed by African Americans</div>
+        </div>
+        <div class="ragtime-root">
+          <div class="ragtime-root__label">European Roots</div>
+          <div class="ragtime-root__item">Piano as instrument</div>
+          <div class="ragtime-root__item" style="margin-top:4px">Written notation (sheet music sold commercially)</div>
+          <div class="ragtime-root__item" style="margin-top:4px">Left-hand march beat</div>
+          <div class="ragtime-root__item" style="margin-top:4px">Harmony &amp; chord progressions</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box__label">Player Piano &amp; Piano Roll (invented 1896)</div>
+        <div class="info-box__text">A mechanical piano that reads punched paper rolls &#x2014; it allowed ragtime to spread into homes without a live performer. The era&#x2019;s equivalent of a streaming platform. Later evolved into MIDI in the digital age.</div>
+      </div>
+
+      <div class="content-section__label" style="margin-bottom:1rem">Key Figures</div>
+
+      <!-- Scott Joplin -->
+      <div class="fig-feature">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Scott_Joplin_19072.jpg/320px-Scott_Joplin_19072.jpg" alt="Scott Joplin" loading="lazy" onerror="this.style.display='none'">
+        <div>
+          <div class="fig-feature__eyebrow">Piano Ragtime &#xB7; Composer</div>
+          <div class="fig-feature__name">Scott Joplin</div>
+          <div class="fig-feature__desc">1868&#x2013;1917 &#xB7; &#x201C;King of Ragtime&#x201D; &#xB7; Pulitzer Prize (posthumous, 1976)<br>Also: James Scott, Tom Turpin, Joseph Lamb</div>
+          <div class="listen-list" style="margin-bottom:0">
+            <a class="listen-item" href="https://www.youtube.com/results?search_query=Scott+Joplin+Maple+Leaf+Rag" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Maple Leaf Rag</span><span class="listen-item__yt">YouTube</span></a>
+            <a class="listen-item" href="https://www.youtube.com/results?search_query=Scott+Joplin+The+Entertainer" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">The Entertainer</span><span class="listen-item__yt">YouTube</span></a>
+          </div>
+          <div class="fig-feature__credit">Photo: c.1907 &#xB7; Public Domain</div>
+        </div>
+      </div>
+
+      <!-- James Reese Europe -->
+      <div class="fig-feature">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Maud_Cuney_Hare-273-James_Reese_Europe.jpg/320px-Maud_Cuney_Hare-273-James_Reese_Europe.jpg" alt="James Reese Europe" loading="lazy" onerror="this.style.display='none'">
+        <div>
+          <div class="fig-feature__eyebrow">Band Ragtime &#xB7; Bandleader</div>
+          <div class="fig-feature__name">James Reese Europe</div>
+          <div class="fig-feature__desc">1880&#x2013;1919 &#xB7; Leading African-American bandleader in New York &#xB7; Pioneer of ragtime ensembles<br>Also: John Philip Sousa</div>
+          <div class="listen-list" style="margin-bottom:0">
+            <a class="listen-item" href="https://www.youtube.com/results?search_query=James+Reese+Europe+Castle+House+Rag" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">Castle House Rag &#x2014; James Reese Europe</span><span class="listen-item__yt">YouTube</span></a>
+            <a class="listen-item" href="https://www.youtube.com/results?search_query=John+Philip+Sousa+march+Stars+and+Stripes" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">The Stars and Stripes Forever &#x2014; John Philip Sousa</span><span class="listen-item__yt">YouTube</span></a>
+          </div>
+          <div class="fig-feature__credit">Photo: from <em>Negro Musicians and Their Music</em> (1936) &#xB7; PD</div>
+        </div>
+      </div>
+
+    </div><!-- /ragtime section -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__logo">SOPON SUWANNAKIT</div>
+    <a class="footer__email" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
+    <div class="footer__copy">&#xA9; 2026 &#xB7; Rangsit University &#xB7; MUS357</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
