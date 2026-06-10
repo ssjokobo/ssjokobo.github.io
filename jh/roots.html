@@ -50,7 +50,7 @@
     .figure-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
     .figure-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
     .figure-card__photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top center; display: block; background: var(--bg-2); filter: grayscale(20%); }
-    .figure-card__no-photo { width: 100%; aspect-ratio: 3/4; background: var(--bg-2); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    .figure-card__no-photo { width: 100%; aspect-ratio: 3/4; background: var(--bg-2); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 1.5rem; color: var(--text-4); }
     .figure-card__body { padding: 0.75rem 0.9rem; }
     .figure-card__name { font-size: 14px; color: var(--text); font-weight: 400; margin-bottom: 3px; line-height: 1.35; }
     .figure-card__role { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.05em; }
@@ -252,7 +252,7 @@
           <div class="blues-type__feature"><strong style="color:var(--text)">Features:</strong><br>Male singer, self-accompanied with guitar. Raw, rural, solo performance.</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.75rem;">
             <div class="figure-card">
-              <img class="figure-card__photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Blind_Lemon_Jefferson_1926_Paramount_ad.jpg/320px-Blind_Lemon_Jefferson_1926_Paramount_ad.jpg" alt="Blind Lemon Jefferson" loading="lazy" onerror="this.parentNode.innerHTML='<div class=figure-card__no-photo>&#x1F3B8;</div>'">
+              <img class="figure-card__photo" src="../media/history/blind-lemon-jefferson.jpg" alt="Blind Lemon Jefferson" loading="lazy" onerror="this.style.display='none'">
               <div class="figure-card__body">
                 <div class="figure-card__name">Blind Lemon Jefferson</div>
                 <div class="figure-card__role">Country Blues Guitar</div>
@@ -260,7 +260,7 @@
               </div>
             </div>
             <div class="figure-card">
-              <div class="figure-card__no-photo">&#x1F3B8;</div>
+              <div class="figure-card__no-photo">—</div>
               <div class="figure-card__body">
                 <div class="figure-card__name">Robert Johnson</div>
                 <div class="figure-card__role">&#x201C;King of the Delta Blues&#x201D;</div>
@@ -288,7 +288,7 @@
           <div class="blues-type__feature"><strong style="color:var(--text)">Features:</strong><br>Female singers, accompanied by other instrumentalists. Bridged folk music and the entertainment world.</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.75rem;">
             <div class="figure-card">
-              <img class="figure-card__photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Marain.jpg/320px-Marain.jpg" alt="Ma Rainey" loading="lazy" onerror="this.parentNode.innerHTML='<div class=figure-card__no-photo>&#x1F3A4;</div>'">
+              <img class="figure-card__photo" src="../media/history/ma-rainey.jpg" alt="Ma Rainey" loading="lazy" onerror="this.style.display='none'">
               <div class="figure-card__body">
                 <div class="figure-card__name">Ma Rainey</div>
                 <div class="figure-card__role">&#x201C;Mother of the Blues&#x201D;</div>
@@ -296,7 +296,7 @@
               </div>
             </div>
             <div class="figure-card">
-              <img class="figure-card__photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bessie_Smith_%281936%29_by_Carl_Van_Vechten.jpg/320px-Bessie_Smith_%281936%29_by_Carl_Van_Vechten.jpg" alt="Bessie Smith" loading="lazy" onerror="this.parentNode.innerHTML='<div class=figure-card__no-photo>&#x1F3A4;</div>'">
+              <img class="figure-card__photo" src="../media/history/bessie-smith.jpg" alt="Bessie Smith" loading="lazy" onerror="this.style.display='none'">
               <div class="figure-card__body">
                 <div class="figure-card__name">Bessie Smith</div>
                 <div class="figure-card__role">&#x201C;Empress of the Blues&#x201D;</div>
@@ -321,11 +321,11 @@
 
       <!-- W.C. Handy featured -->
       <div class="fig-feature">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/W.C._Handy_by_Carl_Van_Vechten%2C_March_28%2C_1932.jpg/320px-W.C._Handy_by_Carl_Van_Vechten%2C_March_28%2C_1932.jpg" alt="W.C. Handy" loading="lazy" onerror="this.style.display='none'">
+        <img src="../media/history/wc-handy.jpg" alt="W.C. Handy" loading="lazy" onerror="this.style.display='none'">
         <div>
           <div class="fig-feature__eyebrow">Classic Blues &#xB7; Composer</div>
           <div class="fig-feature__name">W. C. Handy</div>
-          <div class="info-box__label" style="margin-top:0">&#x201C;Father of the Blues&#x201D;</div>
+          <div class="fig-feature__eyebrow" style="color:var(--page-accent);margin-bottom:0.5rem">&#x201C;Father of the Blues&#x201D;</div>
           <div class="fig-feature__desc">An important classic blues <strong style="color:var(--text-2)">composer</strong> (not performer) who transcribed and published blues music for a wider audience. His most famous work is <em>St. Louis Blues</em>.</div>
           <div class="listen-list" style="margin-bottom:0">
             <a class="listen-item" href="https://www.youtube.com/results?search_query=W.C.+Handy+St+Louis+Blues" target="_blank"><span class="listen-item__icon">&#x25B6;</span><span class="listen-item__title">St. Louis Blues &#x2014; W.C. Handy</span><span class="listen-item__yt">YouTube</span></a>
@@ -388,7 +388,7 @@
 
       <!-- Scott Joplin -->
       <div class="fig-feature">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Scott_Joplin_19072.jpg/320px-Scott_Joplin_19072.jpg" alt="Scott Joplin" loading="lazy" onerror="this.style.display='none'">
+        <img src="../media/history/scott-joplin.jpg" alt="Scott Joplin" loading="lazy" onerror="this.style.display='none'">
         <div>
           <div class="fig-feature__eyebrow">Piano Ragtime &#xB7; Composer</div>
           <div class="fig-feature__name">Scott Joplin</div>
@@ -403,7 +403,7 @@
 
       <!-- James Reese Europe -->
       <div class="fig-feature">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Maud_Cuney_Hare-273-James_Reese_Europe.jpg/320px-Maud_Cuney_Hare-273-James_Reese_Europe.jpg" alt="James Reese Europe" loading="lazy" onerror="this.style.display='none'">
+        <img src="../media/history/james-reese-europe.jpg" alt="James Reese Europe" loading="lazy" onerror="this.style.display='none'">
         <div>
           <div class="fig-feature__eyebrow">Band Ragtime &#xB7; Bandleader</div>
           <div class="fig-feature__name">James Reese Europe</div>
