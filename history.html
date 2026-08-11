@@ -3,9 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jazz History — Sopon Suwannakit</title>
+  <title>Jazz Keyboard Skills II — Sopon Suwannakit</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>:root { --page-accent: #ff6b6b; }</style>
+  <style>
+    :root { --page-accent: #ff6b6b; }
+
+    /* ── DEADLINE TABLE ── */
+    .deadline-wrap {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .deadline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .deadline-table th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+
+    .deadline-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-2);
+      vertical-align: middle;
+    }
+
+    .deadline-table tr:last-child td { border-bottom: none; }
+    .deadline-table tr:hover td { background: var(--bg-2); }
+    .deadline-table td:first-child { color: var(--text); }
+
+    .deadline-table tr:not(.row-exam-desc) td:last-child {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--page-accent);
+      white-space: nowrap;
+      letter-spacing: 0.06em;
+    }
+
+    /* Assignment row — clickable */
+    .deadline-table tr.row-assignment td { cursor: pointer; }
+    .deadline-table tr.row-assignment:hover td { background: var(--bg-2); }
+
+    .deadline-table .assign-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .deadline-table .assign-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--bg-2);
+      border: 1px solid var(--page-accent);
+      color: var(--page-accent);
+      padding: 2px 7px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .deadline-table .assign-badge:hover { opacity: 0.7; }
+
+    /* PDF badge override — matches urgent tag style */
+    .item-card__badge {
+      border-color: var(--page-accent);
+      color: var(--page-accent);
+    }
+
+    .deadline-table .assign-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-4);
+      margin-top: 3px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Exam rows */
+    .deadline-exam {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--page-accent) 35%, transparent);
+      color: var(--page-accent);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .deadline-table tr.row-exam td {
+      background: color-mix(in srgb, var(--page-accent) 4%, transparent);
+    }
+
+    .deadline-table tr.row-exam:hover td {
+      background: color-mix(in srgb, var(--page-accent) 8%, transparent);
+    }
+
+    /* Exam description sub-row */
+    .deadline-table tr.row-exam-desc td {
+      padding: 0 1rem 0.9rem 3rem;
+      font-size: 13px;
+      color: var(--text-3);
+      line-height: 1.65;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--page-accent) 4%, transparent);
+    }
+
+    .deadline-table tr.row-exam-desc:hover td {
+      background: color-mix(in srgb, var(--page-accent) 4%, transparent);
+    }
+
+    /* ── GRADING GRID ── */
+    .grade-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .grade-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .grade-item {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grade-item__label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+    }
+
+    .grade-item__value {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--page-accent);
+      letter-spacing: 1px;
+    }
+
+    /* ── LETTER GRADES ── */
+    .letter-grades {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-grade {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+    }
+
+    .letter-grade span {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── RULES LIST ── */
+    .rules-list {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .rules-list li {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-2);
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+      list-style: none;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .rules-list li:last-child { border-bottom: none; }
+
+    .rules-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--page-accent);
+      opacity: 0.6;
+    }
+  </style>
 </head>
 <body>
 
@@ -26,109 +242,312 @@
     <div class="page-hero__inner">
       <a class="page-hero__back" href="index.html">← Back</a>
       <div class="page-hero__eyebrow">MUS357</div>
-      <h1 class="page-hero__title">JAZZ HISTORY</h1>
-      <div class="page-hero__subtitle">Rangsit University · 2025</div>
+      <h1 class="page-hero__title">JAZZ History and Analysis</h1>
+      <div class="page-hero__subtitle">Rangsit University · 1/2569</div>
     </div>
   </div>
 
   <main class="page-content">
 
+    <!-- ANNOUNCEMENTS -->
     <div class="announcements" style="padding:0 0 2rem;">
       <div class="announcements__label">Course Announcements</div>
       <div class="announcement-card">
-        <div class="announcement-card__date">16 May 2026</div>
+        <div class="announcement-card__date">3 Jun 2026</div>
         <div class="announcement-card__body">
           <span class="announcement-card__tag announcement-card__tag--urgent">New</span>
-          <div class="announcement-card__text">See you in August 2026!</div>
+          <div class="announcement-card__text">ประกาศรายวิชา MUS357 ภาคเรียน 1/2569 — ดูรายละเอียดด้านล่าง</div>
         </div>
       </div>
     </div>
-  <!--
+
+    <!-- DOCUMENTS -->
     <div class="content-section">
-      <div class="section__label" style="margin-bottom:1rem">Score Updates</div>
+      <div class="content-section__label">Documents</div>
+
       <div class="item-card">
-        <a href="media/history-score.pdf" target="_blank">
+        <a href="media/history/mus357-1-69.pdf" target="_blank">
+          <div class="item-card__num">↓</div>
+          <div class="item-card__info">
+            <div class="item-card__title">Course Syllabus — MUS357</div>
+            <div class="item-card__meta">ประมวลการสอน · 1/2569</div>
+          </div>
+          <span class="item-card__badge">PDF</span>
+        </a>
+      </div>
+
+      <div class="item-card">
+        <a href="media/history/mus357-score.pdf" target="_blank">
           <div class="item-card__num">↓</div>
           <div class="item-card__info">
             <div class="item-card__title">MUS357 — Score Sheet</div>
-            <div class="item-card__meta">Listening quiz, essay, midterm · Updated Apr 25, 2025</div>
+            <div class="item-card__meta">All assignments, exams, and attendance</div>
           </div>
           <span class="item-card__badge">PDF</span>
         </a>
       </div>
+
     </div>
 
+    <!-- CLIP REQUIREMENTS -->
+<!--
     <div class="content-section" style="margin-top:3rem">
-      <div class="content-section__label">Lecture Slides</div>
-
-      <div class="item-card">
-        <a href="media/slides-jh-wk10.pdf" target="_blank">
-          <div class="item-card__num">10</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Free Jazz &amp; The Avant-Garde — Ornette, Coltrane, Cecil Taylor</div>
-            <div class="item-card__meta">Week 10 · PDF · Apr 22, 2025</div>
-          </div>
-          <span class="item-card__badge">Slides</span>
-        </a>
-      </div>
-
-      <div class="item-card">
-        <a href="media/slides-jh-wk09.pdf" target="_blank">
-          <div class="item-card__num">09</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Hard Bop &amp; Soul Jazz — Art Blakey, Horace Silver, Cannonball</div>
-            <div class="item-card__meta">Week 9 · PDF · Apr 15, 2025</div>
-          </div>
-          <span class="item-card__badge">Slides</span>
-        </a>
-      </div>
-
-      <div class="item-card">
-        <a href="media/slides-jh-wk08.pdf" target="_blank">
-          <div class="item-card__num">08</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Cool Jazz &amp; West Coast Jazz — Miles Davis, Dave Brubeck</div>
-            <div class="item-card__meta">Week 8 · PDF · Apr 8, 2025</div>
-          </div>
-          <span class="item-card__badge">Slides</span>
-        </a>
-      </div>
-
+      <div class="content-section__label">Clip Requirements (70 points · 14 skills · 5 points per skill)</div>
+      <ul class="rules-list">
+        <li>ความยาวและจังหวะของคอร์ดให้ยึดตามโน้ต</li>
+        <li>เล่นต่อเนื่อง ไม่หยุดระหว่างคีย์</li>
+        <li>Metronome อย่างน้อย 50 bpm</li>
+        <li>Clip ห้าม cut ห้าม edit</li>
+        <li>แสดงตัวตนด้วยใบหน้าอย่างชัดเจนก่อนเริ่มเล่น</li>
+        <li>ต้องเห็นมือผู้เล่นอย่างชัดเจนตลอด clip</li>
+        <li>อนุญาตให้ส่งได้ 1 ไฟล์ 1 ครั้ง ต่อ 1 ทักษะ (ไม่มีการส่งใหม่เพื่อขอแก้คะแนน)</li>
+        <li>หากไฟล์มีปัญหา นักศึกษาต้องส่งไฟล์ใหม่ภายใน 24 ชั่วโมงหลังจากที่อาจารย์ส่งอีเมลแจ้ง</li>
+        <li>ไม่รับงานที่ส่งหลังกำหนด</li>
+        <li>การให้คะแนนถือเป็นที่สิ้นสุด</li>
+        <li>ส่งทาง sopon.s@rsu.ac.th</li>
+      </ul>
     </div>
-
+ -->
+    <!-- DEADLINES & SCHEDULES -->
     <div class="content-section" style="margin-top:3rem">
-      <div class="content-section__label">Listening Guides</div>
+      <div class="content-section__label">Deadlines &amp; Schedules</div>
 
-      <div class="item-card">
-        <a href="media/listening-wk10.pdf" target="_blank">
-          <div class="item-card__num">10</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Free Jazz Listening Guide</div>
-            <div class="item-card__meta">Ornette Coleman · "Free Jazz" (1960) · Atlantic</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
+      <div class="deadline-wrap">
+        <table class="deadline-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Handout</th>
+              <th>Due</th>
+            </tr>
+          </thead>
+          <tbody>
+<!--
+            <tr class="row-assignment" onclick="window.open('media/keyboard/253/253-root_motion.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Root Motion in ii-V-I
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">Left Hand Only</div>
+              </td>
+              <td>31 Aug, 4 Sep 2569</td>
+            </tr>
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-minor251.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Four-Note Rootless Voicings: iiø7–V7alt–im7 (Minor ii–V–i)
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เลือก 1 แบบ · เล่น 4 คีย์</div>
+              </td>
+              <td>19 มิ.ย. 2569</td>
+            </tr>
+
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-quartal-69.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Five-Note Quartal Voicings: Major 6/9
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 2 แบบ · แบบละ 4 คีย์</div>
+              </td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-quartal-maj13.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Five-Note Quartal Voicings: Major 13th
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 2 แบบ · แบบละ 4 คีย์</div>
+              </td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-quartal-m11.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Five-Note Quartal Voicings: Minor 11th
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 2 แบบ · แบบละ 4 คีย์</div>
+              </td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-quartal-dom.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Five-Note Quartal Voicings: Dominant 7th (Natural)
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 2 แบบ · แบบละ 4 คีย์</div>
+              </td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+            
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-quartal-altdom.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Five-Note Quartal Voicings: Dominant 7th (Altered)
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 2 แบบ · แบบละ 4 คีย์</div>
+              </td>
+              <td>3 ก.ค. 2569</td>
+            </tr>
+
+            <tr class="row-exam">
+              <td colspan="2"><span class="deadline-exam">Midterm Exam — Five-Note Quartal Voicings</span></td>
+              <td>นัดวันเวลากับผู้สอน<br>สอบภายในวันที่ 11 ก.ค.</td>
+            </tr>
+            <tr class="row-exam-desc">
+              <td colspan="3">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Five-Note Quartal Voicings</strong> เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น</td>
+            </tr>
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-upperstructure-13sus4.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Slash Chord: Dominant 13sus4
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทีละ 4 คีย์ โดยไต่ chromatic ขึ้นแล้วลง · หลังจากนั้นเล่นอีก 4 คีย์ ที่ไม่ซ้ำ รวมเป็น 8 คีย์</div>
+              </td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-upperstructure-13s11.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Upper Structure Triads: Dominant 13#11
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 3 inversion · เล่น 4 คีย์</div>
+              </td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-upperstructure-13f9.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Upper Structure Triads: Dominant 13b9
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 3 inversion · เล่น 4 คีย์</div>
+              </td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+            
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-upperstructure-f13s9.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Upper Structure Triads: Dominant b13#9
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 3 inversion · เล่น 4 คีย์</div>
+              </td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-upperstructure-s11f9.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Upper Structure Triads: Dominant #11b9
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่นทั้ง 3 inversion · เล่น 4 คีย์</div>
+              </td>
+              <td>24 ก.ค. 2569</td>
+            </tr>
+
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-lockedhands-bebopmajor.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Locked-Hands Sixth/Diminished on Bebop Major Scale
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่น 1 คีย์</div>
+              </td>
+              <td>31 ก.ค. 2569</td>
+            </tr>
+            
+            <tr class="row-assignment" onclick="window.open('media/keyboard/254-lockedhands-bebopmelodicminor.pdf','_blank')">
+              <td>--</td>
+              <td>
+                <div class="assign-title">
+                  Locked-Hands Sixth/Diminished on Bebop Melodic Minor Scale
+                  <a class="assign-badge">PDF</a>
+                </div>
+                <div class="assign-meta">เล่น 1 คีย์</div>
+              </td>
+              <td>31 ก.ค. 2569</td>
+            </tr>
+
+            <tr class="row-exam">
+              <td colspan="2"><span class="deadline-exam">Final Exam — Upper Structure Triads</span></td>
+              <td>นัดวันเวลากับผู้สอน<br>สอบภายในวันที่ 8 ส.ค.</td>
+            </tr>
+            <tr class="row-exam-desc">
+              <td colspan="3">เล่นเปียโนประกอบทางเดินคอร์ดที่กำหนด โดยใช้ <strong>Upper Structure Triads</strong> ซ้อนบน chord tones เท่านั้น และต้องใช้ระยะเสียงให้เหมาะสม ไม่กระโดดระยะไกลโดยไม่จำเป็น</td>
+            </tr>
+-->
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GRADING -->
+    <div class="content-section" style="margin-top:3rem">
+      <div class="content-section__label">Grading</div>
+
+      <div class="grade-grid">
+        <div class="grade-item">
+          <div class="grade-item__label">In-Class Activities</div>
+          <div class="grade-item__value">10 x 4%</div>
+        </div>
+        <div class="grade-item">
+          <div class="grade-item__label">Midterm Exam</div>
+          <div class="grade-item__value">15% + 15%</div>
+        </div>
+        <div class="grade-item">
+          <div class="grade-item__label">Final Exam</div>
+          <div class="grade-item__value">15% + 15%</div>
+        </div>
       </div>
 
-      <div class="item-card">
-        <a href="media/listening-wk09.pdf" target="_blank">
-          <div class="item-card__num">09</div>
-          <div class="item-card__info">
-            <div class="item-card__title">Hard Bop Listening Guide</div>
-            <div class="item-card__meta">Art Blakey &amp; The Jazz Messengers · "Moanin'" (1958)</div>
-          </div>
-          <span class="item-card__badge">PDF</span>
-        </a>
+      <div class="letter-grades">
+        <div class="letter-grade"><span>A</span> = 85–100%</div>
+        <div class="letter-grade"><span>B+</span> = 80–84%</div>
+        <div class="letter-grade"><span>B</span> = 75–79%</div>
+        <div class="letter-grade"><span>C+</span> = 70–74%</div>
+        <div class="letter-grade"><span>C</span> = 65–69%</div>
+        <div class="letter-grade"><span>D+</span> = 60–64%</div>
+        <div class="letter-grade"><span>D</span> = 55–59%</div>
+        <div class="letter-grade"><span>F</span> = 0–54%</div>
       </div>
 
     </div>
-  -->
   </main>
 
   <footer class="footer">
     <div class="footer__logo">SOPON SUWANNAKIT</div>
     <a class="footer__email" href="mailto:sopon.s@rsu.ac.th">sopon.s@rsu.ac.th</a>
-    <div class="footer__copy">© 2025 · Rangsit University</div>
+    <div class="footer__copy">© 2026 · Rangsit University</div>
   </footer>
 
   <script src="js/main.js"></script>
