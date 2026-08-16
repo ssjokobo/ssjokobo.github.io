@@ -1,0 +1,47 @@
+{
+  "id": "6603885",
+  "firstName": "Jirawat",
+  "lastName": "Kantha",
+  "nickname": "Ryu",
+  "course": "MUS427",
+  "semester": "1/2569",
+
+  "weeks": [
+    {
+      "week": 2,
+      "date": "2025-08-26",
+      "title": "Starting Week",
+      "content": "_",
+      "homework": [
+        { "label": "TBD", "url": "_" }
+      ],
+      "grade": "TBA",
+      "note": "TBA"
+    }
+  ],
+
+  "midterm": {
+    "techniques": [
+      "TBA"
+    ],
+    "etudes": [
+      { "label": "TBD", "url": "_" }
+    ],
+    "score": "TBA"
+  },
+
+  "finals": {
+    "pieces": [
+      { "title": "TBD", "key": "TBD", "note": "-" },
+      { "title": "TBD", "key": "TBD", "note": "-" }
+    ],
+    "transcription": {
+      "title": "TBD",
+      "note": "-"
+    },
+    "repertoireYear": "4/1",
+    "repertoireResult": "TBA",
+    "score": "TBA"
+  }
+
+}
