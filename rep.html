@@ -177,6 +177,10 @@
     transform: rotateY(180deg);
     padding: 12px 10px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 6px;
     box-shadow: 0 2px 12px rgba(26,79,160,0.3);
   }
@@ -202,10 +206,16 @@
 
   .card-song {
     font-family: 'Playfair Display', serif;
-    font-size: 28px;
     font-weight: 600;
     color: #ffffff;
-    line-height: 1.3;
+    line-height: 1.25;
+    text-align: center;
+    word-break: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    overflow: hidden;
+    display: block;
+    box-sizing: border-box;
   }
 
   .card-back-hint {
@@ -236,7 +246,69 @@
     font-weight: 500;
   }
 
-  @keyframes dealIn {
+  #repertoire-section {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 3rem;
+  }
+
+  .rep-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1.5rem;
+  }
+
+  .rep-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .rep-heading span {
+    color: var(--accent);
+  }
+
+  .rep-list {
+    columns: 2;
+    column-gap: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 500px) {
+    .rep-list { columns: 1; }
+  }
+
+  .rep-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-dim);
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    break-inside: avoid;
+    padding-right: 2rem;
+  }
+
+  .rep-item.col-right {
+    padding-right: 0;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-dim);
+  }
+
+  .rep-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 20px;
+    flex-shrink: 0;
+  }
     0%   { opacity: 0; transform: translateY(-24px) scale(0.88); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
@@ -286,6 +358,12 @@
   <span id="flip-count"><span id="fc">0</span> / 10 revealed</span>
 </div>
 
+<div id="repertoire-section">
+  <div class="rep-divider"></div>
+  <p class="rep-heading">Full Repertoire — <span id="rep-year-label"></span></p>
+  <ol class="rep-list" id="rep-list"></ol>
+</div>
+
 <script>
 const REPERTOIRE = {
   '1/1': ['All Blues','Blue Bossa','Cantaloupe Island','Footprints','Blues Monk',"Now's the Time",'So What','Tenor Madness','Watermelon Man','Straight, No Chaser'],
@@ -329,7 +407,54 @@ function dealCards(year, isReshuffle) {
 
   grid.style.display = 'grid';
   buildCards(grid, songs, true);
+  updateRepertoireList(year);
 }
+
+function updateRepertoireList(year) {
+  const section = document.getElementById('repertoire-section');
+  const label = document.getElementById('rep-year-label');
+  const list = document.getElementById('rep-list');
+  const songs = REPERTOIRE[year];
+
+  label.textContent = 'Year ' + year;
+  list.innerHTML = '';
+  songs.forEach((song, i) => {
+    const li = document.createElement('li');
+    const half = Math.ceil(songs.length / 2);
+    li.className = 'rep-item' + (i >= half ? ' col-right' : '');
+    li.innerHTML = `<span class="rep-num">${String(i + 1).padStart(2, '0')}</span>${song}`;
+    list.appendChild(li);
+  });
+  section.style.display = 'block';
+}
+
+function fitText(el) {
+  const wrap = el.closest('.card-wrap');
+  if (!wrap) return;
+
+  const PAD = 20;
+  const HINT_H = 30;
+  const availW = wrap.offsetWidth - PAD;
+  const availH = wrap.offsetHeight - HINT_H - PAD;
+
+  // Start large, shrink until it fits
+  let size = 40;
+  while (size > 8) {
+    el.style.fontSize = size + 'px';
+    el.style.width = availW + 'px';
+    el.style.transform = '';
+
+    // scrollWidth catches horizontal overflow, scrollHeight catches vertical
+    if (el.scrollWidth <= availW && el.scrollHeight <= availH) break;
+    size--;
+  }
+}
+
+function fitAllCards() {
+  document.querySelectorAll('.card-song').forEach(fitText);
+}
+
+window.addEventListener('resize', fitAllCards);
 
 function buildCards(grid, songs, stagger) {
   grid.innerHTML = '';
@@ -357,6 +482,8 @@ function buildCards(grid, songs, stagger) {
     });
     grid.appendChild(wrap);
   });
+  // Run after layout is painted
+  requestAnimationFrame(() => requestAnimationFrame(fitAllCards));
 }
 
 function updateCount() {

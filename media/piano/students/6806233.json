@@ -1,9 +1,9 @@
 {
-  "id": "6600442",
-  "firstName": "Sakulphat",
-  "lastName": "Ratanacherdchoowong",
-  "nickname": "Boat",
-  "course": "MUS327",
+  "id": "6806233",
+  "firstName": "Zion",
+  "lastName": "Eabcharoen",
+  "nickname": "Siyon",
+  "course": "MUS227",
   "semester": "1/2569",
 
   "weeks": [
@@ -11,14 +11,14 @@
       "week": 2,
       "date": "2025-08-25",
       "title": "Starting Week",
-      "content": "Night in Tunisia, Someday My Prince Will Come",
+      "content": "Moanin'",
       "grade": "A"
     }
   ],
 
   "midterm": {
     "techniques": [
-      "Augmaj7 Arpgeggios"
+      "Modes from Major Scale"
     ],
     "etudes": [
       { "label": "TBD", "url": "_" }
@@ -35,7 +35,7 @@
       "title": "TBD",
       "note": "-"
     },
-    "repertoireYear": "4/1",
+    "repertoireYear": "2/1",
     "repertoireResult": "TBA",
     "score": "TBA"
   }
