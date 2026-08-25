@@ -505,7 +505,7 @@
     }
 
     function getPreviousWeeks(weeks, currentWeekNum) {
-      return (weeks || []).filter(w => w.week !== currentWeekNum).sort((a,b) => b.week - a.week);
+      return (weeks || []).slice().sort((a,b) => b.week - a.week);
     }
 
     // ── PDF homework list ───────────────────────────────────────────────────────
