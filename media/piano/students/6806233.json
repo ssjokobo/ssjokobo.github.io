@@ -12,6 +12,9 @@
       "date": "2025-08-25",
       "title": "Starting Week",
       "content": "Moanin'",
+      "homework": [
+        { "label": "Moanin'", "url": "https://youtu.be/Cv9NSR-2DwM?si=hlBzM2EIg2s759JF" }
+      ],
       "grade": "A"
     }
   ],

@@ -12,7 +12,9 @@
       "date": "2025-08-26",
       "title": "Starting Week",
       "content": "Donna Lee",
-      "homework": "Donna Lee 2 bars all 12 keys and Morning Sprite",
+      "homework": [
+        { "label": "Donna Lee 2 bars all 12 keys and Morning Sprite", "url": "https://youtu.be/W8irFBNzSr4?si=ZHQT3KK6nIF_Rq19" }
+      ],
       "grade": "A"
     }
   ],

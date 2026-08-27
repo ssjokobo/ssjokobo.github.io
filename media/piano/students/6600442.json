@@ -12,6 +12,10 @@
       "date": "2025-08-25",
       "title": "Starting Week",
       "content": "Night in Tunisia, Someday My Prince Will Come",
+      "homework": [
+        { "label": "Night in Tunisia", "url": "https://youtu.be/gfLVVHxk4IM?si=4CpUlprvFaORbOc8" },
+        { "label": "Someday My Prince Will Come", "url": "https://youtu.be/-7FKumYBNBs?si=uJWjg6wLau0THzlz" }
+      ],
       "grade": "A"
     }
   ],
