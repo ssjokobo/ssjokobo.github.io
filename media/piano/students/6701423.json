@@ -11,21 +11,19 @@
       "week": 2,
       "date": "2025-08-26",
       "title": "Starting Week",
-      "content": "_",
-      "homework": [
-        { "label": "TBD", "url": "_" }
-      ],
-      "grade": "TBA",
-      "note": "TBA"
+      "content": "Fingering, Hanon, Someday My Prince Will Come",
+      "homework": "Someday My Prince Will Come",
+      "grade": "A"
     }
   ],
 
   "midterm": {
     "techniques": [
-      "TBA"
+      "Fully-Dim 7th Arpgeggios",
+      "Dominant 7th Arpgeggios"
     ],
     "etudes": [
-      { "label": "TBD", "url": "_" }
+      { "label": "Piano Solo Transcription on Dream A Little Dream", "url": "https://youtu.be/h7j8wa9sWOE?si=T7u-nKVYhq0WV0Gf" }
     ],
     "score": "TBA"
   },
