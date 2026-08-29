@@ -76,6 +76,71 @@
     margin: 1.5rem auto;
   }
 
+  .mode-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .mode-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .mode-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .mode-btn.drums-on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+
+  .toggle-dot {
+    width: 28px;
+    height: 16px;
+    border-radius: 8px;
+    background: #e05555;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .toggle-dot::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .mode-btn.drums-on .toggle-dot {
+    background: #3ab86a;
+  }
+
+  .mode-btn.drums-on .toggle-dot::after {
+    transform: translateX(12px);
+  }
+
   .year-selector {
     display: flex;
     flex-wrap: wrap;
@@ -343,6 +408,13 @@
   <div class="divider"></div>
 </header>
 
+<div class="mode-toggle">
+  <button class="mode-btn" id="btn-drums" onclick="toggleMode()">
+    <span class="toggle-dot"></span>
+    <span id="drums-label">🥁 Drummer Mode Off</span>
+  </button>
+</div>
+
 <div class="year-selector">
   <button class="year-btn" onclick="selectYear('1/1')">Year 1 / 1</button>
   <button class="year-btn" onclick="selectYear('1/2')">Year 1 / 2</button>
@@ -368,17 +440,45 @@
 
 <script>
 const REPERTOIRE = {
-  '1/1': ['All Blues','Blue Bossa','Cantaloupe Island','Footprints','Blues Monk',"Now's the Time",'So What','Tenor Madness','Watermelon Man','Straight, No Chaser'],
-  '1/2': ['All of Me','Autumn Leaves',"Billie's Bounce",'Misty','Perdido','Satin Doll','Solar','Summertime','Tune Up','Take the A Train'],
-  '2/1': ['Black Orpheus','But Not For Me','In a Sentimental Mood','Just Friends','Lullaby of Birdland','On Green Dolphin Street','Song For My Father','The Days of Wine and Roses','The Girl From Ipanema','There Will Never Be Another You'],
-  '2/2': ['All the Things You Are','Beautiful Love','Caravan','Ladybird','My Foolish Heart','My Funny Valentine','Oleo','Recordame','Softly, as in a Morning Sunrise','There is No Greater Love'],
-  '3/1': ['A Night in Tunisia','Anthropology','Autumn in New York','Corcovado',"I'll Remember April",'Like Someone in Love','Ornithology','Someday My Prince Will Come','Stella by Starlight','Triste'],
-  '4/1': ['Alone Together','Bluesette','Body and Soul','Confirmation','Darn That Dream','Desafinado','Donna Lee','Have You Met Miss Jones','Peace','Giant Steps']
+  piano: {
+    '1/1': ['All Blues','Blue Bossa','Cantaloupe Island','Footprints','Blues Monk',"Now's the Time",'So What','Tenor Madness','Watermelon Man','Straight, No Chaser'],
+    '1/2': ['All of Me','Autumn Leaves',"Billie's Bounce",'Misty','Perdido','Satin Doll','Solar','Summertime','Tune Up','Take the A Train'],
+    '2/1': ['Black Orpheus','But Not For Me','In a Sentimental Mood','Just Friends','Lullaby of Birdland','On Green Dolphin Street','Song For My Father','The Days of Wine and Roses','The Girl From Ipanema','There Will Never Be Another You'],
+    '2/2': ['All the Things You Are','Beautiful Love','Caravan','Ladybird','My Foolish Heart','My Funny Valentine','Oleo','Recordame','Softly, as in a Morning Sunrise','There is No Greater Love'],
+    '3/1': ['A Night in Tunisia','Anthropology','Autumn in New York','Corcovado',"I'll Remember April",'Like Someone in Love','Ornithology','Someday My Prince Will Come','Stella by Starlight','Triste'],
+    '4/1': ['Alone Together','Bluesette','Body and Soul','Confirmation','Darn That Dream','Desafinado','Donna Lee','Have You Met Miss Jones','Peace','Giant Steps']
+  },
+  drums: {
+    '1/1': ["Now's the Time",'Tenor Madness',"Billie's Bounce",'Straight, No Chaser','Blues Monk','Solar','Summertime','Cantaloupe Island','Watermelon Man','Tune Up'],
+    '1/2': ['So What','Perdido','Satin Doll','Take the A Train','Lullaby of Birdland','Have You Met Miss Jones','There is No Greater Love','Footprints','All Blues','Oleo'],
+    '2/1': ['All of Me','Autumn Leaves','But Not For Me','Just Friends','The Days of Wine and Roses','There Will Never Be Another You','Beautiful Love','Like Someone in Love','Ornithology','Someday My Prince Will Come'],
+    '2/2': ['A Night in Tunisia','Black Orpheus','Corcovado (Quiet Nights)','Triste','On Green Dolphin Street','Caravan','Recordame','Song For My Father','Softly, as in a Morning Sunrise','Blue Bossa'],
+    '3/1': ['Misty','In a Sentimental Mood','My Foolish Heart','My Funny Valentine','Autumn in New York','Body and Soul','Darn That Dream','Confirmation','Ladybird','Anthropology'],
+    '4/1': ['Peace','Donna Lee','Bluesette','All the Things You Are','The Girl From Ipanema','Alone Together',"I'll Remember April",'Desafinado','Stella by Starlight','Giant Steps']
+  }
 };
 
+let currentMode = 'piano';
 let currentYear = null;
 let flippedCount = 0;
 let isFirstDeal = true;
+
+function toggleMode() {
+  currentMode = currentMode === 'piano' ? 'drums' : 'piano';
+  const btn = document.getElementById('btn-drums');
+  btn.classList.toggle('drums-on', currentMode === 'drums');
+  document.getElementById('drums-label').textContent = currentMode === 'drums' ? '🥁 Drummer Mode On' : '🥁 Drummer Mode Off';
+
+  // Reset state
+  currentYear = null;
+  flippedCount = 0;
+  document.getElementById('cards-grid').innerHTML = '';
+  document.getElementById('cards-grid').style.display = 'none';
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('repertoire-section').style.display = 'none';
+  document.getElementById('prompt-msg').style.display = 'block';
+  document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+}
 
 function shuffle(arr) {
   const a = [...arr];
@@ -399,7 +499,7 @@ function selectYear(year) {
 }
 
 function dealCards(year, isReshuffle) {
-  const songs = shuffle(REPERTOIRE[year]);
+  const songs = shuffle(REPERTOIRE[currentMode][year]);
   flippedCount = 0;
   updateCount();
 
@@ -416,7 +516,7 @@ function updateRepertoireList(year) {
   const section = document.getElementById('repertoire-section');
   const label = document.getElementById('rep-year-label');
   const list = document.getElementById('rep-list');
-  const songs = REPERTOIRE[year];
+  const songs = REPERTOIRE[currentMode][year];
 
   label.textContent = 'Year ' + year;
   list.innerHTML = '';
