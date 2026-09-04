@@ -8,6 +8,16 @@
 
   "weeks": [
     {
+      "week": 3,
+      "date": "2025-08-25",
+      "title": "Moanin' Solo",
+      "content": "Moanin' Solo",
+      "homework": [
+        { "label": "Moanin'", "url": "https://youtu.be/Cv9NSR-2DwM?si=hlBzM2EIg2s759JF" }
+      ],
+      "grade": "A"
+    },
+    {
       "week": 2,
       "date": "2025-08-25",
       "title": "Starting Week",

@@ -8,6 +8,16 @@
 
   "weeks": [
     {
+      "week": 3,
+      "date": "2025-09-04",
+      "title": "One Finger Snap",
+      "content": "Triad along the modes for each Dominant 7th Sus4 Chords",
+      "homework": [
+        { "label": "One Finger Snap", "url": "https://youtu.be/yQgv5bRqmnk?si=1WtsrvdDotU_NMaE" }
+      ],
+      "grade": "A"
+    },
+    {
       "week": 2,
       "date": "2025-08-26",
       "title": "Starting Week",
