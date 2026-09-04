@@ -8,6 +8,17 @@
 
   "weeks": [
     {
+      "week": 3,
+      "date": "2025-09-04",
+      "title": "Ornithology",
+      "content": "Ornithology (Solo Improvisation), It Could Happen To You (Chord and Melody)",
+      "homework": [
+        { "label": "Ornithology", "url": "" }
+      ],
+      "grade": "A"
+    },
+
+    {
       "week": 2,
       "date": "2025-08-25",
       "title": "Starting Week",
@@ -25,7 +36,7 @@
       "Augmaj7 Arpgeggios"
     ],
     "etudes": [
-      { "label": "TBD", "url": "_" }
+      { "label": "Ornithology Bar 13-16 All Keys", "url": "_" }
     ],
     "score": "TBA"
   },
