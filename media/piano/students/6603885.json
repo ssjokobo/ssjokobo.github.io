@@ -8,6 +8,16 @@
 
   "weeks": [
     {
+      "week": 3,
+      "date": "2025-09-4",
+      "title": "Starting Week",
+      "content": "2-Bar Phrase",
+      "homework": [
+        { "label": "2-Bar Phrase All Keys", "url": "media/piano/pdf/ryu-w3.pdf" }
+      ],
+      "grade": "A"
+    },
+    {
       "week": 2,
       "date": "2025-08-26",
       "title": "Starting Week",
