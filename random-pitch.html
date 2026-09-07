@@ -379,28 +379,34 @@
   const cx = 200, cy = 200, r = 148;
 
   clockPitches.forEach((pitch, i) => {
-    const angleDeg = i * 30 - 90; // 0° = right; subtract 90 to start at top
+    const angleDeg = i * 30 - 90;
     const angleRad = angleDeg * Math.PI / 180;
     const x = cx + r * Math.cos(angleRad);
     const y = cy + r * Math.sin(angleRad);
 
     const btn = document.createElement('button');
-    btn.className = 'pitch-btn';
+    btn.className = 'pitch-btn off';
     btn.value = pitch.value;
     btn.innerHTML = pitch.label;
     btn.style.left = x + 'px';
     btn.style.top = y + 'px';
 
-    btn.addEventListener('click', () => {
-      const val = btn.value;
-      if (btn.classList.contains('on')) {
-        onButtons = onButtons.filter(v => v !== val);
+    btn.onclick = function() {
+      if (btn.getAttribute('data-state') === 'on') {
+        for (let i = 0; i < onButtons.length; i++) {
+          if (onButtons[i] === btn.value) {
+            onButtons.splice(i, 1);
+            break;
+          }
+        }
+        btn.setAttribute('data-state', 'off');
         btn.classList.remove('on');
       } else {
-        onButtons.push(val);
+        onButtons.push(btn.value);
+        btn.setAttribute('data-state', 'on');
         btn.classList.add('on');
       }
-    });
+    };
 
     clock.appendChild(btn);
   });
@@ -409,7 +415,13 @@
     btn.addEventListener('click', () => {
       onButtons = btn.dataset.value ? btn.dataset.value.split(',') : [];
       document.querySelectorAll('.pitch-btn').forEach(pb => {
-        pb.classList.toggle('on', onButtons.includes(pb.value));
+        if (onButtons.includes(pb.value)) {
+          pb.setAttribute('data-state', 'on');
+          pb.classList.add('on');
+        } else {
+          pb.setAttribute('data-state', 'off');
+          pb.classList.remove('on');
+        }
       });
     });
   });
@@ -417,34 +429,31 @@
   const SLOT_H = 130;
   let spinning = false;
 
-  function slideIn(text, duration = 80) {
+  function slideIn(text, duration) {
     const track = document.getElementById('result-track');
-    const current = track.querySelector('.result-slot');
 
-    const next = document.createElement('div');
-    next.className = 'result-slot';
-    next.textContent = text;
-    next.style.position = 'absolute';
-    next.style.top = '-130px';
-    track.appendChild(next);
+    // Remove all existing slots cleanly
+    track.innerHTML = '';
+
+    const slot = document.createElement('div');
+    slot.className = 'result-slot';
+    slot.textContent = text;
+    slot.style.position = 'absolute';
+    slot.style.top = `-${SLOT_H}px`;
+    track.appendChild(slot);
 
     const start = performance.now();
-
     function frame(now) {
       const t = Math.min((now - start) / duration, 1);
-      const offset = t * SLOT_H;
-      if (current) current.style.transform = `translateY(${offset}px)`;
-      next.style.top = `${-SLOT_H + offset}px`;
+      slot.style.top = `${-SLOT_H + t * SLOT_H}px`;
       if (t < 1) {
         requestAnimationFrame(frame);
       } else {
-        if (current) current.remove();
-        next.style.position = '';
-        next.style.top = '';
+        slot.style.position = '';
+        slot.style.top = '';
       }
     }
     requestAnimationFrame(frame);
-    return next;
   }
 
   document.getElementById('random-btn').addEventListener('click', () => {
@@ -465,9 +474,11 @@
     let count = 0;
     const total = 16;
     const SPEED = 10;
+    const snapshot = onButtons.slice(); // freeze selection at click time
 
     function next() {
-      const text = allPitches[onButtons[Math.floor(Math.random() * onButtons.length)]];
+      const val = snapshot[Math.floor(Math.random() * snapshot.length)];
+      const text = allPitches[parseInt(val)];
       slideIn(text, SPEED);
       count++;
       if (count < total) {
