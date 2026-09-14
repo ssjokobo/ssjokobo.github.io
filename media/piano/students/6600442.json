@@ -8,12 +8,22 @@
 
   "weeks": [
     {
+      "week": 4,
+      "date": "2025-09-11",
+      "title": "Triste",
+      "content": "Triste",
+      "homework": [
+        { "label": "Triste", "url": "#" }
+      ],
+      "grade": "A"
+    },
+    {
       "week": 3,
       "date": "2025-09-04",
       "title": "Ornithology",
       "content": "Ornithology (Solo Improvisation), It Could Happen To You (Chord and Melody)",
       "homework": [
-        { "label": "Ornithology", "url": "" }
+        { "label": "Ornithology", "url": "#" }
       ],
       "grade": "A"
     },

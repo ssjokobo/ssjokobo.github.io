@@ -8,8 +8,18 @@
 
   "weeks": [
     {
+      "week": 4,
+      "date": "2025-09-11",
+      "title": "Moanin' Solo & Tune Up",
+      "content": "Moanin' Solo & Tune Up",
+      "homework": [
+        { "label": "Tune Up", "url": "#" }
+      ],
+      "grade": "A"
+    },
+    {
       "week": 3,
-      "date": "2025-08-25",
+      "date": "2025-09-04",
       "title": "Moanin' Solo",
       "content": "Moanin' Solo",
       "homework": [

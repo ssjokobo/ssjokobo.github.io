@@ -8,9 +8,19 @@
 
   "weeks": [
     {
+      "week": 4,
+      "date": "2025-09-11",
+      "title": "Repertoires",
+      "content": "20 songs year 1",
+      "homework": [
+        { "label": "20 songs year 1", "url": "#" }
+      ],
+      "grade": "A"
+    },
+    {
       "week": 3,
-      "date": "2025-09-4",
-      "title": "Starting Week",
+      "date": "2025-09-04",
+      "title": "Chromaticism",
       "content": "2-Bar Phrase",
       "homework": [
         { "label": "2-Bar Phrase All Keys", "url": "media/piano/pdf/ryu-w3.pdf" }
