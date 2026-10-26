@@ -35,7 +35,20 @@ header .rule{width:40px;height:1px;background:var(--border);margin:1.5rem auto 0
 .roots-title .count{letter-spacing:.08em;text-transform:none;margin-left:8px;color:var(--text-muted)}
 
 /* Status strip */
-.strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--border-dim)}
+.strip{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:10px;padding-block:12px 14px;border-bottom:1px solid var(--border-dim);
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);margin-top:-12px}
+.strip .scores{flex-wrap:nowrap;flex:none}
+.timer{flex:none;white-space:nowrap}
+.strip .short{display:none}
+@media (max-width:460px){
+  .card{padding:16px}
+  .timer{font-size:1.6rem}
+  .chip{padding:5px 8px;gap:4px}
+  .chip b{font-size:1rem}
+  .strip .scores{gap:6px}
+  #stopBtn{padding:8px 10px}
+  #stopBtn .long{display:none} #stopBtn .short{display:inline}
+}
 .timer{font-family:var(--f-mono);font-weight:500;font-size:2rem;font-variant-numeric:tabular-nums;letter-spacing:.04em;color:var(--accent)}
 .timer.low{color:var(--bad)}
 .scores{display:flex;gap:8px;align-items:center}
@@ -128,6 +141,16 @@ header .rule{width:40px;height:1px;background:var(--border);margin:1.5rem auto 0
 }
 @media (max-width:520px){.grow{grid-template-columns:1fr}.grow.solo .gbtn{width:100%}}
 
+/* Timer switch (same look as the Drummer Mode toggle) */
+.tswitch{align-self:flex-end;display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;padding:9px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:all .2s;white-space:nowrap}
+.tdot{width:28px;height:16px;border-radius:8px;background:var(--bad);position:relative;transition:background .2s;flex-shrink:0}
+.tdot::after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tswitch[aria-pressed="true"] .tdot{background:var(--on)}
+.tswitch[aria-pressed="true"] .tdot::after{transform:translateX(12px)}
+@media (hover:hover){.tswitch:hover{border-color:var(--accent);color:var(--accent)}}
+.brk{display:none}
+@media (max-width:460px){.tswitch{align-self:center}.brk{display:block;flex-basis:100%;height:0}}
+
 /* Piano keyboard answers */
 .kb{--bk-w:calc(100% / 7 * .6);position:relative;display:flex;height:clamp(150px,34vw,190px);border:1px solid var(--text);border-radius:2px;overflow:hidden;background:var(--text)}
 .choices .key{position:relative;padding:0;border-radius:0 0 3px 3px;font-family:var(--f-serif);font-weight:600;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;transition:background .15s}
@@ -187,6 +210,33 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .keys{color:var(--text-dim);font-size:11px;letter-spacing:.08em;text-align:center}
 kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid var(--border);border-radius:2px;background:var(--surface);color:var(--text-muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Keep the whole question on screen on shorter windows */
+@media (max-height:820px){
+  #quiz > div{gap:14px!important}
+  .pitch.target .name{font-size:clamp(3rem,12vw,4.4rem)}
+  .pitch.target .name.word{font-size:clamp(2rem,8vw,2.8rem)}
+  .pitch.root .name{font-size:clamp(1.9rem,7vw,2.4rem)}
+  .kb{height:clamp(130px,28vw,160px)}
+  .card{gap:16px}
+}
+@media (max-height:660px){
+  .pitch.target .name{font-size:clamp(2.6rem,10vw,3.4rem)}
+  .pitch.root .name{font-size:clamp(1.6rem,6vw,2rem)}
+  .kb{height:clamp(120px,24vw,140px)}
+  .q .divider{margin:2px 0}
+}
+
+
+/* Lock the question's height so ♭/♯ and word labels never move the keyboard */
+.pitch.target{--tsz:clamp(4rem,17vw,6rem)}
+@media (max-height:820px){.pitch.target{--tsz:clamp(3rem,12vw,4.4rem)}}
+@media (max-height:660px){.pitch.target{--tsz:clamp(2.6rem,10vw,3.4rem)}}
+.pitch.target .name{font-size:var(--tsz);line-height:1.1;height:1.1em}
+.pitch.target .name.word{font-size:calc(var(--tsz) * .6);height:calc(var(--tsz) * 1.1);line-height:calc(var(--tsz) * 1.1);padding-block:0}
+.pitch.root .name{line-height:1.15;height:1.15em}
+.pitch .name .acc,.prompt .acc{line-height:0}
+.prompt{line-height:1.5;min-height:1.5em}
+@media (max-width:460px){.prompt{min-height:3em;display:flex;align-items:center;justify-content:center}}
 </style>
 
 <div class="wrap">
@@ -203,7 +253,7 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
       <div class="scores">
         <div class="chip ok" title="Correct">✓ <b id="okCount">0</b></div>
         <div class="chip no" title="Incorrect">✗ <b id="noCount">0</b></div>
-        <button class="btn ghost" id="stopBtn">End test</button>
+        <button class="btn ghost" id="stopBtn"><span class="long">End test</span><span class="short">End</span></button>
       </div>
     </div>
 
@@ -224,7 +274,7 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
     </div>
 
     <div class="results" id="results" hidden>
-      <h2>Time's up</h2>
+      <h2 id="resTitle">Time's up</h2>
       <div class="res-row">
         <div class="ok"><b id="rOk">0</b><span>Correct</span></div>
         <div class="no"><b id="rNo">0</b><span>Incorrect</span></div>
@@ -246,9 +296,10 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
     </div>
 
     <div class="setup" id="setupPanel">
-      <div class="field"><label for="min">Minutes</label><input id="min" type="number" min="0" max="60" step="1" value="1" inputmode="numeric"></div>
-      <span class="colon">:</span>
-      <div class="field"><label for="sec">Seconds</label><input id="sec" type="number" min="-1" max="60" step="1" value="00" inputmode="numeric"></div>
+      <button type="button" class="tswitch" id="timerToggle" aria-pressed="true"><span class="tdot" aria-hidden="true"></span><span id="timerLabel">Timer On</span></button><span class="brk" aria-hidden="true"></span>
+      <div class="field tf"><label for="min">Minutes</label><input id="min" type="number" min="0" max="60" step="1" value="1" inputmode="numeric"></div>
+      <span class="colon tf">:</span>
+      <div class="field tf"><label for="sec">Seconds</label><input id="sec" type="number" min="-1" max="60" step="1" value="00" inputmode="numeric"></div>
       <div class="spacer"></div>
       <button class="btn" id="startBtn">Start test</button>
       <p class="setup-msg" id="setupMsg" aria-live="polite" hidden></p>
@@ -422,18 +473,22 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
     return Math.floor(t/60)+':'+String(t%60).padStart(2,'0');
   }
 
+  let timed=true;
   function start(){
     const dur=readDuration();
     const msg=$('setupMsg');
-    if(dur<=0){ msg.textContent='Set a time longer than 0:00.'; msg.hidden=false; return; }
+    if(timed&&dur<=0){ msg.textContent='Set a time longer than 0:00.'; msg.hidden=false; return; }
     if(!sel.size&&!nums.size){ msg.textContent='Pick at least one root and at least one number.'; msg.hidden=false; return; }
     if(!sel.size){ msg.textContent='Pick at least one root.'; msg.hidden=false; return; }
     if(!nums.size){ msg.textContent='Pick at least one number to include.'; msg.hidden=false; return; }
     msg.hidden=true;
     clearInterval(state.tick);
     state.ok=0; state.no=0; updateScore();
-    state.running=true; state.endAt=Date.now()+dur;
+    state.running=true; state.startAt=Date.now(); state.endAt=Date.now()+dur;
     showView('test');
+    // bring the timer, score and question into view together
+    const card=document.querySelector('.card');
+    window.scrollTo({top:Math.max(0,card.getBoundingClientRect().top+window.scrollY-8),behavior:'instant'});
     els.min.disabled=els.sec.disabled=true;
     setPickerDisabled(true);
     els.timer.classList.remove('low');
@@ -442,6 +497,7 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
   }
 
   function tick(){
+    if(!timed){ els.timer.textContent=fmt(Date.now()-state.startAt); return; }
     const left=state.endAt-Date.now();
     els.timer.textContent=fmt(left);
     els.timer.classList.toggle('low',left<=10000);
@@ -451,7 +507,8 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
   function finish(){
     clearInterval(state.tick);
     state.running=false;
-    els.timer.textContent='0:00';
+    if(timed) els.timer.textContent='0:00';
+    $('resTitle').textContent=timed?"Time's up":'Test ended · '+els.timer.textContent;
     const total=state.ok+state.no;
     els.rOk.textContent=state.ok; els.rNo.textContent=state.no;
     els.rPct.textContent=total?Math.round(state.ok/total*100)+'%':'–';
@@ -463,7 +520,15 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
     els.start.focus({preventScroll:true});
   }
 
-  function idleTimer(){ if(!state.running){ els.timer.textContent=fmt(readDurationSilent()); } }
+  function idleTimer(){ if(!state.running){ els.timer.textContent=timed?fmt(readDurationSilent()):'0:00'; } }
+  $('timerToggle').addEventListener('click',()=>{
+    timed=!timed;
+    $('timerToggle').setAttribute('aria-pressed',String(timed));
+    $('timerLabel').textContent=timed?'Timer On':'Timer Off';
+    document.querySelectorAll('.setup .tf').forEach(el=>el.hidden=!timed);
+    if(timed) $('setupMsg').hidden=true;
+    idleTimer();
+  });
   function readDurationSilent(){
     const m=Math.max(0,Math.min(60,parseInt(els.min.value,10)||0));
     const s=Math.max(0,Math.min(59,parseInt(els.sec.value,10)||0));
@@ -501,11 +566,7 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
   });
 
   // Root picker
-  const sel=new Set(ROOTS.map((_,i)=>i));
-  try{
-    const saved=JSON.parse(localStorage.getItem('ftp-roots'));
-    if(Array.isArray(saved)&&saved.length){ sel.clear(); saved.forEach(i=>{ if(Number.isInteger(i)&&i>=0&&i<ROOTS.length) sel.add(i); }); }
-  }catch(e){}
+  const sel=new Set(ROOTS.map((_,i)=>i)); // every key selected on load
   const chipBox=$('rootChips');
   ROOTS.forEach((r,i)=>{
     const b=document.createElement('button');
@@ -517,7 +578,6 @@ kbd{font-family:var(--f-mono);font-size:11px;padding:1px 5px;border:1px solid va
   function syncChips(){
     [...chipBox.children].forEach((b,i)=>b.setAttribute('aria-pressed',String(sel.has(i))));
     $('rootCount').textContent=sel.size+' of '+ROOTS.length;
-    try{ localStorage.setItem('ftp-roots',JSON.stringify([...sel])); }catch(e){}
     if(!state.running&&state.q&&sel.size&&!sel.has(state.q.ri)) newQuestion();
   }
   function setPickerDisabled(v){
