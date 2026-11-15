@@ -82,6 +82,12 @@
   .dot{display:inline-block;width:22px;height:22px;border-radius:6px;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;line-height:22px;text-align:center;background:var(--line);color:var(--muted);margin-left:3px}
   .dot.on{background:var(--brass);color:#fff}
   .diff{font-size:11px;font-weight:500;color:var(--muted);display:block}
+  .help h4{font-size:14px;margin:16px 0 6px}
+  .help p,.help li{font-size:14px;margin:0 0 6px}
+  .help ul{padding-left:18px;margin:0}
+  .sw{display:inline-block;width:22px;height:7px;border-radius:9px;background:var(--brass);vertical-align:middle}
+  .tk{display:inline-block;width:2px;height:14px;background:var(--blue);vertical-align:middle;margin:0 4px}
+  .dl{display:inline-block;width:20px;border-top:2px dashed var(--blue);vertical-align:middle}
   .sheet .quote{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);white-space:pre-wrap;font-size:14px}
   .comment .who{font-size:12.5px;color:var(--muted);margin-bottom:2px;font-weight:500}
   .comment p{margin:0;white-space:pre-wrap}
@@ -98,7 +104,7 @@
 
   <div class="toolbar">
     <div class="stats" id="stats"></div>
-    <div><button class="ghost" id="expandAll">เปิดทั้งหมด</button> <button class="ghost" id="collapseAll">ปิดทั้งหมด</button></div>
+    <div><button class="ghost" id="helpBtn">วิธีใช้</button> <button class="ghost" id="expandAll">เปิดทั้งหมด</button> <button class="ghost" id="collapseAll">ปิดทั้งหมด</button></div>
   </div>
 
   <div id="list"></div>
@@ -234,6 +240,29 @@ function openJudge(band, rows, i, sum, isDemo){
   const m=document.getElementById("modal"); m.classList.add("show");
   document.getElementById("closeModal").onclick=closeJudge; document.getElementById("closeModal").focus();
 }
+function openHelp(){
+  document.getElementById("sheet").innerHTML=`
+    <div class="sheet-head"><div class="title">วิธีใช้</div><button class="x" aria-label="ปิด" id="closeModal">×</button></div>
+    <div class="help">
+      <h4>1 · เปิดดูแต่ละวง</h4>
+      <p>แตะที่การ์ดวงเพื่อเปิด/ปิด ตัวเลขมุมขวาคือคะแนนเฉลี่ยรวมของวง (เต็ม 7) และใต้ชื่อวงบอกจำนวนกรรมการที่ให้คะแนนวงนั้น</p>
+      <h4>2 · กราฟเรดาร์</h4>
+      <p>แสดงคะแนนเฉลี่ย 6 ด้าน ยิ่งพื้นที่กว้างออกไปทางขอบ ยิ่งคะแนนสูง เส้นประสีฟ้า <span class="dl"></span> คือค่าเฉลี่ยของทุกวง</p>
+      <h4>3 · แถบคะแนน</h4>
+      <ul>
+        <li><span class="sw"></span> แถบสีเหลือง = คะแนนเฉลี่ยของวงนี้</li>
+        <li><span class="tk"></span> ขีดสีฟ้า = ค่าเฉลี่ยของทุกวง ถ้าแถบเลยขีดคือสูงกว่าค่าเฉลี่ย</li>
+        <li>ตัวเลขเล็ก เช่น <b>5–7</b> = คะแนนต่ำสุด–สูงสุดที่กรรมการแต่ละท่านให้ ช่วงกว้างแปลว่ากรรมการเห็นต่างกัน ช่วงแคบแปลว่ากรรมการเห็นตรงกัน</li>
+        <li>ด้านที่เป็น<span class="hi"> สีเขียว</span> คือจุดแข็งที่สุด<span class="lo"> สีส้ม</span> คือด้านที่ควรพัฒนาที่สุด</li>
+      </ul>
+      <h4>4 · คอมเมนต์</h4>
+      <p>แตะที่คอมเมนต์เพื่อดูคะแนนรายด้านของกรรมการท่านนั้น และดูว่าสูงหรือต่ำกว่าค่าเฉลี่ยของวงเท่าใด</p>
+      <h4>หมายเหตุ</h4>
+      <p>คะแนนเฉลี่ยคิดจากกรรมการที่ให้คะแนนวงนั้นเท่านั้น</p>
+    </div>`;
+  document.getElementById("modal").classList.add("show");
+  document.getElementById("closeModal").onclick=closeJudge; document.getElementById("closeModal").focus();
+}
 function closeJudge(){ document.getElementById("modal").classList.remove("show"); }
 
 function card(band, rows, sum, overlay, isDemo){
@@ -292,6 +321,7 @@ document.getElementById("stats").innerHTML =
   (scored.length?`<span>เฉลี่ยรวม <b>${fmt(mean(scored.map(x=>x.sum.overall)))}</b></span>`:"");
 
 const setAll=open=>document.querySelectorAll(".card:not(.empty)").forEach(c=>{c.classList.toggle("open",open);c.querySelector(".head").setAttribute("aria-expanded",open);});
+document.getElementById("helpBtn").onclick=openHelp;
 document.getElementById("expandAll").onclick=()=>setAll(true);
 document.getElementById("collapseAll").onclick=()=>setAll(false);
 
