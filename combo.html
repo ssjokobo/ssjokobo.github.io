@@ -455,8 +455,7 @@ document.getElementById("collapseAll").onclick=()=>setAll(false);
 document.getElementById("modal").addEventListener("click",e=>{ if(e.target.id==="modal") closeJudge(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeJudge(); });
 
-/* Open the first card that has data */
-const first=document.querySelector(".card:not(.empty)"); if(first){first.classList.add("open");first.querySelector(".head").setAttribute("aria-expanded",true);}
+
 </script>
 </body>
 </html>
