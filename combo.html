@@ -19,86 +19,103 @@
       --good:#5fbf92; --warn:#e58a62; --shadow:none; }
   }
   *{box-sizing:border-box}
+  html{font-size:16px}
+  @media (min-width:1200px){html{font-size:18px}}
+  @media (min-width:1600px){html{font-size:20px}}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;line-height:1.55}
-  .wrap{max-width:880px;margin:0 auto;padding:40px 20px 80px}
+  .wrap{max-width:58rem;margin:0 auto;padding:40px 20px 80px}
   header{margin-bottom:28px}
-  .eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);font-weight:600}
-  h1{font-family:Fraunces,serif;font-size:clamp(28px,5vw,40px);line-height:1.1;margin:6px 0 10px}
-  .sub{color:var(--muted);margin:0;font-size:15px}
+  .eyebrow{font-size:0.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);font-weight:600}
+  h1{font-family:Fraunces,serif;font-size:clamp(1.75rem,5vw,2.6rem);line-height:1.1;margin:6px 0 10px}
+  .sub{color:var(--muted);margin:0;font-size:0.9375rem}
   .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:22px 0 14px}
-  .stats{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .stats{display:flex;gap:18px;flex-wrap:wrap;font-size:0.875rem;color:var(--muted)}
   .stats b{color:var(--ink);font-family:"IBM Plex Mono",monospace;font-weight:600}
-  button.ghost{background:none;border:1px solid var(--line);color:var(--ink);font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;cursor:pointer}
+  button.ghost{background:none;border:1px solid var(--line);color:var(--ink);font:inherit;font-size:0.8125rem;padding:6px 12px;border-radius:999px;cursor:pointer}
   button.ghost:hover{border-color:var(--brass)}
 
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
   .card.demo{border-style:dashed;border-color:var(--brass)}
   .card.empty{opacity:.62}
-  .head{width:100%;display:grid;grid-template-columns:44px 1fr auto 22px;gap:14px;align-items:center;padding:14px 18px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+  .head{width:100%;display:grid;grid-template-columns:2.75rem 1fr auto 1.4rem;gap:14px;align-items:center;padding:14px 18px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
   .card.empty .head{cursor:default}
-  .num{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-family:Fraunces,serif;font-size:20px;font-weight:700;background:var(--blue-soft);color:var(--blue)}
-  .card.demo .num{background:var(--brass-soft);color:var(--brass);font-size:12px;font-family:"IBM Plex Mono",monospace}
-  .title{font-weight:600;font-size:17px}
-  .meta{font-size:13px;color:var(--muted)}
-  .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;padding:1px 7px;border-radius:999px;background:var(--brass-soft);color:var(--brass);margin-left:6px;vertical-align:2px}
+  .num{width:2.75rem;height:2.75rem;border-radius:10px;display:grid;place-items:center;font-family:Fraunces,serif;font-size:1.25rem;font-weight:700;background:var(--blue-soft);color:var(--blue)}
+  .card.demo .num{background:var(--brass-soft);color:var(--brass);font-size:0.75rem;font-family:"IBM Plex Mono",monospace}
+  .title{font-weight:600;font-size:1.0625rem}
+  .meta{font-size:0.8125rem;color:var(--muted)}
+  .tag{display:inline-block;font-size:0.6875rem;font-weight:600;letter-spacing:.06em;padding:1px 7px;border-radius:999px;background:var(--brass-soft);color:var(--brass);margin-left:6px;vertical-align:2px}
   .score{text-align:right}
-  .score .big{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
-  .score .of{font-size:12px;color:var(--muted)}
+  .score .big{font-family:"IBM Plex Mono",monospace;font-size:1.375rem;font-weight:600}
+  .score .of{font-size:0.75rem;color:var(--muted)}
   .chev{transition:transform .2s;color:var(--muted)}
   .card.open .chev{transform:rotate(90deg)}
   .body{display:none;border-top:1px solid var(--line);padding:22px 18px 24px}
   .card.open .body{display:block}
 
-  .grid{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:26px;align-items:center}
-  @media (max-width:680px){.grid{grid-template-columns:1fr}}
-  .radar svg{width:100%;height:auto;display:block}
-  .legend{display:flex;gap:16px;justify-content:center;font-size:12px;color:var(--muted);margin-top:4px}
+  .grid{display:grid;grid-template-columns:minmax(0,26rem) 1fr;gap:26px;align-items:center}
+  @media (max-width:680px){
+    .grid{grid-template-columns:1fr}
+    .wrap{padding-left:12px;padding-right:12px}
+    .body{padding:16px 12px 20px}
+    .radar{margin:0 -10px}
+  }
+  .radar svg{width:100%;height:auto;display:block;overflow:visible}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;font-size:0.75rem;color:var(--muted);margin-top:4px}
   .legend i{display:inline-block;width:18px;height:0;border-top:3px solid var(--brass);vertical-align:middle;margin-right:6px}
   .legend i.avg{border-top:2px dashed var(--blue)}
+  .legend i.mid{border-top:2px dotted var(--muted);opacity:.7}
 
-  table{width:100%;border-collapse:collapse;font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:0.875rem}
   td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:middle}
   tr:last-child td{border-bottom:0}
   .an{font-weight:500}
-  .an small{display:block;color:var(--muted);font-size:11.5px;font-weight:400;line-height:1.3}
+  .an small{display:block;color:var(--muted);font-size:0.71875rem;font-weight:400;line-height:1.3}
   .bar{width:38%;padding:0 12px}
   .track{height:7px;border-radius:9px;background:var(--line);position:relative}
   .fill{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:var(--brass)}
   .mark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--blue);border-radius:2px}
   .val{text-align:right;font-family:"IBM Plex Mono",monospace;font-weight:600;white-space:nowrap}
-  .val small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+  .val small{display:block;font-weight:500;color:var(--muted);font-size:0.6875rem}
   .hi{color:var(--good)} .lo{color:var(--warn)}
 
-  h3{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:26px 0 12px;font-weight:600}
+  h3{font-size:0.8125rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:26px 0 12px;font-weight:600}
   .comment{display:block;width:100%;text-align:left;background:none;border:0;border-left:3px solid var(--brass);padding:6px 10px 6px 14px;margin:0 0 12px;font:inherit;color:inherit;cursor:pointer;border-radius:0 8px 8px 0;transition:background .15s}
   .comment:hover,.comment:focus-visible{background:var(--brass-soft);outline:none}
-  .comment .see{float:right;font-size:11.5px;color:var(--brass);font-weight:600}
+  .comment .see{float:right;font-size:0.71875rem;color:var(--brass);font-weight:600}
   .modal{position:fixed;inset:0;background:rgba(15,18,26,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
   .modal.show{display:flex}
-  .sheet{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:460px;width:100%;max-height:90vh;overflow:auto;padding:22px 22px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .sheet{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:30rem;width:100%;max-height:90vh;overflow:auto;padding:22px 22px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
   .sheet-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
-  .sheet-head .title{font-size:18px}
-  .x{background:none;border:0;color:var(--muted);font-size:24px;line-height:1;cursor:pointer;padding:0 4px}
-  .dot{display:inline-block;width:22px;height:22px;border-radius:6px;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;line-height:22px;text-align:center;background:var(--line);color:var(--muted);margin-left:3px}
+  .sheet-head .title{font-size:1.125rem}
+  .x{background:none;border:0;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer;padding:0 4px}
+  .dot{display:inline-block;width:1.4rem;height:1.4rem;border-radius:6px;font-family:"IBM Plex Mono",monospace;font-size:0.75rem;font-weight:600;line-height:1.4rem;text-align:center;background:var(--line);color:var(--muted);margin-left:3px}
   .dot.on{background:var(--brass);color:#fff}
-  .diff{font-size:11px;font-weight:500;color:var(--muted);display:block}
-  .help h4{font-size:14px;margin:16px 0 6px}
-  .help p,.help li{font-size:14px;margin:0 0 6px}
+  .diff{font-size:0.6875rem;font-weight:500;color:var(--muted);display:block}
+  .help h4{font-size:0.875rem;margin:16px 0 6px}
+  .help p,.help li{font-size:0.875rem;margin:0 0 6px}
   .help ul{padding-left:18px;margin:0}
   .sw{display:inline-block;width:22px;height:7px;border-radius:9px;background:var(--brass);vertical-align:middle}
   .tk{display:inline-block;width:2px;height:14px;background:var(--blue);vertical-align:middle;margin:0 4px}
   .dl{display:inline-block;width:20px;border-top:2px dashed var(--blue);vertical-align:middle}
-  .sheet .quote{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);white-space:pre-wrap;font-size:14px}
-  .comment .who{font-size:12.5px;color:var(--muted);margin-bottom:2px;font-weight:500}
-  .comment p{margin:0;white-space:pre-wrap}
-  footer{margin-top:36px;font-size:12.5px;color:var(--muted);text-align:center}
+  .sheet .quote{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:0.875rem}
+  .comment .who{font-size:0.78125rem;color:var(--muted);margin-bottom:2px;font-weight:500}
+  .cm{font-size:.95rem}
+  .cm p{margin:0 0 6px}
+  .cm p:last-child,.cm ul:last-child,.cm ol:last-child{margin-bottom:0}
+  .cm ul,.cm ol{margin:0 0 8px;padding-left:1.3em}
+  .cm li{margin:0 0 3px}
+  .cm li ul{margin:3px 0 0}
+  .cm .ttl{font-weight:600;margin:10px 0 3px}
+  .cm .ttl:first-child{margin-top:0}
+  .cm p.none{color:var(--muted);font-style:italic}
+  footer{margin-top:36px;font-size:0.78125rem;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <div class="eyebrow">RSU Jazz Program · Combo Recital 1/69</div>
-    <h1>Faculty Feedback by Band</h1>
+    <h1>Faculty Feedback</h1>
     <p class="sub">คะแนนเฉลี่ยจากกรรมการที่ให้คะแนนแต่ละวง (เต็ม 7) และคอมเมนต์ — แตะที่วงเพื่อดูรายละเอียด</p>
   </header>
 
@@ -109,7 +126,6 @@
 
   <div id="list"></div>
 
-  <footer>Scale: 1 อ่อน · 4 กลาง · 7 เยี่ยม &nbsp;·&nbsp; Averages use only the judges who scored that band.</footer>
 </div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="sheet" id="sheet"></div></div>
@@ -118,7 +134,6 @@
    SETTINGS
    ============================================================ */
 const SHOW_JUDGE_NAMES = false;   // false = "กรรมการ 1, 2, 3…" (anonymous)
-const TOTAL_JUDGES = 5;           // used for the "4/5 judges" count
 
 /* Six aspects, in form order */
 const ASPECTS = [
@@ -126,48 +141,122 @@ const ASPECTS = [
   { th:"โซโล่",        en:"Improvisation" },
   { th:"ทักษะเครื่อง",  en:"Technique / Tone / Intonation" },
   { th:"ความเป็นวง",    en:"Ensemble Coordination" },
-  { th:"การเรียบเรียง",  en:"Arrangement / Interpretation" },
-  { th:"ความไพเราะ",    en:"Musicality / Style / Articulations / Dynamics" },
+  { th:"บทเพลงและการนำเสนอ", en:"Composition / Arrangement / Reference" },
+  { th:"ความไพเราะ",    en:"Musicality / Styles / Interpretation" },
 ];
 
 /* Bands, as listed in the form */
 const BANDS = [
-  { id:"1",  name:"อ.บาส" },
-  { id:"2",  name:"อ.ฟุง" },
-  { id:"3",  name:"อ.ม๋า 11 โมง" },
-  { id:"4",  name:"อ.เมส" },
-  { id:"5",  name:"อ.ม๋า 10 โมง" },
-  { id:"6",  name:"อ.ติว" },
-  { id:"7",  name:"อ.โจ๊ก เที่ยง" },
-  { id:"8",  name:"อ.Bartoz บ่าย 1" },
-  { id:"9",  name:"อ.กุ๊ก เที่ยง" },
+  { id:"1", name:"อ.บาส" },
+  { id:"2", name:"อ.ฟุง" },
+  { id:"3", name:"อ.ม๋า 11 โมง" },
+  { id:"4", name:"อ.เมส" },
+  { id:"5", name:"อ.ม๋า 10 โมง" },
+  { id:"6", name:"อ.ติว" },
+  { id:"7", name:"อ.โจ๊ก เที่ยง" },
+  { id:"8", name:"อ.Bartoz บ่าย 1" },
+  { id:"9", name:"อ.กุ๊ก เที่ยง" },
   { id:"10", name:"อ.โจ๊ก 11 โมง" },
   { id:"11", name:"อ.กุ๊ก 10 โมง" },
   { id:"12", name:"อ.Bartoz บ่าย 2" },
-  { id:"13", name:"อ.ช้างต้น" },
+  { id:"13", name:"อ.กุ๊ก 11 โมง" },
+  { id:"14", name:"อ.ช้างต้น" },
 ];
 
 /* ============================================================
-   RESPONSES — one row per form submission
-   band: band number as text ("1"…"13") · judge: as selected in form
-   scores: [Time, Solo, Technique, Ensemble, Arrangement, Musicality]
+   RESPONSES — one row per form submission (Combo recital, 25 Nov 2026)
+   scores: [Time, Solo, Technique, Ensemble, Composition/Arrangement, Musicality]
+   comment: cleaned for display ("- " bullets, "1. " numbered items, blank line = break)
    ============================================================ */
 const RESPONSES = [
-  // { band:"1", judge:"อ.ช้าง 🐘", scores:[6,5,5,6,4,5], comment:"..." },
+  {"band": "1", "judge": "อ.ฟุง", "scores": [4, 4, 4, 4, 4, 4], "comment": "อยากได้ยินภาษาแจ๊สมากกว่านี้พวก lick, vocabulary จาก recordings"},
+  {"band": "1", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 4, 4, 4, 4, 4], "comment": "- เทียบเสียงให้ดี\n- เล่นเหมือนคนท่องหนังสือ เล่นให้เสียงมีความรู้สึกมากกว่านี้"},
+  {"band": "1", "judge": "อ.ม๋า 🐶", "scores": [3, 3, 4, 3, 6, 3], "comment": "1. สายเพี้ยน\n2. แบ่งหน้าที่ให้ดี"},
+  {"band": "1", "judge": "อ.ช้าง 🐘", "scores": [5, 5, 4, 6, 6, 4], "comment": "- ยังจัด balance ไม่ดี, ควรผลัดกัน Comp\n- ควรเพิ่มเรื่อง Dynamic การใช้ ดัง-เบาที่หลากหลาย"},
+  {"band": "1", "judge": "อ.โจ๊ก 🥣", "scores": [3, 4, 5, 4, 7, 6], "comment": "Billie's Bounce\n- พาร์ทที่ทุกคนเล่น rhythm เดียวกัน เหมือนมีปัญหาเรื่อง tuning ไม่แน่ใจว่ามาจากการ tune สาย หรือการดันสาย\n- ควร balance dynamics พยายามทำให้โซโล่หรือเมโลดี้หลักดังกว่า comping\n\nMoanin'\n- nice arrangement\n- กลอง quarter note feel บน ride cymbals ต้อง drive กว่านี้ ตอนซ้อมพยายามฟังเสียงตัวเองให้เต็มกว่านี้ ตอนนี้เขียไปหน่อย\n- กลอง solo time feel แกว่งไปหน่อย แต่มี energy ดี\n- nice ending"},
+  {"band": "1", "judge": "อ.บาส", "scores": [4, 2, 4, 6, 6, 5], "comment": "Tenor madness - นับเข้าดีๆครับ โน้ตแรกสำคัญมาก\nMoanin’ - โดยรวมดี ตอนจบไม่พร้อมกันนะครับ ตอนขึ้นกับตอนจบมันสำคัญมากๆ ของทุกๆเพลง\n\n- โดยรวม งานแจ๊สแรก ok ครับ เก็บชั่วโมงบินไปเรื่อยๆ จะค่อยๆดีขึ้นครับ"},
+  {"band": "2", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 5, 4, 4, 5, 4], "comment": "- เรียนรู้การ comping แบบ Jazz\n- ซาวด์ตอนเมโลดี้ดีมาก"},
+  {"band": "2", "judge": "อ.ช้าง 🐘", "scores": [4, 6, 5, 5, 5, 4], "comment": "- เพิ่มเรื่อง Dynamic ใช้ ดัง-เบาที่หลากหลาย\n- solo ให้ชัดเจนกว่านี้จะดี ไม่ต้องโน้ตเยอะ แต่ต้องชัด\n- เพิ่มเรื่อง Swing Articulation"},
+  {"band": "2", "judge": "อ.ติว 👨‍🏫", "scores": [6, 5, 5, 5, 5, 5], "comment": "Bass แข็งแรงดีสามารถเป็นแกนให้วงได้\nวงขาดการสื่อสารระหว่างเล่น\nการ presentation วง Guitar ไม่ควรยืนบังมือกลอง โดยเฉพาะตอนกลอง solo"},
+  {"band": "2", "judge": "อ.บาส", "scores": [6, 5, 6, 6, 7, 6], "comment": "ปรับไดนามิก การเปลี่ยนคน solo เพิ่มความน่าสนใจได้ครับ รวมๆดีมากครับ"},
+  {"band": "2", "judge": "อ.Bartosz", "scores": [7, 6, 6, 7, 7, 6], "comment": "Very nice communication in the band. Good timing of the rhythm section. Could be more space in solos and more melodic thinking."},
+  {"band": "2", "judge": "อ.ม๋า 🐶", "scores": [3, 3, 4, 4, 4, 4], "comment": "1. Gt. Comp เป็น pattern ปับนับห้องไปหน่อย\n2. มือกลอง เว้นว่างการลงสแนร์จังหวะที่ 1 บ้าง\n3. กีตาร์ดีดแล้วฟังไม่ชัด เสียงหายๆ\n4. มือกลอง solo ต้องมี time ด้วย\n5. เวลาเล่นทุกคนควรจะต้องจำ Arrangement ด้วย"},
+  {"band": "2", "judge": "อ.โจ๊ก 🥣", "scores": [2, 5, 5, 4, 6, 5], "comment": "- เร่งจังหวะยก\n- ชอบที่เอา transcription มาใช้ เป็นวิธีการสร้างภาษาโซโล่ที่ดี\n- มือกลองหายใจลึก ๆ เหมือนตื่นเต้นแล้วเร่ง\n- bass มีพัฒนาการเพิ่มขึ้นมาก ดีใจครับ\n- กลองโซโล่ระวัง time ครับ เพื่อนจะหาไม่เจอนะ ซ้อมกับ metronome เยอะ ๆ"},
+  {"band": "3", "judge": "อ.โจ๊ก 🥣", "scores": [4, 4, 5, 5, 6, 6], "comment": "Cold Duck Time\n- กรู๊ฟดี\n- โซโล่ diatonic เยอะไปหน่อย เพิ่มพวก chromaticisms, enclosures หรือโน้ตนอกสเกล\n\nPoinciana\n- time ดูรีบไปนิดนึง\n- color ของวงดี เลือกโทนเสียงน่าสนใจ\n- kicks ดี"},
+  {"band": "3", "judge": "อ.บาส", "scores": [6, 5, 6, 6, 6, 6], "comment": "เพลงแรก - เพิ่มภาษา solo ให้แจ๊สขึ้นด้วยได้ด้วยแนวคิด solo ต่างๆ\nเพลงสอง - head ดี คน solo ควรทำความเข้าใจจังหวะในแนวนี้มากขึ้นครับ โดยรวม ok ครับ"},
+  {"band": "3", "judge": "อ.เมส", "scores": [6, 4, 6, 6, 7, 6], "comment": "เพลงดีไซน์ออกมาน่าสนใจมากครับ เพลงแรกกลองจังหวะอาจจะยังไม่นิ่ง สามารถนิ่งและ setup มั่นใจได้กว่านี้ ส่วนเพลงสองผมคิดว่ากลองและเบสเป็น pattern ไปนิด อาจจะทำการตกแต่งให้ซาวด์ไม่น่าเบื่อครับ และเพลงยาวไปนิดครับ"},
+  {"band": "3", "judge": "อ.ฟุง", "scores": [7, 4, 7, 7, 7, 7], "comment": "อยากให้ท่อนโซโล่เด่น ชัดๆกว่านี้หน่อย โดยรวมโอเคเลยครับ"},
+  {"band": "3", "judge": "อ.ช้าง 🐘", "scores": [4, 5, 4, 4, 5, 5], "comment": "- จังหวะไม่นิ่ง โดยเฉพาะช่วง Gt สับคอร์ด\n- List เพลง มีอารมณ์หลากหลายดี\n- เพลง 2 ฟังดูยาวไปหน่อย สามารถทำให้กระชับกว่านี้ได้"},
+  {"band": "3", "judge": "อ.ม๋า 🐶", "scores": [4, 4, 5, 5, 5, 5], "comment": ""},
+  {"band": "3", "judge": "อ.Bartosz", "scores": [6, 7, 7, 7, 7, 7], "comment": "Interesting arrangements and choice of repertoire. Good stage energy."},
+  {"band": "3", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 4, 4, 5, 5, 6], "comment": "1. Yeahhh ม่อน!!!\n- จังหวะไม่คงที่\n- แบ่งเสียงกีต้าร์ได้ดี\n\n2. กลองดี\n- ซาวด์รวมดีมาก\n- เพลงนิ่งไปหน่อย แต่ถ้าตั้งใจจะให้นิ่งก็อีกเรื่องนึงนะ แต่เราต้องทำให้มีมิติได้มากกว่านี้"},
+  {"band": "4", "judge": "อ.Bartosz", "scores": [6, 6, 6, 6, 6, 7], "comment": "Very nice melody voicings. Definitely band feels funk and blues well."},
+  {"band": "4", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 4, 4, 4, 4, 4], "comment": "ตอนเล่นจังหวะสวิง ทำให้รู้สึกสนุกเหมือนตอนเล่นที่จังหวะกรู๊ฟได้มั้ย"},
+  {"band": "4", "judge": "อ.ช้าง 🐘", "scores": [5, 5, 5, 4, 6, 5], "comment": "- พยายามคุมจังหวะให้นิ่ง โดยเฉพาะช่วงที่มี kick ต่างๆ\n- แบ่งหน้าที่กันได้ดี"},
+  {"band": "4", "judge": "อ.โจ๊ก 🥣", "scores": [4, 4, 5, 5, 6, 5], "comment": "Honeysuckle Rose\n- แยกระหว่างเสียงที่เล่น part กับเสียงที่เล่น solo เราควรใช้ความดังคนละระดับกัน เมื่อ solo ทำให้เสียงตัวเองเด่นออกมา แต่เมื่อเล่น part ต้องทำให้เสียง blend กับเพื่อน\n\nTenor Madness\n- arrangement เปลี่ยน groove น่าสนใจ แต่ต้อง maintain tempo ตอนเข้า swing เราช้าลง พอกลับไปโจ๊ะๆ เราก็กลับไปเร็วขึ้น หาทางเปลี่ยนให้เนียนกว่านี้ metronome ช่วยได้"},
+  {"band": "4", "judge": "อ.ม๋า 🐶", "scores": [4, 3, 5, 4, 5, 3], "comment": "1. เพิ่มความแข็งแรงให้กับมือเบส เวลาเดินเบสอย่าช้าลง\n2. นับจังหวะให้ตรงกันอีกนิดนึง"},
+  {"band": "5", "judge": "อ.Bartosz", "scores": [6, 6, 6, 6, 6, 7], "comment": "Great arrangements. In first swing tune could have more drive and swing feel in general. Funky stuff - great"},
+  {"band": "5", "judge": "อ.ม๋า 🐶", "scores": [6, 6, 6, 5, 7, 6], "comment": "มือเบสหลุดฟอร์ม!!!!"},
+  {"band": "5", "judge": "อ.เมส", "scores": [6, 6, 6, 6, 5, 5], "comment": "เพลงที่ 2 ซาวด์กีต้าร์คนขวาสีแดงจมไปนิดหน่อยครับ แต่โดยรวมทุกคนแสดงเป็นธรรมชาติ และดูไม่เกร็งครับผม"},
+  {"band": "5", "judge": "อ.ช้าง 🐘", "scores": [7, 7, 7, 7, 7, 7], "comment": "- SO what ไลน์วิ่งๆ สามารถเพิ่ม Dynamic ดัง - เบา - crescendo ได้"},
+  {"band": "5", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [5, 5, 5, 5, 4, 5], "comment": "1. ทำโซโล่ให้มีพลังเหมือนตอนเล่น Melody\n\n2. น่าจะเรียบเรียงท่อนโซโล่ให้น่าสนใจมากกว่านี้\n\nต้องให้ความสนใจในรายละเอียดเรื่องความดังเบาด้วย"},
+  {"band": "5", "judge": "อ.โจ๊ก 🥣", "scores": [6, 6, 6, 5, 5, 5], "comment": "So What\n- กลองเบส time feel แข็งแรงดี drive มาก ชอบ\n- solo ฟังเบสกับกลอง แล้วพยายามทำ time กับ subdivision ให้เข้ากับเพื่อน\n- เพลงนี้ character ที่สำคัญคือ dorian อยากได้ยิน natural 6 บ้าง ที่โซโล่มาเหมือนเป็น pentatonic หมดเลย\n\nเพลงที่ 2\n- bass is lit!! เยี่ยมเลย\n- กีตาร์มีสิ่งที่เราทำได้ดีอยู่แล้ว ลองนึกถึงสิ่งที่เรายังทำไม่ได้ หรือไม่ถนัด แล้วพยายามทำให้ได้ครับ"},
+  {"band": "6", "judge": "อ.Bartosz", "scores": [6, 7, 7, 6, 6, 6], "comment": "I think band was just very tensioned/stressed. At the end of first composition was way better. The second tune showed that they can sound good together."},
+  {"band": "6", "judge": "อ.ม๋า 🐶", "scores": [4, 5, 5, 4, 6, 5], "comment": "1. Open h.h. ไม่ออก\n2. ไทม์วง งงๆ นับตามไม่ค่อยถูก\n3. เหมือนมือเบสหลุด แล้วมา\n4. Comp ชนกันไปหมด เหมือนไม่รู้จะทำอะไรเลยเล่นๆไป\n5. เพิ่มเติมเรื่องสไตล์"},
+  {"band": "6", "judge": "อ.ช้าง 🐘", "scores": [5, 6, 5, 6, 5, 5], "comment": "- Guitar Les Paul เสียงทึบไป ไม่ควรปิดโทน\n- ท่อน Kick ต่างๆ ไม่ Clear\n- ภาพรวมดูนิ่งๆ เนือยๆ"},
+  {"band": "6", "judge": "อ.โจ๊ก 🥣", "scores": [4, 3, 4, 4, 5, 5], "comment": "เพลง 1\ntime แกว่งไปหน่อยนะ แต่มือกลองดูมีพัฒนาการขึ้นนะครับ ตอนแรกไม่น่าเล่นเร็วได้เท่านี้ ตอนนี้ทันแล้ว แต่ยังต้องคุม time ให้คงที่มากกว่านี้นะ\n\nเพลง 2\ntime feel ดีขึ้น ไม่เร่งไม่ล่ก\npiano solo ไม่ค่อยลง chord นะครับ ซ้อมเล่น chord tone เยอะ ๆ ตอน solo ก็เล็งให้โดนคับ\nKenji fast swing!! Wooohh!!"},
+  {"band": "6", "judge": "อ.เมส", "scores": [6, 5, 5, 3, 4, 2], "comment": "เพลงแรก - ทุกอย่างดูรกไปหมด ไม่ค่อยสื่อสารกัน อาจจะเกิดจากจำคอร์ดไม่ได้หรือเปล่า กีต้าร์แดงขวาสุดซาวด์ไม่บาลานซ์กับวง ไม่ได้ยินซาวด์เปียโน ทุกคนแย่งกันคอมป์ปิ้ง เคนจิมือกลองดู inner ดี ดูอินกับสิ่งที่เล่น\n\nเพลงสอง - ก้อนหิน เคนจิ สีหน้าดูดี แต่ซาวด์ก็ยังแน่นๆ ทึบๆ รกๆ\n\nทั้งสองเพลงบางช่วงไม่จำเป็นต้องคอมป์ก็ได้ เพื่อสร้าง space และ texture บ้าง"},
+  {"band": "6", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 5, 5, 4, 4, 4], "comment": "1. จังหวะไม่นิ่ง\n- กีต้าร์ไม่ควร comping นำวง\n- ทำเสียงกีต้าร์ 3 ตัวให้น่าฟัง\n\n2. กีตาร์ต้องแบ่งหน้าที่กันเล่น ทั้งวงแบ่งหน้าที่กันสร้างสีสัน\n- ทำไมต้อง comping พร้อมกัน"},
+  {"band": "7", "judge": "อ.ช้าง 🐘", "scores": [7, 6, 6, 7, 7, 7], "comment": "- มีความพร้อม\n- เพิ่มความมีชีวิตชีวาหน่อยจะดี"},
+  {"band": "7", "judge": "อ.Bartosz", "scores": [7, 6, 6, 7, 7, 7], "comment": "Beautiful arrangements. Nice swinging and tasteful playing."},
+  {"band": "7", "judge": "อ.โจ๊ก 🥣", "scores": [6, 5, 6, 7, 7, 6], "comment": "Niceeeeee!!!"},
+  {"band": "7", "judge": "อ.เมส", "scores": [7, 5, 6, 6, 7, 7], "comment": "เพลงแรก - ชอบสายตาการนำเสนอของมีมี่ อีกสามคนดูมีความกลัวอะไรบางอย่าง\n\nในตอนที่นักดนตรีเล่นอยากให้สายตาของนักร้องมองนักดนตรีด้วย\n\nนักดนตรีดีมาก ไม่ overplay และซัพพอร์ตวงดี เพลงไม่สั้นไม่ยาวเกินไป\n\nเพลงสอง - ตอนสแกตอยากให้ลดความกลัวและเพิ่มความมั่นใจมากกว่านี้\n\nชมนักดนตรีที่ Solo เข้าใจ context"},
+  {"band": "7", "judge": "อ.ม๋า 🐶", "scores": [5, 5, 6, 4, 7, 5], "comment": "1. สำเนียง ความดังเบา\n2. ขอท่าทางที่เฉิดฉายกว่านี้\n3. เพิ่ม energy อีกเยอะๆ\n4. วงต้องส่ง energy ให้นักร้องด้วย มีแต่เปียโนที่ทำให้"},
+  {"band": "7", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [6, 6, 6, 7, 7, 6], "comment": "เนียน"},
+  {"band": "8", "judge": "อ.โจ๊ก 🥣", "scores": [6, 5, 5, 5, 6, 6], "comment": "piano solo - ฟังกลองแล้วพยายาม lock-in subdivision กับกลองให้ได้ เช็ค landing chord tone ดี ๆ เราไม่ควร land โน้ต natural 3 บนคอร์ด minor นะครับ - line solo ควร legato มากกว่านี้ ตอนนี้มันแยก ๆ กันเกินครับ"},
+  {"band": "8", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 4, 4, 4, 4, 4], "comment": "น่าจะเรียบเรียงท่อนโซโล่ให้มีสีสันหลากหลายกว่านี้"},
+  {"band": "8", "judge": "อ.ม๋า 🐶", "scores": [7, 6, 6, 6, 6, 5], "comment": ""},
+  {"band": "8", "judge": "อ.Bartosz", "scores": [6, 6, 6, 6, 5, 6], "comment": "Band choose simpler option of playing solos on 4/4 except 7/4 in “West of the West” - creative but way less difficult. Very nice “drive” in Ana Maria."},
+  {"band": "8", "judge": "อ.เมส", "scores": [6, 5, 5, 3, 4, 4], "comment": "เพลงแรก - มือกีต้าร์คนกลางแต่งตัวไม่เรียบร้อย ไม่ควรใส่รองเท้าแตะมาสอบ ทั้งเพลงมี texture เดียว dynamic เดียว และแต่ละคนดูอยู่แต่กับตัวเอง การ ensemble ไม่ค่อยดี\n\nทั้งสองเพลงมี harmony, texture, sound, tempo ที่คล้ายๆกันมากเกินไป"},
+  {"band": "8", "judge": "อ.ช้าง 🐘", "scores": [5, 5, 5, 4, 4, 5], "comment": "- ต้อง Keep energy ให้เท่ากันหรือมากขึ้น ตลอดทั้งเพลง\n- Rhythm section ต้องช่วยสนับสนุนคนโซโล่หน่อย\n- สามารถทำ Dynamic Range กว้างกว่านี้ได้"},
+  {"band": "9", "judge": "อ.Bartosz", "scores": [7, 6, 7, 7, 7, 7], "comment": "Very nice operation with dynamic - big plus. Lot of space in music."},
+  {"band": "9", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [4, 4, 4, 5, 5, 5], "comment": "หึหึหึ"},
+  {"band": "9", "judge": "อ.ช้าง 🐘", "scores": [5, 4, 5, 4, 5, 4], "comment": "- ยังขาดความพร้อมเพรียง\n- Comp ยังไม่ค่อยแน่น"},
+  {"band": "9", "judge": "อ.ม๋า 🐶", "scores": [6, 5, 6, 5, 7, 5], "comment": "1. เพิ่มพลังงานบางอย่าง อีกเยอะๆ\n2. ระวังเพี้ยน\n3. จำฟอร์ม ให้ได้\n4. เปลี่ยนท่อน fill in ชัดๆ\n5. ท่อนหลังกลองใส่เพิ่มอีก"},
+  {"band": "9", "judge": "อ.เมส", "scores": [6, 4, 4, 5, 6, 5], "comment": "Stolen Moment - dynamic ทำได้ดี แต่คิดว่าถ้าดังและเบาสามารถทำให้ได้มากกว่านี้ ส่วน rhythm section นิ่งไปนิดนึงอยากให้มีการโต้ตอบกันมากกว่านี้ครับ ส่วนตอนจบของเพลงแรกถ้าอยากจะใส่มาคิดว่าควรเชื่อมให้ดีกว่านี้\n\nเพลงสอง - ตอนที่ทรอมโบนโซโล่อยากให้มีไลน์ยาวหรือความหลากหลายกว่านี้บ้าง รวมถึง rhythm section ที่น่าจะสร้างความหลากหลายกว่านี้ กลองก็เช่นกัน phrasing ซ้ำๆเดิมไปนิดนึง\n\nเพลงนี้เป็นเพลงสนุกแต่สมาชิกทีมดูนิ่งไปนิดนึง คนที่ดูสนุกมีแค่มือกลอง\n\nเพลงสาม - ถ้า oddtime หาไม่เจอหรือหลงอย่าพยายามเลิ่กลั่ก ทิวเลิ่กลั่กไปนิดนึง / ตอนกีต้าร์โซโล่อยากให้สื่อสารกับเพื่อนร่วมวงมากกว่านี้หน่อย ดูมีการเตรียมการมาเยอะเกินไป"},
+  {"band": "9", "judge": "อ.โจ๊ก 🥣", "scores": [5, 3, 5, 6, 7, 6], "comment": "Piece 1:\nharmonized melody แข็งแรงดีนะ\npiano solo ถ้ายังไม่มีไอเดียโซโล่ ลองใช้วิธีแต่งมาก่อน หรือให้เพื่อนกับอาจารย์ช่วยดูโซโล่ที่เราแต่งมา หรือลองหา reference แล้วไปแกะมา อาจจะหาเพลงอื่นที่คอร์ดเป็น minor blues เหมือนกัน แล้วฟังว่าเค้าโซโล่อะไรยังไงบ้าง\n\nPiece 2:\nmelody แข็งแรงมาก energy มาเต็ม ชอบมาก\ntrombone solo อยากให้แกะหรือแต่ง motif หรือประโยคสั้น ๆ เตรียมไว้ก่อน ถ้าคิดหน้างานไม่ค่อยทัน ก็ต้องแต่งเตรียมไว้ก่อนนะ\n\nPiece 3:\nเพลงสุดท้าย comment เหมือนสองเพลงแรก\nguitar solo มี landing note บางตัวหลุดคอร์ด โดยรวม ติด rock เยอะไปหน่อย"},
+  {"band": "10", "judge": "อ.ติว 👨‍🏫", "scores": [7, 7, 7, 6, 6, 6], "comment": "ตอน Guitar และ Drum solo, rhythm section ควรสร้าง dynamic ให้มากกว่านี้ เพื่อ support ให้ solo มี development"},
+  {"band": "10", "judge": "อ.Bartosz", "scores": [7, 7, 7, 7, 7, 7], "comment": "Difficult, progressive choice of repertoire, but even though well played. Because of music intensity sometimes accompaniment structure was a little bit messy - might need just more clear articulation."},
+  {"band": "10", "judge": "อ.เมส", "scores": [7, 6, 7, 6, 7, 5], "comment": "The Others - ทุกคนทำการบ้านมาดี รุจดูไม่ค่อยมั่นใจ นับตลอด ท่อน melody แอบอยากได้ยิน guitar 3 ตัวประสานกัน\n\nMaiden Voyage - ช่วงที่กีต้าร์ทั้งสามคนเริ่มเล่นพร้อมกัน และโฟล์คโซโล่ กีต้าร์ไม่ค่อยออก อาจจะต้องเตรียมเสียงสำหรับโซโล่ให้เด่นกว่านี้\n\nทั้งสองเพลงมีการทำ sound design กล้าเล่นดีมาก\n\nแต่คิดว่าสองเพลงคาแร็คเตอร์และซาวด์ของกีต้าร์ที่ใช้คล้ายกันเกินไปนิดนึงครับ"},
+  {"band": "10", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [7, 7, 7, 6, 7, 6], "comment": "ดังตลอด"},
+  {"band": "10", "judge": "อ.โจ๊ก 🥣", "scores": [7, 7, 7, 7, 6, 6], "comment": "The Others - หลุดหลายจุด แต่ยังเนียนอยู่นะ 555 Solo แข็งแรงดีนะโดยเฉพาะ guitar\nMaiden Voyage - synth solo คือบับ ดจีย์มากกกกก"},
+  {"band": "10", "judge": "อ.ม๋า 🐶", "scores": [7, 7, 7, 6, 7, 5], "comment": "1. ตอน วาอิ้นโล่ และคนอื่น วงต้องเบาเสียงลง ให้คนโล่ได้เฉิดฉาย\n2. วงมันดังตลอดเวลา\n3. ใส่ทำนองใหม่ได้เพลงใหม่....หรือไม่ก็...ร่วมแต่งกับเฮอบี้เลย ...."},
+  {"band": "10", "judge": "อ.ช้าง 🐘", "scores": [7, 6, 7, 7, 7, 6], "comment": "- มีความพร้อมเพรียงดี\n- ควรเพิ่มเรื่อง Dynamic ด้วย จัดวางความ ดัง-เบาให้เกิดความน่าสนใจ"},
+  {"band": "11", "judge": "อ.ติว 👨‍🏫", "scores": [5, 6, 5, 5, 7, 6], "comment": "Flat feel, ต้องการ swung กว่านี้\nSolo\n1. guitar ฟ้าผมยาว harmony ไม่ clear บ้าง\n2. Guitar hollow articulation, ค่อนไปทางสั้นมากเกินไป\nDrummer ควรหาที่วางไม้กลองให้เป็นระเบียบ เพื่อให้สะดวกในการเปลี่ยนไม้"},
+  {"band": "11", "judge": "อ.Bartosz", "scores": [7, 7, 7, 7, 6, 7], "comment": "Good drive and sound of the band - in general."},
+  {"band": "11", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [5, 4, 5, 5, 6, 6], "comment": "☺️✨️😏"},
+  {"band": "11", "judge": "อ.ช้าง 🐘", "scores": [6, 6, 5, 7, 6, 6], "comment": "- swing feel ไม่ lock\n- solo too many on down beat\n- arr. คิดเรื่อง Dynamic ด้วยจะดีมาก"},
+  {"band": "11", "judge": "อ.โจ๊ก 🥣", "scores": [6, 5, 5, 5, 6, 6], "comment": "มือเปียโนดูคอร์ดทำไมครับ!!\nกลองระวัง snare comping หนักไปครับ ทั้งกรณี sticks และ brushes เลย\nใน style แบบนี้ถ้าใช้ sticks พยายามให้ ride ชัดที่สุดแล้วอื่น ๆ อยู่ใต้ ride นะครับ\nguitar เล่น section แม่นดีครับ ถ้า balance dynamics ให้แนวบนสุดชัดสุดจะดีมาก"},
+  {"band": "11", "judge": "อ.ม๋า 🐶", "scores": [7, 5, 6, 6, 7, 7], "comment": "1. ยืนกองกันสามคนเกินไป\n2. Piano + กีตาร์ comp ชนกันไปหน่อย\n3. เรียบเรียงเพลงมาดีนะ\n4. ตอนใช้แส้กับเพลง บางทีเรากวาดมันก็ไม่เข้า"},
+  {"band": "11", "judge": "อ.เมส", "scores": [6, 6, 5, 5, 6, 5], "comment": "เพลงแรก - พอเป็นจังหวะแบบนี้กีต้าร์สามารถ comp เป็น freddie green ได้ / ท่อนที่ตั้งใจจะให้เป็น collective อาจจะต้องทำให้ดูมั่นใจมากกว่านี้\n\nเพลงสอง - ท่อน soli ของเบ๊นซ์อาจจะไม่ค่อยมั่นใจ\nช่วงเบสโซโล่บางทีอาจจะเริ่มจากไม่ต้อง comp เลยก็ได้\nเปียโนควรแบ่งให้กีต้าร์ comp บ้าง\n\nท่อนที่เป็นเฮดแล้วมีท่อนว่างแอบอยากได้ยินกลอง fill in เท่ๆ\n\nโดยรวมการอองซอมดีทุกคนมองหน้ากันและสนุกกับการ solo ไปมา"},
+  {"band": "12", "judge": "อ.กุ๊ก 👨‍🍳", "scores": [7, 6, 6, 7, 6, 7], "comment": "- น่าจะทำท่อนโซโล่เพิ่มให้แต่ละคนมี ความแตกต่าง\n- เพลงแรก guitar น่าจะมีคนเล่น Melody ประสานกับ sax"},
+  {"band": "12", "judge": "อ.ติว 👨‍🏫", "scores": [6, 6, 7, 7, 7, 6], "comment": "สื่อสารไม่ clear\nเพลงแรก Rhythm section ไม่ช่วยให้ soloist พัฒนา solo"},
+  {"band": "12", "judge": "อ.ช้าง 🐘", "scores": [7, 6, 7, 7, 7, 7], "comment": "- ต้นโมก Gt solo ควรสร้าง shape ค่อย ๆ build ขึ้นไป\n- Balance กำลังดี\n- Set list ดี มีความหลากหลาย"},
+  {"band": "12", "judge": "อ.เมส", "scores": [6, 6, 6, 6, 5, 6], "comment": "เพลงแรก - ต้นโมกโซโล่พะวงกับคลาเว่เยอะเกินไปจนดูออกนิดนึง อาจจะลองเวิร์ค จนรู้สึกธรรมชาติกว่านี้ แต่ทุกคนสื่อสารกันดี สีหน้าทุกคนดีหมดเลย\nเพลงสอง - ไลน์ประสานของปุนกับอัสซี่อาจจะยังไม่ค่อยคมเท่าไหร่ถ้าเทียบกับต้นโมก\n\nกราฟเพลงสองมันขึ้นลงขึ้นลงไปหน่อย คิดว่าตอนต้นโมกโซโล่สามารถ build ขึ้นไปได้ตั้งแต่เริ่มเลย\n\nเฟสตอนที่โซโล่แล้วมีแอมเบี้ยนตอนท้ายลอง"},
+  {"band": "12", "judge": "อ.ม๋า 🐶", "scores": [7, 6, 7, 7, 7, 6], "comment": "1. กลองตีนิ่งไปหน่อย"},
+  {"band": "12", "judge": "อ.โจ๊ก 🥣", "scores": [6, 6, 6, 6, 5, 6], "comment": "melody เพลง 2 จุดที่ unison มีปัญหาเรื่อง intonation นะครับ เหมือนกีตาร์สายเพี้ยนปะ?\npiano solo เล่นตัวหยุดหน่อยครับ หายใจระหว่าง phrase บ้างนะ"},
+  {"band": "12", "judge": "อ.Bartosz", "scores": [6, 6, 7, 6, 6, 7], "comment": "Very musical performance."},
+  {"band": "13", "judge": "อ.Bartosz", "scores": [7, 7, 6, 7, 7, 6], "comment": "Solid rhythm section work. Sometimes - in very intense moments - riffs or accompaniment, a little bit too much mess."},
+  {"band": "13", "judge": "อ.ม๋า 🐶", "scores": [7, 5, 6, 6, 7, 4], "comment": "เรียบเรียงได้ดี\nเพิ่มเติมเรื่อง solo"},
+  {"band": "13", "judge": "อ.ช้าง 🐘", "scores": [7, 4, 6, 6, 7, 6], "comment": "- Solo ยังเป็นปัญหา ทั้ง 2 เพลง"},
+  {"band": "13", "judge": "อ.เมส", "scores": [6, 6, 6, 5, 6, 6], "comment": "เพลงแรก - มีการ arr มาดีและซ้อมมาดี แต่เรื่อง solo อยากให้ changes ชัดกว่านี้"},
+  {"band": "13", "judge": "อ.ติว 👨‍🏫", "scores": [6, 7, 4, 6, 7, 6], "comment": "Evidence: head ดี แต่ solo แล้ว drop เพราะ present style ไม่ clear\nBass ควรเลือก articulation ให้เหมาะสมเพื่อ support solo และยังกำหนดทิศทางของวงในขณะนั้นได้\n\nEpistrophy: guitar บอส เสียงเบลอ\nตอนจบคาดหวังว่าเกิดความ peak กว่านี้"},
+  {"band": "13", "judge": "อ.โจ๊ก 🥣", "scores": [6, 4, 5, 6, 7, 5], "comment": "nice arrangements\nEpistrophy ตอนที่ ride cymbal เบิ้ลเข้าไป น่าจะประมาณ 350 bpm ได้เลยนะ ฟีลดีมาก\nโดยรวมทั้งสองเพลง arrangement แข็งแรง แต่ solo improvisation ยังอ่อนอยู่\ndynamic โดยรวมดังเกินเบอร์ไปเยอะเลย energy ดี แต่ต้องหาทางคุมไม่ให้ลั่น"},
+  {"band": "14", "judge": "อ.ช้าง 🐘", "scores": [6, 7, 7, 6, 7, 7], "comment": "song for chano เร็วไปนิด"},
+  {"band": "14", "judge": "อ.เมส", "scores": [6, 6, 6, 5, 7, 6], "comment": "เพลงแรก - โบกี้โซโล่ดี เล่าเรื่องดี\n\nrhythm section ซนได้มากกว่านี้ / line solo แต่ละคนอยากได้ยิน line ที่เป็นภาษาของฝั่ง latin มากกว่านี้ รวมถึง harmony ตัว target note ให้ชัดกว่านี้\n\nเพลงสอง - วีโซโซ่ดุมาก แต่ไม่รู้สึกถึงอารมณ์ร่วมเลย รวมถึงการสื่อสารกับวงทั้งเพลงแรกและเพลงสอง\n\nบางช่วงของคนโซโล่ทั้งสองเพลงโบกี้สามารถเป่า background ได้"},
+  {"band": "14", "judge": "อ.โจ๊ก 🥣", "scores": [6, 6, 6, 7, 7, 7], "comment": "เพลงแรก groove แปลก ๆ ไม่แน่ใจเรื่องจังหวะว่าอะไรไม่ลงตัว\nเพลงสอง groove ดีคับ และ solo แข็งแรง\ndynamic control ok นะ\npiano solo ดูมีความพยายาม build แต่แอบดูเค้นไปหน่อย ลองหาวิธีเล่นกับ triplet แบบ shifted accent เช่น triplet group of 4"},
+  {"band": "14", "judge": "อ.ม๋า 🐶", "scores": [7, 7, 7, 7, 7, 7], "comment": "1. ทุมบาวที่เบส ให้เน้นตัวหลัง ตอนนี้เบสเน้นจังหวะ 1 กระเดื่องด้วย\n2. ยกของ 1 ที่สแนร์ สำคัญ เวลา fill in ต้องลงยก อันนี้ลง 1 เยอะเกิน โน้ต 3ตัว 2 จังหวะ ไม่มี\n3. เพลงแรกน่าจะใช้ 2-3\n4. ใช้ไหล่ไม่ตีเบล แฮท คาวเบล\n5. ซับดิวิชั่นต้องเป๋ๆ แบบต่อจำ ไม่มีความรู้ เอาสนุกว่า กลิ่นถึงจะออก\n6. เสียงของเพลงที่สองมันต้องมี สับๆ แบบ clave\n7. Afro 68 สามารถใช้แบบที่มี back beat ได้"},
 ];
-
-/* Demo band — shown at the top until real data replaces it */
-const SHOW_DEMO = true;
-const DEMO = {
-  band:{ id:"DEMO", name:"Demo Combo ตัวอย่าง" },
-  responses:[
-    { judge:"อ.ช้าง 🐘", scores:[6,5,5,6,4,5], comment:"Groove แน่นมากในเพลงแรก โดยเฉพาะ bass กับกลองล็อกกันดี แต่ช่วง swing tempo เร็วเริ่มเร่ง ระวังตอนเข้า bridge" },
-    { judge:"อ.กุ๊ก 👨‍🍳", scores:[5,6,5,5,4,6], comment:"โซโล่แซกโซโฟนเล่าเรื่องได้ดี มี motif ชัด อยากให้ทุกคนฟัง dynamics กันมากกว่านี้ตอน comping" },
-    { judge:"อ.ติว 👨‍🏫", scores:[6,4,4,5,3,5], comment:"Arrangement ยังค่อนข้างตรงตัว ลองเพิ่ม intro/outro หรือ send-off ที่เป็นของวงเอง\nIntonation ของ horn section ช่วง head out ยังไม่ลงตัว" },
-    { judge:"อ.โจ๊ก 🥣", scores:[7,5,6,6,5,6], comment:"Overall a confident set. Nice interplay between piano and guitar — stay out of each other's register when comping." },
-  ],
-  programAvg:[5.2,4.6,4.8,5.0,4.3,5.0], // dashed line in demo only
-};
 
 /* ============================================================
    COMPUTE
@@ -190,27 +279,39 @@ const programAvg = scored.length>=2 ? ASPECTS.map((_,i)=>mean(scored.map(x=>x.su
 /* ============================================================
    RADAR (inline SVG)
    ============================================================ */
-function radar(avg, overlay){
-  const W=440,H=330,cx=220,cy=165,R=108,MAX=7,N=ASPECTS.length;
+/* Radar position order, clockwise from top (indices into ASPECTS).
+   Opposite pairs: โซโล่–ความเป็นวง · ทักษะเครื่อง–จังหวะ · ความไพเราะ–บทเพลงและการนำเสนอ
+   Top: ความไพเราะ · right side = individual (โซโล่, ทักษะเครื่อง) · bottom: บทเพลงและการนำเสนอ · left side = band (ความเป็นวง, จังหวะ) */
+const RADAR_ORDER = [5,1,2,4,3,0];
+
+/* Order of the score bars and judge popup (indices into ASPECTS) */
+const BAR_ORDER = [3,0,1,2,4,5];  // ความเป็นวง, จังหวะ, โซโล่, ทักษะเครื่อง, บทเพลงและการนำเสนอ, ความไพเราะ
+const grouped = (row) => BAR_ORDER.map(row).join("");
+
+function radar(avg0, overlay0){
+  const AX=RADAR_ORDER.map(k=>ASPECTS[k]), avg=RADAR_ORDER.map(k=>avg0[k]), overlay=overlay0&&RADAR_ORDER.map(k=>overlay0[k]);
+  const W=452,H=386,cx=226,cy=188,R=132,MAX=7,N=ASPECTS.length;
   const ang=i=>(-90+i*360/N)*Math.PI/180;
   const pt=(i,v)=>[cx+Math.cos(ang(i))*R*v/MAX, cy+Math.sin(ang(i))*R*v/MAX];
   const poly=vals=>vals.map((v,i)=>pt(i,v??0).map(n=>n.toFixed(1)).join(",")).join(" ");
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Radar chart of aspect averages">`;
   for(let k=1;k<=MAX;k++){
-    const strong=k===4||k===7;
-    s+=`<polygon points="${poly(Array(N).fill(k))}" fill="none" stroke="var(--line)" stroke-width="${strong?1.4:.8}"/>`;
+    const style = k===MAX ? 'stroke="var(--muted)" stroke-opacity=".45" stroke-width="1.2"'
+                :           'stroke="var(--line)" stroke-width=".8"';
+    s+=`<polygon points="${poly(Array(N).fill(k))}" fill="none" ${style}/>`;
   }
   for(let i=0;i<N;i++){const [x,y]=pt(i,MAX);s+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)" stroke-width=".8"/>`;}
-  [4,7].forEach(k=>{s+=`<text x="${cx+4}" y="${cy-R*k/MAX+11}" font-size="9.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${k}</text>`;});
   if(overlay) s+=`<polygon points="${poly(overlay)}" fill="none" stroke="var(--blue)" stroke-width="1.6" stroke-dasharray="4 3"/>`;
   s+=`<polygon points="${poly(avg)}" fill="var(--brass-soft)" stroke="var(--brass)" stroke-width="2.4" stroke-linejoin="round"/>`;
-  avg.forEach((v,i)=>{ if(v==null) return; const [x,y]=pt(i,v); s+=`<circle cx="${x}" cy="${y}" r="3.6" fill="var(--brass)"/>`; });
-  ASPECTS.forEach((a,i)=>{
-    const [x,y]=pt(i,MAX+1.25); const c=Math.cos(ang(i));
+  avg.forEach((v,i)=>{ if(v==null) return; const [x,y]=pt(i,v); s+=`<circle cx="${x}" cy="${y}" r="4.2" fill="var(--brass)"/>`; });
+  AX.forEach((a,i)=>{
+    const [x,y]=pt(i,MAX+1.0); const c=Math.cos(ang(i));
     const anchor=Math.abs(c)<.2?"middle":c>0?"start":"end";
-    const dy = i===0?-6 : (Math.abs(c)<.2?12:0);
-    s+=`<text x="${x}" y="${y+dy}" text-anchor="${anchor}" font-size="13" font-weight="600" fill="var(--ink)">${a.th}</text>`;
-    s+=`<text x="${x}" y="${y+dy+15}" text-anchor="${anchor}" font-size="11.5" font-family="IBM Plex Mono, monospace" font-weight="600" fill="var(--brass)">${fmt(avg[i])}</text>`;
+    const dy = i===0?-10 : (Math.abs(c)<.2?12:0);
+    const lines=a.radar||[a.th];
+    const y0 = y+dy-(lines.length-1)*10;
+    lines.forEach((t,j)=>{ s+=`<text x="${x}" y="${y0+j*20}" text-anchor="${anchor}" font-size="15.5" font-weight="600" fill="var(--ink)">${t}</text>`; });
+    s+=`<text x="${x}" y="${y0+(lines.length-1)*20+18}" text-anchor="${anchor}" font-size="14" font-family="IBM Plex Mono, monospace" font-weight="600" fill="var(--brass)">${fmt(avg[i])}</text>`;
   });
   return s+`</svg>`;
 }
@@ -220,23 +321,52 @@ function radar(avg, overlay){
    ============================================================ */
 const esc = t => String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+/* Turn a cleaned comment into tidy HTML: paragraphs, bullets, numbered items, song titles */
+function fmtComment(text){
+  const L=String(text||"").split("\n"); let h="", list=null, inLi=false, sub=false;
+  const closeSub=()=>{ if(sub){h+="</ul>";sub=false;} };
+  const close=()=>{ closeSub(); if(inLi){h+="</li>";inLi=false;} if(list){h+=`</${list}>`;list=null;} };
+  L.forEach((raw,k)=>{
+    const line=raw.trim(), next=(L[k+1]||"").trim();
+    if(!line){ close(); return; }
+    let m;
+    if(m=line.match(/^- (.*)$/)){
+      if(list==="ol"&&inLi){ if(!sub){h+="<ul>";sub=true;} h+=`<li>${esc(m[1])}</li>`; return; }
+      if(list!=="ul"){ close(); h+="<ul>"; list="ul"; }
+      h+=`<li>${esc(m[1])}</li>`; return;
+    }
+    if(m=line.match(/^(\d+)\. (.*)$/)){
+      if(list!=="ol"){ close(); h+="<ol>"; list="ol"; } else { closeSub(); if(inLi) h+="</li>"; }
+      h+=`<li value="${m[1]}">${esc(m[2])}`; inLi=true; return;
+    }
+    close();
+    const nextIsList=/^(- |\d+\. )/.test(next);
+    if(/:$/.test(line) || (line.length<=24 && next && (nextIsList || /^(เพลง|piece|solo)/i.test(line)))){
+      h+=`<div class="ttl">${esc(line.replace(/:$/,""))}</div>`; return;
+    }
+    if(m=line.match(/^(.{2,22}?)\s*[-–:]\s+(.+)$/)){ h+=`<p><b>${esc(m[1])}</b> — ${esc(m[2])}</p>`; return; }
+    h+=`<p>${esc(line)}</p>`;
+  });
+  close(); return h;
+}
+
 const judgeLabel=(r,i)=>SHOW_JUDGE_NAMES?esc(r.judge):"กรรมการ "+(i+1);
 
 function openJudge(band, rows, i, sum, isDemo){
   const r=rows[i];
-  const lines=ASPECTS.map((a,k)=>{
-    const v=Number(r.scores[k]), d=v-sum.avg[k];
+  const lines=grouped(k=>{
+    const a=ASPECTS[k], v=Number(r.scores[k]), d=v-sum.avg[k];
     const diff = rows.length>1 ? `<span class="diff">${d>0?"+":""}${d.toFixed(1)} จากค่าเฉลี่ยวง</span>` : "";
     const dots=[1,2,3,4,5,6,7].map(n=>`<span class="dot${n===v?" on":""}">${n}</span>`).join("");
     return `<tr><td class="an">${a.th}<small>${a.en}</small>${diff}</td><td class="val" style="padding-left:10px">${dots}</td></tr>`;
-  }).join("");
+  }, 2);
   const total=mean(r.scores.map(Number));
   document.getElementById("sheet").innerHTML=`
     <div class="sheet-head"><div><div class="title">${judgeLabel(r,i)}</div>
       <div class="meta">${isDemo?esc(band.name):"วง "+band.id+" · "+esc(band.name)} · เฉลี่ย <b>${fmt(total)}</b>/7</div></div>
       <button class="x" aria-label="ปิด" id="closeModal">×</button></div>
     <table>${lines}</table>
-    ${String(r.comment||"").trim()?`<p class="quote">${esc(r.comment.trim())}</p>`:""}`;
+    ${String(r.comment||"").trim()?`<div class="quote cm">${fmtComment(r.comment)}</div>`:""}`;
   const m=document.getElementById("modal"); m.classList.add("show");
   document.getElementById("closeModal").onclick=closeJudge; document.getElementById("closeModal").focus();
 }
@@ -248,6 +378,7 @@ function openHelp(){
       <p>แตะที่การ์ดวงเพื่อเปิด/ปิด ตัวเลขมุมขวาคือคะแนนเฉลี่ยรวมของวง (เต็ม 7) และใต้ชื่อวงบอกจำนวนกรรมการที่ให้คะแนนวงนั้น</p>
       <h4>2 · กราฟเรดาร์</h4>
       <p>แสดงคะแนนเฉลี่ย 6 ด้าน ยิ่งพื้นที่กว้างออกไปทางขอบ ยิ่งคะแนนสูง เส้นประสีฟ้า <span class="dl"></span> คือค่าเฉลี่ยของทุกวง</p>
+      <p>ด้านบน–ล่างคือ<b>ด้านเพลง</b> ฝั่งซ้ายคือ<b>ด้านวง</b> ฝั่งขวาคือ<b>ด้านผู้เล่น</b> ถ้ากราฟเอียงไปทางขวา แปลว่าทักษะรายบุคคลเด่นกว่าการเล่นร่วมกันเป็นวง</p>
       <h4>3 · แถบคะแนน</h4>
       <ul>
         <li><span class="sw"></span> แถบสีเหลือง = คะแนนเฉลี่ยของวงนี้</li>
@@ -269,7 +400,7 @@ function card(band, rows, sum, overlay, isDemo){
   const el=document.createElement("section");
   el.className="card"+(isDemo?" demo":"")+(sum?"":" empty");
   const label = isDemo ? "DEMO" : band.id;
-  const meta = sum ? `${sum.n}/${TOTAL_JUDGES} judges` : "ยังไม่มีคะแนน · awaiting scores";
+  const meta = sum ? `${sum.n} ${sum.n===1?"judge":"judges"}` : "ยังไม่มีคะแนน · awaiting scores";
   el.innerHTML = `
     <button class="head" ${sum?"":"disabled"} aria-expanded="false">
       <div class="num">${label}</div>
@@ -282,17 +413,17 @@ function card(band, rows, sum, overlay, isDemo){
   if(!sum) return el;
 
   const best=Math.max(...sum.avg), worst=Math.min(...sum.avg);
-  const tableRows = ASPECTS.map((a,i)=>{
-    const v=sum.avg[i], cls = v===best&&best!==worst?"hi":v===worst&&best!==worst?"lo":"";
+  const tableRows = grouped(i=>{
+    const a=ASPECTS[i], v=sum.avg[i], cls = v===best&&best!==worst?"hi":v===worst&&best!==worst?"lo":"";
     const mark = overlay?`<div class="mark" style="left:calc(${overlay[i]/7*100}% - 1px)" title="Program avg ${fmt(overlay[i])}"></div>`:"";
     return `<tr><td class="an">${a.th}<small>${a.en}</small></td>
       <td class="bar"><div class="track"><div class="fill" style="width:${v/7*100}%"></div>${mark}</div></td>
       <td class="val ${cls}">${fmt(v)}<small>${sum.n>1?`${sum.min[i]}–${sum.max[i]}`:""}</small></td></tr>`;
-  }).join("");
+  }, 3);
 
-  const comments = rows.map((r,i)=>({r,i})).filter(x=>String(x.r.comment||"").trim()).map(({r,i})=>`
-    <button class="comment" data-i="${i}"><div class="who">${judgeLabel(r,i)}<span class="see">ดูคะแนน →</span></div><p>${esc(r.comment.trim())}</p></button>`).join("")
-    || `<p class="meta">ไม่มีคอมเมนต์</p>`;
+  const comments = rows.map((r,i)=>`
+    <button class="comment" data-i="${i}"><div class="who">${judgeLabel(r,i)}<span class="see">ดูใบลงคะแนน →</span></div>
+      <div class="cm">${String(r.comment||"").trim()?fmtComment(r.comment):'<p class="none">ไม่มีคอมเมนต์</p>'}</div></button>`).join("");
 
   el.querySelector(".body").innerHTML = `
     <div class="grid">
@@ -310,10 +441,6 @@ function card(band, rows, sum, overlay, isDemo){
 }
 
 const list=document.getElementById("list");
-if(SHOW_DEMO){
-  const ds=summarize(DEMO.responses);
-  list.appendChild(card(DEMO.band, DEMO.responses, ds, DEMO.programAvg, true));
-}
 real.forEach(x=>list.appendChild(card(x.band, x.rows, x.sum, programAvg, false)));
 
 document.getElementById("stats").innerHTML =
